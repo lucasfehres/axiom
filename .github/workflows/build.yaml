@@ -1,0 +1,19 @@
+name: Build
+on: push
+jobs:
+    nix-init-image:
+        name: Build NixOS initialization image
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+            - uses: cachix/install-nix-action@v31
+              with:
+                  nix_path: nixpkgs=channel:nixos-25.11
+            - run: nix-build '<nixpkgs/nixos>' -A config.system.build.isoImage -I nixos-config=iso.nix
+              working-directory: nix-init-image
+            - run: ls result/iso
+              working-directory: nix-init-image
+            - uses: actions/upload-artifact@v6
+              with:
+                  name: nix-init-image
+                  path: nix-init-image/result/iso/*.iso
