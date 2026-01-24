@@ -21,9 +21,12 @@
             text = ''
                 #!/run/current-system/sw/bin/bash
 
+                mkdir /mnt/cloud-init-mnt
+                mount /dev/sr0 /mnt/cloud-init-mnt
+
                 git clone https://github.com/lucasfehres/axiom.git /mnt/etc/axiom
 
-                HOSTNAME="$(cat /mnt/etc/hostname)"
+                HOSTNAME="$(grep -E '^hostname:' "/mnt/cloud-init-mnt/user-data" | awk '{print $2}')"
                 nixos-install --flake /mnt/etc/axiom/nix#"$HOSTNAME"
             '';
             mode = "0777";
@@ -34,7 +37,7 @@
     wantedBy = [ "multi-user.target" ];
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
-    path = [ pkgs.git pkgs.nix ];
+    path = [ pkgs.git pkgs.nix pkgs.nixos-install ];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "/etc/axiom-init.sh";
