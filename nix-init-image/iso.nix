@@ -14,6 +14,21 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   services.cloud-init.enable = true;
+  services.cloud-init.network.enable = true;
+
+  environment.etc = {
+      "axium-init.sh" = {
+            text = ''
+                #!/run/current-system/sw/bin/bash
+
+                git clone https://github.com/lucasfehres/axium.git /mnt/etc/axium
+
+                HOSTNAME="$(cat /mnt/etc/hostname)"
+                nixos-install --flake /mnt/etc/axium/nix#"$HOSTNAME"
+            '';
+            mode = "0777";
+      };
+  };
 
   systemd.services.axium-init = {
     wantedBy = [ "multi-user.target" ];
@@ -22,12 +37,7 @@
     path = [ pkgs.git pkgs.nix ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = ''
-        git clone https://github.com/lucasfehres/axium.git /mnt/etc/axium
-
-        HOSTNAME="$(cat /mnt/etc/hostname)"
-        nixos-install --flake /mnt/etc/axium/nix#"$HOSTNAME"
-      '';
+      ExecStart = "/etc/axium-init.sh";
     };
   };
 }
