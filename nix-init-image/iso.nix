@@ -17,27 +17,27 @@
   services.cloud-init.network.enable = true;
 
   environment.etc = {
-      "axium-init.sh" = {
+      "axiom-init.sh" = {
             text = ''
                 #!/run/current-system/sw/bin/bash
 
-                git clone https://github.com/lucasfehres/axium.git /mnt/etc/axium
+                git clone https://github.com/lucasfehres/axiom.git /mnt/etc/axiom
 
                 HOSTNAME="$(cat /mnt/etc/hostname)"
-                nixos-install --flake /mnt/etc/axium/nix#"$HOSTNAME"
+                nixos-install --flake /mnt/etc/axiom/nix#"$HOSTNAME"
             '';
             mode = "0777";
       };
   };
 
-  systemd.services.axium-init = {
+  systemd.services.axiom-init = {
     wantedBy = [ "multi-user.target" ];
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
     path = [ pkgs.git pkgs.nix ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "/etc/axium-init.sh";
+      ExecStart = "/etc/axiom-init.sh";
     };
   };
 }

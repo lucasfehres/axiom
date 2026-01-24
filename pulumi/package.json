@@ -1,5 +1,5 @@
 {
-    "name": "axium",
+    "name": "axiom",
     "main": "index.ts",
     "devDependencies": {
         "@types/node": "^18",
