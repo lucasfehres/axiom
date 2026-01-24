@@ -13,8 +13,8 @@
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  services.cloud-init.enable = true;
-  services.cloud-init.network.enable = true;
+  # services.cloud-init.enable = true;
+  # services.cloud-init.network.enable = true;
 
   environment.etc = {
       "axiom-init.sh" = {
