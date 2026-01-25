@@ -22,7 +22,10 @@
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedUDPPorts = [
+      # Wireguard server
+      51820
+  ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 }

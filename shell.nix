@@ -9,5 +9,6 @@ in
 pkgs.mkShellNoCC {
   packages = with pkgs; [
     nixfmt-rfc-style
+    ragenix
   ];
 }

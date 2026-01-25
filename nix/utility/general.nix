@@ -22,6 +22,11 @@
     # useXkbConfig = true; # use xkb.options in tty.
   };
 
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   #

@@ -8,11 +8,14 @@
     <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
   ];
   environment.systemPackages = [
-      pkgs.git
-      pkgs.openssh
-      pkgs.bash
+    pkgs.git
+    pkgs.openssh
+    pkgs.bash
   ];
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   services.qemuGuest.enable = true;
 
@@ -26,38 +29,34 @@
   networking.useNetworkd = true;
 
   environment.etc = {
-      "axiom-env-tag" = {
-          text = "nix-init-image";
-      };
-      "axiom-init.sh" = {
-            text = ''
-                #!/usr/bin/env bash
+    "axiom-env-tag" = {
+      text = "nix-init-image";
+    };
+    "axiom-init.sh" = {
+      text = ''
+        #!/usr/bin/env bash
 
-                set -euxo pipefail
+        set -euxo pipefail
 
-                mkdir /tmp/cloud-init-mnt
-                mount /dev/sr0 /tmp/cloud-init-mnt
+        mkdir /tmp/cloud-init-mnt
+        mount /dev/sr0 /tmp/cloud-init-mnt
 
-                git clone https://github.com/lucasfehres/axiom.git /tmp/etc/axiom
+        git clone https://github.com/lucasfehres/axiom.git /tmp/etc/axiom
 
-                # disko-install doesn't work if the flake isn't in the root of the git tree.
-                # so this gets rid of the git tree.
-                rm -rf /tmp/etc/axiom/.git
+        # disko-install doesn't work if the flake isn't in the root of the git tree.
+        # so this gets rid of the git tree.
+        rm -rf /tmp/etc/axiom/.git
 
-                # disko-install needs bash here for some reason
-                mkdir -p /nix/var/nix/profiles/system/bin
-                cp /run/current-system/sw/bin/bash /nix/var/nix/profiles/system/bin
+        HOSTNAME="$(grep -E '^hostname:' "/tmp/cloud-init-mnt/user-data" | awk '{print $2}')"
 
-                HOSTNAME="$(grep -E '^hostname:' "/mnt/cloud-init-mnt/user-data" | awk '{print $2}')"
+        nix run github:nix-community/disko/latest -- --yes-wipe-all-disks --mode destroy,format,mount --flake /tmp/etc/axiom/nix#"$HOSTNAME"
 
-                nix run github:nix-community/disko/latest -- --yes-wipe-all-disks --mode destroy,format,mount --flake /tmp/etc/axiom/nix#"$HOSTNAME"
+        nixos-install --flake /tmp/etc/axiom/nix#"$HOSTNAME" --no-root-password
 
-                nixos-install --flake /mnt/etc/axiom/nix#"$HOSTNAME" --no-root-password
-
-                reboot now
-            '';
-            mode = "0777";
-      };
+        reboot now
+      '';
+      mode = "0777";
+    };
   };
 
   systemd.services.axiom-init = {
@@ -65,14 +64,14 @@
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
     path = [
-        pkgs.git
-        pkgs.nix
-        pkgs.nixos-install
-        pkgs.util-linux
-        pkgs.gawk
-        pkgs.bash
-        "/run/wrappers/bin"
-        "/run/current-system/sw/bin"
+      pkgs.git
+      pkgs.nix
+      pkgs.nixos-install
+      pkgs.util-linux
+      pkgs.gawk
+      pkgs.bash
+      "/run/wrappers/bin"
+      "/run/current-system/sw/bin"
     ];
     serviceConfig = {
       Type = "oneshot";
