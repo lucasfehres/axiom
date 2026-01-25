@@ -23,9 +23,14 @@
   networking.useNetworkd = true;
 
   environment.etc = {
+      "axiom-env-tag" = {
+          text = "nix-init-image"
+      }
       "axiom-init.sh" = {
             text = ''
-                #!/run/current-system/sw/bin/bash
+                #!bash
+
+                set -euxo pipefail
 
                 mkdir /mnt/cloud-init-mnt
                 mount /dev/sr0 /mnt/cloud-init-mnt
@@ -57,6 +62,7 @@
         pkgs.nixos-install
         pkgs.util-linux
         pkgs.gawk
+        pkgs.bash
         "/run/wrappers/bin"
         "/run/current-system/sw/bin"
     ];

@@ -22,10 +22,13 @@
         content = {
           type = "gpt";
           partitions = {
-            MBR = {
-              type = "EF02";
-              size = "1M";
-              priority = 1;
+            efi = {
+              size = "512M";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot/efi";
+              };
             };
             root = {
               size = "100%";
