@@ -25,6 +25,7 @@ jobs:
             matrix:
                 configuration:
                     - nixos-init-test
+                    - axiom-vm-wireguard
             fail-fast: false
         steps:
             - uses: actions/checkout@v5

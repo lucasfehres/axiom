@@ -11,6 +11,10 @@
     ./openssh.nix
   ];
 
+  environment.systemPackages = [
+    pkgs.git
+  ];
+
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
