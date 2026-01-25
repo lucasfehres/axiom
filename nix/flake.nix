@@ -16,8 +16,10 @@
         nixos-init-test = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
+            disko.nixosModules.disko
             ./hosts/nixos-init-test/configuration.nix
             ./utility/vm.nix
+            ./utility/basic-partitioning.nix
           ];
         };
       };
