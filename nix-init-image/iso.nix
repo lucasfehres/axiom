@@ -13,8 +13,9 @@
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # services.cloud-init.enable = true;
-  # services.cloud-init.network.enable = true;
+  # get DHCP for the installation environment
+  # DHCP ranges from 10.67.1.10 to 10.67.1.100
+  systemd.network.enable = true;
 
   environment.etc = {
       "axiom-init.sh" = {
