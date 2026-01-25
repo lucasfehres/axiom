@@ -14,6 +14,7 @@
   environment.systemPackages = [
     pkgs.git
     pkgs.ragenix
+    pkgs.tcpdump
   ];
 
   # Set your time zone.
