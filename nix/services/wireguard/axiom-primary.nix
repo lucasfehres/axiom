@@ -51,7 +51,7 @@
       wireguardPeers = [
         {
           # laptop wg conf
-          PublicKey = builtins.readFile config.age.secrets.axiom-primary-wireguard-peer-m17.path;
+          PublicKey = "ujqoaf2NnGWXmDyfGkRHXcbIGFczuPSbAM57R8u/ayE=";
           AllowedIPs = [
             # "fd31:bf08:57cb::9/128"
             "10.67.0.0/16"

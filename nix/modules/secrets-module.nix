@@ -6,6 +6,4 @@
     owner = "systemd-network";
     group = "systemd-network";
   };
-
-  age.secrets.axiom-primary-wireguard-peer-m17.file = ../secrets/axiom-primary-wireguard-peer-m17.pub.age;
 }
