@@ -16,8 +16,8 @@
   # get DHCP for the installation environment
   # DHCP ranges from 10.67.1.10 to 10.67.1.100
   systemd.network.enable = true;
-  systemd.network.networks."10-lan" = {
-    matchConfig.Name = "lan";
+  systemd.network.networks."10-ether" = {
+    matchConfig.Type = "ether";
     networkConfig.DHCP = "ipv4";
   };
 
