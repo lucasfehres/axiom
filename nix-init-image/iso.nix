@@ -20,6 +20,7 @@
     matchConfig.Type = "ether";
     networkConfig.DHCP = "ipv4";
   };
+  networking.useNetworkd = true;
 
   environment.etc = {
       "axiom-init.sh" = {
@@ -27,12 +28,14 @@
                 #!/run/current-system/sw/bin/bash
 
                 mkdir /mnt/cloud-init-mnt
-                mount /dev/sr0 /mnt/cloud-init-mnt
+                /run/wrappers/bin/mount /dev/sr0 /mnt/cloud-init-mnt
 
                 git clone https://github.com/lucasfehres/axiom.git /mnt/etc/axiom
 
-                HOSTNAME="$(grep -E '^hostname:' "/mnt/cloud-init-mnt/user-data" | awk '{print $2}')"
-                nixos-install --flake /mnt/etc/axiom/nix#"$HOSTNAME"
+                HOSTNAME="$(grep -E '^hostname:' "/mnt/cloud-init-mnt/user-data" | /run/current-system/sw/bin/awk '{print $2}')"
+                # nixos-install --flake /mnt/etc/axiom/nix#"$HOSTNAME"
+                # Use disko to handle filesystem partitioning
+                nix run 'github:nix-community/disko/latest#disko-install' -- --flake /mnt/etc/axiom/nix#"$HOSTNAME" --disk main /dev/sda
             '';
             mode = "0777";
       };
