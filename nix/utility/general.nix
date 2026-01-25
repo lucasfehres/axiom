@@ -13,6 +13,7 @@
 
   environment.systemPackages = [
     pkgs.git
+    pkgs.ragenix
   ];
 
   # Set your time zone.
