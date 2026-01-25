@@ -22,6 +22,7 @@
           system = "x86_64-linux";
           modules = [
             disko.nixosModules.disko
+            agenix.nixosModules.default
 
             ./modules/modules.nix
 

@@ -11,6 +11,7 @@
     pkgs.git
     pkgs.openssh
     pkgs.bash
+    pkgs.util-linux
   ];
   nix.settings.experimental-features = [
     "nix-command"
