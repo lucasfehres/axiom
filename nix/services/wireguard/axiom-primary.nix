@@ -7,6 +7,8 @@
     internalInterfaces = [ "wg0" ];
   };
 
+  networking.firewall.checkReversePath = false;
+
   systemd.network = {
     enable = true;
 
