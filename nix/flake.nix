@@ -17,6 +17,9 @@
           system = "x86_64-linux";
           modules = [
             disko.nixosModules.disko
+
+            ./modules/modules.nix
+
             ./hosts/nixos-init-test/configuration.nix
             ./utility/vm.nix
             ./utility/basic-partitioning.nix

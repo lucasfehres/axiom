@@ -1,0 +1,7 @@
+{ ... }:
+
+{
+  imports = [
+    ./host-meta.nix
+  ];
+}
