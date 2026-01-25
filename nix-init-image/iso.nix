@@ -10,8 +10,11 @@
   environment.systemPackages = [
       pkgs.git
       pkgs.openssh
+      pkgs.bash
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  services.qemuGuest.enable = true;
 
   # get DHCP for the installation environment
   # DHCP ranges from 10.67.1.10 to 10.67.1.100
@@ -24,27 +27,32 @@
 
   environment.etc = {
       "axiom-env-tag" = {
-          text = "nix-init-image"
-      }
+          text = "nix-init-image";
+      };
       "axiom-init.sh" = {
             text = ''
-                #!bash
+                #!/usr/bin/env bash
 
                 set -euxo pipefail
 
-                mkdir /mnt/cloud-init-mnt
-                mount /dev/sr0 /mnt/cloud-init-mnt
+                mkdir /tmp/cloud-init-mnt
+                mount /dev/sr0 /tmp/cloud-init-mnt
 
-                git clone https://github.com/lucasfehres/axiom.git /mnt/etc/axiom
+                git clone https://github.com/lucasfehres/axiom.git /tmp/etc/axiom
 
                 # disko-install doesn't work if the flake isn't in the root of the git tree.
                 # so this gets rid of the git tree.
-                rm -rf /mnt/etc/axiom/.git
+                rm -rf /tmp/etc/axiom/.git
+
+                # disko-install needs bash here for some reason
+                mkdir -p /nix/var/nix/profiles/system/bin
+                cp /run/current-system/sw/bin/bash /nix/var/nix/profiles/system/bin
 
                 HOSTNAME="$(grep -E '^hostname:' "/mnt/cloud-init-mnt/user-data" | awk '{print $2}')"
-                # nixos-install --flake /mnt/etc/axiom/nix#"$HOSTNAME"
-                # Use disko to handle filesystem partitioning
-                nix run 'github:nix-community/disko/latest#disko-install' -- --flake /mnt/etc/axiom/nix#"$HOSTNAME" --disk main /dev/sda
+
+                nix run github:nix-community/disko/latest -- --yes-wipe-all-disks --mode destroy,format,mount --flake /tmp/etc/axiom/nix#"$HOSTNAME"
+
+                nixos-install --flake /mnt/etc/axiom/nix#"$HOSTNAME" --no-root-password
 
                 reboot now
             '';

@@ -22,12 +22,14 @@
         content = {
           type = "gpt";
           partitions = {
-            efi = {
-              size = "512M";
+            ESP = {
+              type = "EF00";
+              size = "500M";
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot/efi";
+                mountpoint = "/boot";
+                mountOptions = [ "umask=0077" ];
               };
             };
             root = {
