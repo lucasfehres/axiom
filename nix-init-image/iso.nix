@@ -12,6 +12,7 @@
     pkgs.openssh
     pkgs.bash
     pkgs.util-linux
+    pkgs.mount
   ];
   nix.settings.experimental-features = [
     "nix-command"
@@ -71,6 +72,7 @@
       pkgs.util-linux
       pkgs.gawk
       pkgs.bash
+      pkgs.mount
       "/run/wrappers/bin"
       "/run/current-system/sw/bin"
     ];

@@ -61,6 +61,21 @@
             ./services/k3s/k3s-master.nix
           ];
         };
+        axiom-vm-k3s-agent-1 = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              disko.nixosModules.disko
+              agenix.nixosModules.default
+
+              ./modules/modules.nix
+
+              ./hosts/axiom-vm-k3s-agent-1/configuration.nix
+              ./utility/vm.nix
+              ./utility/basic-partitioning.nix
+
+              ./services/k3s/k3s-agent.nix
+            ];
+        }
         axiom-vm-utility = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [

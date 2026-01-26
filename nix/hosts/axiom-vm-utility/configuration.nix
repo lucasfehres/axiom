@@ -8,5 +8,6 @@
     pkgs.kubectl
     pkgs.cilium-cli
     pkgs.velero
+    pkgs.vim
   ];
 }
