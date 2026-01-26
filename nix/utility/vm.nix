@@ -9,7 +9,6 @@
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
-    ./general.nix
     ./vm-bootloader.nix
     ./vm-networkd.nix
   ];

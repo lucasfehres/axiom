@@ -21,12 +21,13 @@
         disko.nixosModules.disko
         agenix.nixosModules.default
         ./modules/modules.nix
+        ./utility/general.nix
       ];
 
       hardwareSupportModules = [
         ./utility/vm.nix
         ./utility/basic-partitioning.nix
-      ]
+      ];
 
       configModules = {
         nixos-init-test = commonModules ++ [
