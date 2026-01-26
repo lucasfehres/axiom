@@ -39,7 +39,7 @@ pkgs.testers.runNixOSTest {
       masterIp =
         (pkgs.lib.head nodes.axiom_vm_k3s_master.networking.interfaces.eth1.ipv4.addresses).address;
       utilityIp =
-        (pkgs.lib.head nodes.axiom_vm_k3s_master.networking.interfaces.eth1.ipv4.addresses).address;
+        (pkgs.lib.head nodes.axiom_vm_utility.networking.interfaces.eth1.ipv4.addresses).address;
     in
     ''
       axiom_vm_k3s_master.start()
@@ -61,7 +61,19 @@ pkgs.testers.runNixOSTest {
       axiom_vm_k3s_master.succeed("systemctl --failed")
 
       # print("installing cilium")
-      axiom_vm_utility.succeed('cilium install --version 1.18.6 --set=ipam.operator.clusterPoolIPv4PodCIDRList="10.42.0.0/16"')
+      # axiom_vm_utility.succeed('cilium install --version 1.18.6 --set=ipam.operator.clusterPoolIPv4PodCIDRList="10.42.0.0/16"')
+
+      axiom_vm_utility.succeed("""
+        cilium install --version 1.18.6 \
+          --set=ipam.operator.clusterPoolIPv4PodCIDRList="10.42.0.0/16" \
+          --set=kubeProxyReplacement=true \
+          --set=k8sServiceHost="${masterIp}" \
+          --set=k8sServicePort="6443" \
+          --set=bpf.masquerade=true \
+          --set=routingMode=native \
+          --set=autoDirectNodeRoutes=true \
+          --set=ipv4NativeRoutingCIDR=10.42.0.0/16
+      """)
 
       print("waiting for kubernetes node to become ready")
       axiom_vm_utility.succeed("kubectl wait --for=condition=Ready node -l node-role.kubernetes.io/control-plane=true --timeout=300s")

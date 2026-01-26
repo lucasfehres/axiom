@@ -11,6 +11,7 @@
 
   systemd.network.networks."10-ether" = {
     matchConfig.Type = "ether";
+    matchConfig.Name = "!cilium_* !lxc*";
 
     address = [ "${config.host.ipv4}/24" ];
     gateway = [ "10.67.1.1" ];
