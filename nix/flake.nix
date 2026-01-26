@@ -16,79 +16,46 @@
       nixpkgs,
       agenix,
     }:
-    {
-      nixosConfigurations = {
-        nixos-init-test = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            disko.nixosModules.disko
-            agenix.nixosModules.default
+    let
+      commonModules = [
+        disko.nixosModules.disko
+        agenix.nixosModules.default
+        ./modules/modules.nix
+        ./utility/vm.nix
+        ./utility/basic-partitioning.nix
+      ];
 
-            ./modules/modules.nix
-
-            ./hosts/nixos-init-test/configuration.nix
-            ./utility/vm.nix
-            ./utility/basic-partitioning.nix
-          ];
-        };
-        axiom-vm-wireguard = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            disko.nixosModules.disko
-            agenix.nixosModules.default
-
-            ./modules/modules.nix
-
-            ./hosts/axiom-vm-wireguard/configuration.nix
-            ./utility/vm.nix
-            ./utility/basic-partitioning.nix
-
-            ./services/wireguard/axiom-primary.nix
-          ];
-        };
-        axiom-vm-k3s-master = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            disko.nixosModules.disko
-            agenix.nixosModules.default
-
-            ./modules/modules.nix
-
-            ./hosts/axiom-vm-k3s-master/configuration.nix
-            ./utility/vm.nix
-            ./utility/basic-partitioning.nix
-
-            ./services/k3s/k3s-master.nix
-          ];
-        };
-        axiom-vm-k3s-agent-1 = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = [
-              disko.nixosModules.disko
-              agenix.nixosModules.default
-
-              ./modules/modules.nix
-
-              ./hosts/axiom-vm-k3s-agent-1/configuration.nix
-              ./utility/vm.nix
-              ./utility/basic-partitioning.nix
-
-              ./services/k3s/k3s-agent.nix
-            ];
-        }
-        axiom-vm-utility = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            disko.nixosModules.disko
-            agenix.nixosModules.default
-
-            ./modules/modules.nix
-
-            ./hosts/axiom-vm-utility/configuration.nix
-            ./utility/vm.nix
-            ./utility/basic-partitioning.nix
-          ];
-        };
+      configModules = {
+        nixos-init-test = commonModules ++ [
+          ./hosts/nixos-init-test/configuration.nix
+        ];
+        axiom-vm-wireguard = commonModules ++ [
+          ./hosts/axiom-vm-wireguard/configuration.nix
+          ./services/wireguard/axiom-primary.nix
+        ];
+        axiom-vm-k3s-master = commonModules ++ [
+          ./hosts/axiom-vm-k3s-master/configuration.nix
+          ./services/k3s/k3s-master.nix
+        ];
+        axiom-vm-k3s-agent-1 = commonModules ++ [
+          ./hosts/axiom-vm-k3s-agent-1/configuration.nix
+          ./services/k3s/k3s-agent.nix
+        ];
+        axiom-vm-utility = commonModules ++ [
+          ./hosts/axiom-vm-utility/configuration.nix
+        ];
       };
+    in
+    {
+      nixosConfigurations = builtins.mapAttrs (
+        name: modules:
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          inherit modules;
+        }
+      ) configModules;
+
+      # Export for testing
+      lib.configModules = configModules;
     };
 }

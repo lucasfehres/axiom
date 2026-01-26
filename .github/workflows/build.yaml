@@ -26,6 +26,9 @@ jobs:
                 configuration:
                     - nixos-init-test
                     - axiom-vm-wireguard
+                    - axiom-vm-k3s-master
+                    - axiom-vm-k3s-agent-1
+                    - axiom-vm-utility
             fail-fast: false
         steps:
             - uses: actions/checkout@v5
@@ -33,4 +36,26 @@ jobs:
               with:
                   nix_path: nixpkgs=channel:nixos-25.11
             - run: nix eval .#nixosConfigurations.${{ matrix.configuration }}.config.system.build.toplevel
+              working-directory: nix
+
+    nixos-test-basic:
+        name: Run basic NixOS tests
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                configuration:
+                    - nixos-init-test
+                    - axiom-vm-wireguard
+                    - axiom-vm-k3s-master
+                    - axiom-vm-k3s-agent-1
+                    - axiom-vm-utility
+            fail-fast: false
+        steps:
+            - uses: actions/checkout@v5
+            - uses: cachix/install-nix-action@v31
+              with:
+                  nix_path: nixpkgs=channel:nixos-25.11
+                  enable_kvm: true
+                  extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
+            - run: nix-build test.nix --argstr configName "${{ matrix.configuration }}"
               working-directory: nix
