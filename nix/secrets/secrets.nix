@@ -6,4 +6,5 @@ in
 {
   "secret.txt.age".publicKeys = [ lucasf ];
   "axiom-primary-wireguard-priv.key.age".publicKeys = [ lucasf axiom-vm-wireguard ];
+  "k3s-token.txt.age".publicKeys = [ lucasf ];
 }
