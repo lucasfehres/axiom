@@ -21,9 +21,12 @@
         disko.nixosModules.disko
         agenix.nixosModules.default
         ./modules/modules.nix
+      ];
+
+      hardwareSupportModules = [
         ./utility/vm.nix
         ./utility/basic-partitioning.nix
-      ];
+      ]
 
       configModules = {
         nixos-init-test = commonModules ++ [
@@ -51,11 +54,10 @@
         name: modules:
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          inherit modules;
+          modules = modules ++ hardwareSupportModules;
         }
       ) configModules;
 
-      # Export for testing
-      lib.configModules = configModules;
+      lib.testableConfigModules = configModules;
     };
 }

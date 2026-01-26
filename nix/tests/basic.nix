@@ -11,7 +11,7 @@ pkgs.testers.runNixOSTest {
   name = "test-${configName}";
 
   nodes.machine = {
-    imports = flake.lib.configModules.${configName};
+    imports = flake.lib.testableConfigModules.${configName};
   };
 
   testScript = ''
