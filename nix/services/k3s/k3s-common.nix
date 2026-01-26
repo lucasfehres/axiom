@@ -13,11 +13,5 @@
   services.k3s = {
     enable = true;
     tokenFile = config.age.secrets.k3s-token.path;
-    extraFlags = toString [
-      # required for cilium
-      "--flannel-backend=none"
-      "--disable-network-policy"
-      "--disable-kube-proxy"
-    ];
   };
 }

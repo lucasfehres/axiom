@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, config, ... }:
 {
   imports = [
     ./host-meta.nix
