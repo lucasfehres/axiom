@@ -57,5 +57,5 @@ jobs:
                   nix_path: nixpkgs=channel:nixos-25.11
                   enable_kvm: true
                   extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
-            - run: nix-build test.nix --argstr configName "${{ matrix.configuration }}"
+            - run: nix-build tests/basic.nix --argstr configName "${{ matrix.configuration }}"
               working-directory: nix
