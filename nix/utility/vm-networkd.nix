@@ -11,7 +11,7 @@
 
   systemd.network.networks."10-ether" = {
     matchConfig.Type = "ether";
-    matchConfig.Name = "!cilium_* !lxc*";
+    matchConfig.Name = "en* eth*";
 
     address = [ "${config.host.ipv4}/24" ];
     gateway = [ "10.67.1.1" ];
@@ -19,6 +19,15 @@
       "1.1.1.1"
       "8.8.8.8"
     ];
+  };
+
+  systemd.network.networks."99-cilium-ignore" = {
+    matchConfig = {
+      Name = "cilium_* lxc*";
+    };
+    linkConfig = {
+      Unmanaged = true;
+    };
   };
 
   # Open ports in the firewall.
