@@ -7,6 +7,9 @@
 
     agenix.url = "github:yaxitech/ragenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    rke2.url = "github:numtide/nixos-rke2";
+    rke2.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -15,6 +18,7 @@
       disko,
       nixpkgs,
       agenix,
+      rke2,
     }:
     let
       commonModules = [

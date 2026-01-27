@@ -2,7 +2,7 @@
 
 {
   networking.hostName = "axiom-vm-k3s-master";
-  host.ipv4 = lib.mkDefault "10.67.1.103";
+  axiom.host.ipv4 = lib.mkDefault "10.67.1.103";
 
   environment.systemPackages = [
     pkgs.kubectl

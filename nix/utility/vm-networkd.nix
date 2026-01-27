@@ -13,7 +13,7 @@
     matchConfig.Type = "ether";
     matchConfig.Name = "en* eth*";
 
-    address = [ "${config.host.ipv4}/24" ];
+    address = [ "${config.axiom.host.ipv4}/24" ];
     gateway = [ "10.67.1.1" ];
     dns = [
       "1.1.1.1"

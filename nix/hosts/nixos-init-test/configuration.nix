@@ -2,5 +2,5 @@
 
 {
   networking.hostName = "nixos-init-test";
-  host.ipv4 = "10.67.1.101";
+  axiom.host.ipv4 = "10.67.1.101";
 }

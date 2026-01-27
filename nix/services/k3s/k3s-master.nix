@@ -4,11 +4,12 @@
     ./k3s-common.nix
   ];
 
+  services.k3s.enable = true;
   services.k3s.role = "server";
   services.k3s.clusterInit = true;
   services.k3s.extraFlags = toString [
-    "--node-ip=${config.host.ipv4}"
-    "--advertise-address=${config.host.ipv4}"
+    "--node-ip=${config.axiom.host.ipv4}"
+    "--advertise-address=${config.axiom.host.ipv4}"
 
     # required for cilium
     "--flannel-backend=none"

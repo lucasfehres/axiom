@@ -10,14 +10,71 @@ in
 pkgs.testers.runNixOSTest {
   name = "test-k3s";
 
-  nodes.axiom_vm_k3s_master = {
-    imports = flake.lib.testableConfigModules.axiom-vm-k3s-master ++ [
-      ./secrets/dummy-secrets.nix
-      # ../utility/vm-networkd.nix
+  nodes.axiom_vm_a_k3s_master = {
+    imports = [
+      flake.inputs.rke2.nixosModules.default
     ];
 
-    host.ipv4 = "192.168.1.1";
-    axiom.openssh.enable = false;
+    networking.dhcpcd.denyInterfaces = [ "cilium_*" "lxc*" "cali*" "vxlan+" "flannel+" ];
+
+    networking.firewall.enable = false;
+    # networking.firewall.checkReversePath = false;
+    # networking.firewall.trustedInterfaces = [ "cilium_+" "lxc+" ];
+
+    environment.systemPackages = [
+      pkgs.kubectl
+      pkgs.cilium-cli
+      pkgs.velero
+      pkgs.vim
+    ];
+
+    services.numtide-rke2 = {
+      enable = true;
+      role = "server";
+      extraFlags = [
+        "--disable"
+        "rke2-ingress-nginx"
+      ];
+      settings.kube-apiserver-arg = [ "anonymous-auth=false" ];
+      settings.tls-san = [ "192.168.1.1" ];
+      settings.write-kubeconfig-mode = "0644";
+      settings.cni = "cilium";
+      settings.agent-token = "uwubernetes";
+      settings.advertise-address = "192.168.1.1";
+      settings.node-ip = "192.168.1.1";
+    };
+
+    virtualisation.diskSize = 8192;
+    virtualisation.memorySize = 8192;
+    virtualisation.cores = 4;
+  };
+
+  nodes.axiom_vm_k3s_agent_1 = {
+    imports = [
+      flake.inputs.rke2.nixosModules.default
+    ];
+
+    networking.dhcpcd.denyInterfaces = [ "cilium_*" "lxc*" "cali*" "vxlan+" "flannel+" ];
+
+    networking.firewall.enable = false;
+    # networking.firewall.checkReversePath = false;
+    # networking.firewall.trustedInterfaces = [ "cilium_+" "lxc+" ];
+
+    environment.systemPackages = [
+      pkgs.kubectl
+      pkgs.cilium-cli
+      pkgs.velero
+      pkgs.vim
+    ];
+
+    services.numtide-rke2 = {
+      enable = true;
+      role = "agent";
+      settings.server = "https://192.168.1.1:9345";
+      settings.token = "uwubernetes";
+      settings.advertise-address = "192.168.1.2";
+      settings.node-ip = "192.168.1.2";
+    };
 
     virtualisation.diskSize = 8192;
     virtualisation.memorySize = 8192;
@@ -29,7 +86,7 @@ pkgs.testers.runNixOSTest {
       ./secrets/dummy-secrets.nix
     ];
 
-    host.ipv4 = "192.168.1.2";
+    axiom.host.ipv4 = "192.168.1.3";
     axiom.openssh.enable = false;
   };
 
@@ -41,35 +98,41 @@ pkgs.testers.runNixOSTest {
     { nodes, ... }:
     let
       masterIp =
-        (pkgs.lib.head nodes.axiom_vm_k3s_master.networking.interfaces.eth1.ipv4.addresses).address;
+        (pkgs.lib.head nodes.axiom_vm_a_k3s_master.networking.interfaces.eth1.ipv4.addresses).address;
+      agent1Ip =
+        (pkgs.lib.head nodes.axiom_vm_k3s_agent_1.networking.interfaces.eth1.ipv4.addresses).address;
       utilityIp =
         (pkgs.lib.head nodes.axiom_vm_utility.networking.interfaces.eth1.ipv4.addresses).address;
     in
     ''
       import time
-      # print("${masterIp} ${utilityIp}", axiom_vm_k3s_master.success("false"))
+      # print("${masterIp} ${agent1Ip} ${utilityIp}", axiom_vm_a_k3s_master.success("false"))
 
-      axiom_vm_k3s_master.start()
+      axiom_vm_a_k3s_master.start()
+      axiom_vm_a_k3s_master.wait_for_unit("default.target")
+
+      axiom_vm_k3s_agent_1.start()
+      axiom_vm_k3s_agent_1.wait_for_unit("default.target")
+
       axiom_vm_utility.start()
-      axiom_vm_k3s_master.wait_for_unit("default.target")
       axiom_vm_utility.wait_for_unit("default.target")
 
-      axiom_vm_k3s_master.wait_until_succeeds(
-        "kubectl --kubeconfig=/etc/rancher/k3s/k3s.yaml get --raw=/readyz"
+      axiom_vm_a_k3s_master.wait_until_succeeds(
+        "kubectl --kubeconfig=/etc/rancher/rke2/rke2.yaml get --raw=/readyz"
       )
 
-      axiom_vm_k3s_master.wait_until_succeeds("cp /etc/rancher/k3s/k3s.yaml /tmp/shared/k3s.yaml")
+      axiom_vm_a_k3s_master.wait_until_succeeds("cp /etc/rancher/rke2/rke2.yaml /tmp/shared/rke2.yaml")
       print("k3s access file is available on master, setting up utility")
-      axiom_vm_utility.succeed("mkdir -p /root/.kube && cp /tmp/shared/k3s.yaml /root/.kube/config")
+      axiom_vm_utility.succeed("mkdir -p /root/.kube && cp /tmp/shared/rke2.yaml /root/.kube/config")
       axiom_vm_utility.succeed("sed -i 's/127.0.0.1/${masterIp}/' /root/.kube/config")
 
       print("trying kubectl", axiom_vm_utility.wait_until_succeeds("kubectl get nodes"))
 
-      axiom_vm_k3s_master.succeed("systemctl --failed")
+      axiom_vm_a_k3s_master.succeed("systemctl --failed")
 
       # print("installing cilium")
       time.sleep(10)
-      axiom_vm_utility.wait_until_succeeds('cilium install --version 1.18.6 --set=ipam.operator.clusterPoolIPv4PodCIDRList="10.42.0.0/16"')
+      # axiom_vm_utility.wait_until_succeeds('cilium install --version 1.18.6 --set=ipam.operator.clusterPoolIPv4PodCIDRList="10.42.0.0/16"')
 
       # axiom_vm_utility.succeed("""
       #   cilium install --version 1.18.6 \
@@ -84,16 +147,19 @@ pkgs.testers.runNixOSTest {
       # """)
 
       print("waiting for kubernetes node to become ready")
-      axiom_vm_utility.succeed("kubectl wait --for=condition=Ready node -l node-role.kubernetes.io/control-plane=true --timeout=300s")
+      print("kubectl nodes", axiom_vm_utility.succeed("kubectl wait --for=condition=Ready node -l node-role.kubernetes.io/control-plane=true --timeout=300s"))
 
       print("waiting for cilium to become ready")
       axiom_vm_utility.succeed("cilium status --wait")
-
-      print(axiom_vm_utility.succeed("kubectl describe node axiom-vm-k3s-master"))
-      print(axiom_vm_utility.succeed("cilium status"))
+      # while True:
+      #   print(axiom_vm_utility.execute("kubectl describe node axiomvmak3smaster")[1])
+      #   print(axiom_vm_utility.execute("kubectl describe node axiomvmk3sagent1")[1])
+      #   print(axiom_vm_utility.execute("cilium status")[1])
+      #   print(axiom_vm_utility.execute("kubectl get pods -n kube-system --field-selector=status.phase=Pending -o name | xargs kubectl describe -n kube-system")[1])
+      #   time.sleep(100)
 
       time.sleep(10)
       print("attempting cilium connectivity")
-      axiom_vm_utility.succeed("cilium connectivity test")
+      print(axiom_vm_utility.succeed("cilium connectivity test"))
     '';
 }
