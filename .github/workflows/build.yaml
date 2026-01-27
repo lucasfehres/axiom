@@ -76,5 +76,6 @@ jobs:
                   enable_kvm: true
                   extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
             # sandbox is disabled so stuff like K3s can access the internet
-            - run: nix-build tests/${{ matrix.test }}.nix --option sandbox false
+            # sudo is necessary for some NixOS integration test vsock stuff
+            - run: sudo nix-build tests/${{ matrix.test }}.nix --option sandbox false
               working-directory: nix
