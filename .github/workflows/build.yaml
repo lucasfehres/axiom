@@ -26,8 +26,8 @@ jobs:
                 configuration:
                     - nixos-init-test
                     - axiom-vm-wireguard
-                    - axiom-vm-k3s-master
-                    - axiom-vm-k3s-agent-1
+                    - axiom-vm-k8s-master
+                    - axiom-vm-k8s-agent-1
                     - axiom-vm-utility
             fail-fast: false
         steps:
@@ -46,8 +46,8 @@ jobs:
                 configuration:
                     - nixos-init-test
                     - axiom-vm-wireguard
-                    - axiom-vm-k3s-master
-                    - axiom-vm-k3s-agent-1
+                    - axiom-vm-k8s-master
+                    - axiom-vm-k8s-agent-1
                     - axiom-vm-utility
             fail-fast: false
         steps:
@@ -66,7 +66,7 @@ jobs:
         strategy:
             matrix:
                 test:
-                    - k3s
+                    - k8s
             fail-fast: false
         steps:
             - uses: actions/checkout@v5

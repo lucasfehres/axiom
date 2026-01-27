@@ -13,37 +13,14 @@ pkgs.testers.runNixOSTest {
   nodes.axiom_vm_a_k3s_master = {
     imports = [
       flake.inputs.rke2.nixosModules.default
+      ../modules/host-meta.nix
+      ../modules/k8s-meta.nix
+      ../services/rke2/rke2-common.nix
+      ../services/rke2/rke2-master.nix
     ];
 
-    networking.dhcpcd.denyInterfaces = [ "cilium_*" "lxc*" "cali*" "vxlan+" "flannel+" ];
-
-    networking.firewall.enable = false;
-    # networking.firewall.checkReversePath = false;
-    # networking.firewall.trustedInterfaces = [ "cilium_+" "lxc+" ];
-
-    environment.systemPackages = [
-      pkgs.kubectl
-      pkgs.cilium-cli
-      pkgs.velero
-      pkgs.vim
-    ];
-
-    services.numtide-rke2 = {
-      enable = true;
-      role = "server";
-      extraFlags = [
-        "--disable"
-        "rke2-ingress-nginx"
-      ];
-      settings.kube-apiserver-arg = [ "anonymous-auth=false" ];
-      settings.tls-san = [ "192.168.1.1" ];
-      settings.write-kubeconfig-mode = "0644";
-      settings.cni = "cilium";
-      settings.agent-token = "uwubernetes";
-      settings.advertise-address = "192.168.1.1";
-      settings.node-ip = "192.168.1.1";
-    };
-
+    axiom.host.ipv4 = "192.168.1.1";
+    axiom.k8s.master-ipv4 = "192.168.1.1";
     virtualisation.diskSize = 8192;
     virtualisation.memorySize = 8192;
     virtualisation.cores = 4;
@@ -52,30 +29,14 @@ pkgs.testers.runNixOSTest {
   nodes.axiom_vm_k3s_agent_1 = {
     imports = [
       flake.inputs.rke2.nixosModules.default
+      ../modules/host-meta.nix
+      ../modules/k8s-meta.nix
+      ../services/rke2/rke2-common.nix
+      ../services/rke2/rke2-agent.nix
     ];
 
-    networking.dhcpcd.denyInterfaces = [ "cilium_*" "lxc*" "cali*" "vxlan+" "flannel+" ];
-
-    networking.firewall.enable = false;
-    # networking.firewall.checkReversePath = false;
-    # networking.firewall.trustedInterfaces = [ "cilium_+" "lxc+" ];
-
-    environment.systemPackages = [
-      pkgs.kubectl
-      pkgs.cilium-cli
-      pkgs.velero
-      pkgs.vim
-    ];
-
-    services.numtide-rke2 = {
-      enable = true;
-      role = "agent";
-      settings.server = "https://192.168.1.1:9345";
-      settings.token = "uwubernetes";
-      settings.advertise-address = "192.168.1.2";
-      settings.node-ip = "192.168.1.2";
-    };
-
+    axiom.host.ipv4 = "192.168.1.2";
+    axiom.k8s.master-ipv4 = "192.168.1.1";
     virtualisation.diskSize = 8192;
     virtualisation.memorySize = 8192;
     virtualisation.cores = 4;
@@ -130,10 +91,11 @@ pkgs.testers.runNixOSTest {
       axiom_vm_a_k3s_master.succeed("systemctl --failed")
 
       print("waiting for kubernetes node to become ready")
-      print("kubectl nodes", axiom_vm_utility.succeed("kubectl wait --for=condition=Ready node -l node-role.kubernetes.io/control-plane=true --timeout=300s"))
+      print("kubectl nodes", axiom_vm_utility.succeed("kubectl wait --for=condition=Ready node --all --timeout=300s"))
 
       print("waiting for cilium to become ready")
-      axiom_vm_utility.succeed("cilium status --wait")
+      print(axiom_vm_utility.succeed("cilium status --wait"))
+      print(axiom_vm_utility.succeed("kubectl get nodes"))
 
       time.sleep(10)
       print("attempting cilium connectivity")

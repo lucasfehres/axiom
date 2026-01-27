@@ -41,13 +41,15 @@
           ./hosts/axiom-vm-wireguard/configuration.nix
           ./services/wireguard/axiom-primary.nix
         ];
-        axiom-vm-k3s-master = commonModules ++ [
-          ./hosts/axiom-vm-k3s-master/configuration.nix
-          ./services/k3s/k3s-master.nix
+        axiom-vm-k8s-master = commonModules ++ [
+          ./hosts/axiom-vm-k8s-master/configuration.nix
+          ./services/rke2/rke2-common.nix
+          ./services/rke2/rke2-master.nix
         ];
-        axiom-vm-k3s-agent-1 = commonModules ++ [
-          ./hosts/axiom-vm-k3s-agent-1/configuration.nix
-          ./services/k3s/k3s-agent.nix
+        axiom-vm-k8s-agent-1 = commonModules ++ [
+          ./hosts/axiom-vm-k8s-agent-1/configuration.nix
+          ./services/rke2/rke2-common.nix
+          ./services/rke2/rke2-agent.nix
         ];
         axiom-vm-utility = commonModules ++ [
           ./hosts/axiom-vm-utility/configuration.nix

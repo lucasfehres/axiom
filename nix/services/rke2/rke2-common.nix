@@ -1,0 +1,18 @@
+{ config, pkgs, ... }:
+{
+    networking.dhcpcd.denyInterfaces = [ "cilium_*" "lxc*" "cali*" "vxlan+" "flannel+" ];
+
+    networking.firewall.enable = false;
+
+    environment.systemPackages = [
+      pkgs.kubectl
+      pkgs.cilium-cli
+      pkgs.velero
+    ];
+
+    services.numtide-rke2 = {
+      enable = true;
+      settings.advertise-address = config.axiom.host.ipv4;
+      settings.node-ip = config.axiom.host.ipv4;
+    };
+}
