@@ -42,11 +42,13 @@
           ./services/wireguard/axiom-primary.nix
         ];
         axiom-vm-k8s-master = commonModules ++ [
+          rke2.nixosModules.default
           ./hosts/axiom-vm-k8s-master/configuration.nix
           ./services/rke2/rke2-common.nix
           ./services/rke2/rke2-master.nix
         ];
         axiom-vm-k8s-agent-1 = commonModules ++ [
+          rke2.nixosModules.default
           ./hosts/axiom-vm-k8s-agent-1/configuration.nix
           ./services/rke2/rke2-common.nix
           ./services/rke2/rke2-agent.nix
