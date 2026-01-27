@@ -90,7 +90,7 @@ pkgs.testers.runNixOSTest {
     axiom.openssh.enable = false;
   };
 
-  sshBackdoor.enable = true;
+  # sshBackdoor.enable = true;
   # enableDebugHook = true;
 
   # https://nixos.org/manual/nixos/stable/index.html#sec-nixos-tests
@@ -130,33 +130,11 @@ pkgs.testers.runNixOSTest {
 
       axiom_vm_a_k3s_master.succeed("systemctl --failed")
 
-      # print("installing cilium")
-      time.sleep(10)
-      # axiom_vm_utility.wait_until_succeeds('cilium install --version 1.18.6 --set=ipam.operator.clusterPoolIPv4PodCIDRList="10.42.0.0/16"')
-
-      # axiom_vm_utility.succeed("""
-      #   cilium install --version 1.18.6 \
-      #     --set=ipam.operator.clusterPoolIPv4PodCIDRList="10.42.0.0/16" \
-      #     --set=kubeProxyReplacement=true \
-      #     --set=k8sServiceHost="${masterIp}" \
-      #     --set=k8sServicePort="6443" \
-      #     --set=bpf.masquerade=true \
-      #     --set=routingMode=native \
-      #     --set=autoDirectNodeRoutes=true \
-      #     --set=ipv4NativeRoutingCIDR=10.42.0.0/16
-      # """)
-
       print("waiting for kubernetes node to become ready")
       print("kubectl nodes", axiom_vm_utility.succeed("kubectl wait --for=condition=Ready node -l node-role.kubernetes.io/control-plane=true --timeout=300s"))
 
       print("waiting for cilium to become ready")
       axiom_vm_utility.succeed("cilium status --wait")
-      # while True:
-      #   print(axiom_vm_utility.execute("kubectl describe node axiomvmak3smaster")[1])
-      #   print(axiom_vm_utility.execute("kubectl describe node axiomvmk3sagent1")[1])
-      #   print(axiom_vm_utility.execute("cilium status")[1])
-      #   print(axiom_vm_utility.execute("kubectl get pods -n kube-system --field-selector=status.phase=Pending -o name | xargs kubectl describe -n kube-system")[1])
-      #   time.sleep(100)
 
       time.sleep(10)
       print("attempting cilium connectivity")
