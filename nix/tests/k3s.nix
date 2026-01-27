@@ -87,7 +87,6 @@ pkgs.testers.runNixOSTest {
     ];
 
     axiom.host.ipv4 = "192.168.1.3";
-    axiom.openssh.enable = false;
   };
 
   # sshBackdoor.enable = true;

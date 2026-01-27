@@ -163,11 +163,32 @@
         "type": "github"
       }
     },
+    "rke2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747143612,
+        "narHash": "sha256-h4A7YHej0VePJEohonnyL8YQ2m+zaE1lUU89cvo1PcA=",
+        "owner": "numtide",
+        "repo": "nixos-rke2",
+        "rev": "46e87a841aeac04738fbf6fc628944bb5cb0ca4c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "nixos-rke2",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
         "disko": "disko",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "rke2": "rke2"
       }
     },
     "rust-overlay": {
