@@ -20,12 +20,11 @@
       "8.8.8.8"
     ];
 
-    routes = [
+    routes = lib.optionals (config.networking.hostName != "axiom-vm-wireguard") [
       {
         # axiom-vm-wireguard
         Gateway = "10.67.1.103";
         Destination = "192.168.0.0/16";
-        # GatewayOnLink = true;
       }
     ];
   };
