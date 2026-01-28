@@ -8,6 +8,7 @@
 {
   users.users.lucasf = {
     isNormalUser = true;
+    shell = pkgs.nushell;
     extraGroups = [ "wheel" ];
     packages = with pkgs; [
     ];
@@ -28,6 +29,13 @@
       enable = true;
       settings.user.name = "Lucas Fehres";
       settings.user.email = "jane.doe@example.org";
+    };
+
+    programs.nushell = {
+        enable = true;
+        shellAliases = {
+            kube-busybox = "kubectl run -I -t busybox --image=busybox --restart=Never";
+        };
     };
 
     # The state version is required and should stay at the version you
