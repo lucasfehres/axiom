@@ -34,7 +34,8 @@
     programs.nushell = {
         enable = true;
         shellAliases = {
-            kube-busybox = "kubectl run -I -t busybox --image=busybox --restart=Never";
+            kube-busybox = "kubectl run -i --rm -t busybox --image=busybox --restart=Never";
+            kube-hubble = "kubectl port-forward -n kube-system service/hubble-ui --address 0.0.0.0 8080:80";
         };
     };
 
