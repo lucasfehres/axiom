@@ -7,7 +7,7 @@
 
 {
   imports = [
-    ./users.nix
+    ./security.nix
     ./openssh.nix
   ];
 

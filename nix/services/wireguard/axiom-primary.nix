@@ -47,6 +47,7 @@
           PublicKey = "ujqoaf2NnGWXmDyfGkRHXcbIGFczuPSbAM57R8u/ayE=";
           AllowedIPs = [
             "10.67.2.2/32"
+            "192.168.0.0/16"
           ];
         }
       ];

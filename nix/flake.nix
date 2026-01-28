@@ -10,6 +10,9 @@
 
     rke2.url = "github:numtide/nixos-rke2";
     rke2.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -19,11 +22,14 @@
       nixpkgs,
       agenix,
       rke2,
+      home-manager
     }:
     let
       commonModules = [
         disko.nixosModules.disko
         agenix.nixosModules.default
+        home-manager.nixosModules.home-manager
+        ./users/lucasf/user.nix
         ./modules/modules.nix
         ./utility/general.nix
       ];
