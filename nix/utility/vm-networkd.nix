@@ -25,7 +25,7 @@
         # axiom-vm-wireguard
         Gateway = "10.67.1.103";
         Destination = "192.168.0.0/16";
-        GatewayOnLink = true;
+        # GatewayOnLink = true;
       }
     ];
   };
