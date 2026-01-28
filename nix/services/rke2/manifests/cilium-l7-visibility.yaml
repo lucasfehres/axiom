@@ -14,9 +14,8 @@ spec:
                 rules:
                     dns:
                         - matchPattern: "*"
-        - toEndpoints:
-              - matchLabels:
-                    "k8s:io.kubernetes.pod.namespace": default
+        - toEntities:
+              - world
           toPorts:
               - ports:
                     - port: "80"
@@ -25,3 +24,5 @@ spec:
                       protocol: TCP
                 rules:
                     http: [{}]
+        - toEntities:
+              - world

@@ -22,13 +22,15 @@
     home.username = "lucasf";
     home.homeDirectory = "/home/lucasf";
 
-    home.packages = [ ];
+    home.packages = [
+        pkgs.fluxcd
+    ];
     programs.bash.enable = true;
 
     programs.git = {
       enable = true;
       settings.user.name = "Lucas Fehres";
-      settings.user.email = "jane.doe@example.org";
+      settings.user.email = "180476097+lucasfehres@users.noreply.github.com";
     };
 
     programs.nushell = {
