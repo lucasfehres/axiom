@@ -103,7 +103,7 @@ pkgs.testers.runNixOSTest {
       print("applying cilium configuration")
       print(axiom_vm_utility.succeed("kubectl apply -f /tmp/axiom/nix/services/rke2/manifests/rke2-cilium.yaml"))
 
-      time.sleep(10)
+      time.sleep(60)
       print("waiting for applied cilium configuration to be ready")
       print(axiom_vm_utility.succeed("cilium status --wait"))
 

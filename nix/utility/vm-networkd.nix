@@ -19,6 +19,15 @@
       "1.1.1.1"
       "8.8.8.8"
     ];
+
+    routes = [
+      {
+        # axiom-vm-wireguard
+        Gateway = "10.67.1.103";
+        Destination = "192.168.0.0/16";
+        GatewayOnLink = true;
+      }
+    ];
   };
 
   systemd.network.networks."99-cilium-ignore" = {

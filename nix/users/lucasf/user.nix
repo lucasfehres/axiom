@@ -26,8 +26,8 @@
 
     programs.git = {
       enable = true;
-      userName = "Lucas Fehres";
-      userEmail = "jane.doe@example.org";
+      settings.user.name = "Lucas Fehres";
+      settings.user.email = "jane.doe@example.org";
     };
 
     # The state version is required and should stay at the version you

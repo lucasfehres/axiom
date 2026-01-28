@@ -24,8 +24,11 @@
 | ------------ | ------------------------ | -------------------------- |
 | 10.67.1.0/24 | 10.67.1.10 - 10.67.1.100 | Temporary DHCP allocations |
 
-## Routing configurations
+## Undeclarative Firewall Rules
 
-| Device | Type             | Block (CIDR) | Interface |
-| ------ | ---------------- | ------------ | --------- |
-| UGC    | WireGuard Client | 10.67.0.0/16 |           |
+The external to internal allow is unfortunate as this is not restricted to just the Axiom
+WireGuard client interface but it is fine.
+
+| Device | Source Zone | Source Block | Action | Destination Zone |
+| ------ | ----------- | ------------ | ------ | ---------------- |
+| UGC    | External    | 10.67.0.0/16 | Allow  | Internal         |
