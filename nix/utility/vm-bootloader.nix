@@ -30,6 +30,6 @@
     "sr_mod"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
+  boot.kernelModules = [ "rbd" ];
   boot.extraModulePackages = [ ];
 }
