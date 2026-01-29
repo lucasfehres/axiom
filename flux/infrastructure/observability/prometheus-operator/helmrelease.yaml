@@ -34,19 +34,40 @@ spec:
                 dashboardproviders.yaml:
                     apiVersion: 1
                     providers:
-                        - name: "default"
+                        - name: "rookceph"
                           orgId: 1
                           folder: "Rook Ceph"
                           type: file
                           disableDeletion: false
                           editable: true
                           options:
-                              path: /var/lib/grafana/dashboards/default
+                              path: /var/lib/grafana/dashboards/rookceph
+                        - name: "ZFS"
+                          orgId: 1
+                          folder: "ZFS"
+                          type: file
+                          disableDeletion: false
+                          editable: true
+                          options:
+                              path: /var/lib/grafana/dashboards/zfs
             dashboards:
-                default:
-                    rook-ceph-cluster-dashboard:
+                rookceph:
+                    cluster-dashboard:
                         url: https://raw.githubusercontent.com/rook/rook/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20Cluster%20Dashboard.json
-                    rook-ceph-osd-single-dashboard:
+                    osd-single-dashboard:
                         url: https://raw.githubusercontent.com/rook/rook/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20OSD%20Single%20Dashboard.json
-                    rook-ceph-pools-dashboard:
+                    pools-dashboard:
                         url: https://raw.githubusercontent.com/rook/rook/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20Pools%20Dashboard.json
+                zfs:
+                    arc-stats:
+                        url: https://raw.githubusercontent.com/d-uzlov/k8s-homelab/refs/heads/master/metrics/zfs-exporter/dashboards/zfs-arc-stats.json
+                    dataset-details:
+                        url: https://raw.githubusercontent.com/d-uzlov/k8s-homelab/refs/heads/master/metrics/zfs-exporter/dashboards/zfs-dataset-details.json
+                    pool-datasets:
+                        url: https://raw.githubusercontent.com/d-uzlov/k8s-homelab/refs/heads/master/metrics/zfs-exporter/dashboards/zfs-pool-datasets.json
+                    pool-overview:
+                        url: https://raw.githubusercontent.com/d-uzlov/k8s-homelab/refs/heads/master/metrics/zfs-exporter/dashboards/zfs-pool-overview.json
+                    vdev-disks:
+                        url: https://raw.githubusercontent.com/d-uzlov/k8s-homelab/refs/heads/master/metrics/zfs-exporter/dashboards/zfs-vdev-disks.json
+                    vdev-list:
+                        url: https://raw.githubusercontent.com/d-uzlov/k8s-homelab/refs/heads/master/metrics/zfs-exporter/dashboards/zfs-vdev-list.json
