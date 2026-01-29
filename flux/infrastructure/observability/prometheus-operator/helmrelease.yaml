@@ -45,8 +45,8 @@ spec:
             dashboards:
                 default:
                     rook-ceph-cluster-dashboard:
-                        url: https://github.com/rook/rook/raw/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20Cluster%20Dashboard.json
+                        url: https://raw.githubusercontent.com/rook/rook/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20Cluster%20Dashboard.json
                     rook-ceph-osd-single-dashboard:
-                        url: https://github.com/rook/rook/raw/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20OSD%20Single%20Dashboard.json
+                        url: https://raw.githubusercontent.com/rook/rook/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20OSD%20Single%20Dashboard.json
                     rook-ceph-pools-dashboard:
-                        url: https://github.com/rook/rook/raw/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20Pools%20Dashboard.json
+                        url: https://raw.githubusercontent.com/rook/rook/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20Pools%20Dashboard.json
