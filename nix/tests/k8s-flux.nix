@@ -93,25 +93,26 @@ pkgs.testers.runNixOSTest {
       print("waiting for kubernetes node to become ready")
       print("kubectl nodes", axiom_vm_utility.succeed("kubectl wait --for=condition=Ready node --all --timeout=300s"))
 
+      # unfortunate
+      axiom_vm_a_k3s_master.succeed("kubectl apply -f /var/lib/rancher/rke2/server/manifests/axiom-*")
+
+      # best indicator of RKE2 having processed the Helm changes
+      # time.sleep(120)
+      axiom_vm_utility.wait_until_succeeds("kubectl describe services -n kube-system hubble-relay")
+
       print("waiting for cilium to become ready")
       print(axiom_vm_utility.succeed("cilium status --wait"))
       print(axiom_vm_utility.succeed("kubectl get nodes"))
 
-      print("cloning axiom repository")
-      print(axiom_vm_utility.succeed("git clone https://github.com/lucasfehres/axiom.git /tmp/axiom"))
-
-      print("applying cilium configuration")
-      print(axiom_vm_utility.succeed("kubectl apply -f /tmp/axiom/nix/services/rke2/manifests/rke2-cilium.yaml"))
-
-      time.sleep(60)
-      print("waiting for applied cilium configuration to be ready")
-      print(axiom_vm_utility.succeed("cilium status --wait"))
+      print("validating applied helmchartconfigs")
+      print(axiom_vm_utility.succeed("kubectl get helmchartconfigs.helm.cattle.io -n kube-system"))
+      axiom_vm_utility.succeed("kubectl get helmchartconfigs.helm.cattle.io -n kube-system -o name | grep -q . || exit 1")
 
       print("exposing hubble locally on the utility vm")
       print(axiom_vm_utility.succeed("systemd-run --unit=hubble-port-forward --service-type=simple cilium --kubeconfig /root/.kube/config hubble port-forward"))
 
       time.sleep(10)
-      print("running e2e cilium tests")
-      print(axiom_vm_utility.succeed("cilium connectivity test"))
+      print("checking if hubble is available")
+      print(axiom_vm_utility.succeed("curl localhost:4245"))
     '';
 }

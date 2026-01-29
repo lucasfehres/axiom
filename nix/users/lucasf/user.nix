@@ -23,7 +23,6 @@
     home.homeDirectory = "/home/lucasf";
 
     home.packages = [
-        pkgs.fluxcd
     ];
     programs.bash.enable = true;
 

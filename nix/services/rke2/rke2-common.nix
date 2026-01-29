@@ -8,6 +8,7 @@
       pkgs.kubectl
       pkgs.cilium-cli
       pkgs.velero
+      pkgs.fluxcd
     ];
 
     services.numtide-rke2 = {

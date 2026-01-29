@@ -66,7 +66,8 @@ jobs:
         strategy:
             matrix:
                 test:
-                    - k8s
+                    - k8s-cilium
+                    - k8s-flux
             fail-fast: false
         steps:
             - uses: actions/checkout@v5
