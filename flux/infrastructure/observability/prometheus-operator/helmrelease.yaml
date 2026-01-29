@@ -40,6 +40,9 @@ spec:
                       kubernetes_sd_configs:
                           - role: pod
                       relabel_configs:
+                          - source_labels: [__meta_kubernetes_namespace]
+                            action: keep
+                            regex: kube-system
                           - source_labels:
                                 [
                                     __meta_kubernetes_pod_annotation_prometheus_io_scrape,
@@ -62,6 +65,9 @@ spec:
                       kubernetes_sd_configs:
                           - role: endpoints
                       relabel_configs:
+                          - source_labels: [__meta_kubernetes_namespace]
+                            action: keep
+                            regex: kube-system
                           - source_labels:
                                 [
                                     __meta_kubernetes_service_annotation_prometheus_io_scrape,
@@ -106,7 +112,7 @@ spec:
                           disableDeletion: false
                           editable: true
                           options:
-                              path: /var/lib/grafana/dashboards/zfs
+                              path: /var/lib/grafana/dashboards/cilium
             dashboards:
                 rookceph:
                     cluster-dashboard:
