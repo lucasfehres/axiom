@@ -24,3 +24,6 @@ spec:
             retries: 3
     values:
         # TODO: configure gateway
+        prometheus:
+            prometheusSpec:
+                serviceMonitorSelector: {}
