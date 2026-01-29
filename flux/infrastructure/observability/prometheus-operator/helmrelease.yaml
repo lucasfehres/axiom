@@ -30,10 +30,23 @@ spec:
                 serviceMonitorSelectorNilUsesHelmValues: false
 
         grafana:
+            dashboardProviders:
+                dashboardproviders.yaml:
+                    apiVersion: 1
+                    providers:
+                        - name: "default"
+                          orgId: 1
+                          folder: "Rook Ceph"
+                          type: file
+                          disableDeletion: false
+                          editable: true
+                          options:
+                              path: /var/lib/grafana/dashboards/default
             dashboards:
-                rook-ceph-cluster-dashboard:
-                    url: https://github.com/rook/rook/raw/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20Cluster%20Dashboard.json
-                rook-ceph-osd-single-dashboard:
-                    url: https://github.com/rook/rook/raw/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20OSD%20Single%20Dashboard.json
-                rook-ceph-pools-dashboard:
-                    url: https://github.com/rook/rook/raw/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20Pools%20Dashboard.json
+                default:
+                    rook-ceph-cluster-dashboard:
+                        url: https://github.com/rook/rook/raw/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20Cluster%20Dashboard.json
+                    rook-ceph-osd-single-dashboard:
+                        url: https://github.com/rook/rook/raw/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20OSD%20Single%20Dashboard.json
+                    rook-ceph-pools-dashboard:
+                        url: https://github.com/rook/rook/raw/refs/heads/master/deploy/examples/monitoring/grafana/Ceph%20Pools%20Dashboard.json
