@@ -4,49 +4,24 @@ metadata:
     name: ceph-cluster
     namespace: rook-ceph
 spec:
+    dataDirHostPath: /var/lib/rook
     cephVersion:
         image: quay.io/ceph/ceph:v20.2.0
         allowUnsupported: false
-    dataDirHostPath: /var/lib/rook
-    skipUpgradeChecks: false
-    continueUpgradeAfterChecksEvenIfNotHealthy: false
-    waitTimeoutForHealthyOSDInMinutes: 10
     mon:
         count: 1
-        allowMultiplePerNode: false
+        allowMultiplePerNode: true
+    skipUpgradeChecks: false
     mgr:
         count: 1
-        allowMultiplePerNode: false
+        allowMultiplePerNode: true
         modules:
-            - name: pg_autoscaler
+            - name: rook
               enabled: true
     dashboard:
         enabled: true
-        ssl: true
-    monitoring:
-        enabled: false
-    network:
-        connections:
-            encryption:
-                enabled: false
-            compression:
-                enabled: false
     crashCollector:
-        disable: false
-    logCollector:
-        enabled: false
-    cleanupPolicy:
-        confirmation: ""
-        sanitizeDisks:
-            method: quick
-            dataSource: zero
-            iteration: 1
-        allowUninstallWithVolumes: false
-    removeOSDsIfOutAndSafeToRemove: false
-    priorityClassNames:
-        mon: system-node-critical
-        osd: system-node-critical
-        mgr: system-cluster-critical
+        disable: true
     storage:
         useAllNodes: false
         useAllDevices: false
@@ -54,50 +29,24 @@ spec:
             - name: "axiom-vm-k8s-master"
               devices:
                   - name: "/dev/sdb"
-    disruptionManagement:
-        managePodBudgets: true
-        osdMaintenanceTimeout: 30
-        pgHealthCheckTimeout: 0
+        allowDeviceClassUpdate: true
+        allowOsdCrushWeightUpdate: false
+    monitoring:
+        enabled: false
     healthCheck:
         daemonHealth:
             mon:
-                disabled: false
                 interval: 45s
-            osd:
-                disabled: false
-                interval: 60s
-            status:
-                disabled: false
-                interval: 60s
-        livenessProbe:
-            mon:
-                disabled: false
-            mgr:
-                disabled: false
-            osd:
-                disabled: false
-    resources:
-        mon:
-            limits:
-                memory: "512Mi"
-            requests:
-                cpu: "100m"
-                memory: "128Mi"
-        mgr:
-            limits:
-                memory: "512Mi"
-            requests:
-                cpu: "100m"
-                memory: "128Mi"
-        osd:
-            limits:
-                memory: "1Gi"
-            requests:
-                cpu: "250m"
-                memory: "512Mi"
-        prepareosd:
-            limits:
-                memory: "512Mi"
-            requests:
-                cpu: "100m"
-                memory: "128Mi"
+                timeout: 600s
+    priorityClassNames:
+        all: system-node-critical
+        mgr: system-cluster-critical
+    disruptionManagement:
+        managePodBudgets: true
+    cephConfig:
+        global:
+            osd_pool_default_size: "1"
+            mon_warn_on_pool_no_redundancy: "false"
+            bdev_flock_retry: "20"
+            bluefs_buffered_io: "false"
+            mon_data_avail_warn: "10"
