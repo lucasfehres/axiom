@@ -38,7 +38,22 @@
             kube-busybox = "kubectl run -i --rm -t busybox --image=busybox --restart=Never";
             kube-hubble = "kubectl port-forward -n kube-system service/hubble-ui --address 0.0.0.0 8080:80";
         };
+
+        configFile.text = ''
+            $env.EDITOR = "vim"
+
+            $env.PROMPT_COMMAND = {
+                let host = (sys host | get hostname)
+                let pwd = (pwd)
+
+                $"($host) ($pwd)> "
+            }
+        ''
     };
+
+    programs.vim = {
+        enable = true;
+    }
 
     # The state version is required and should stay at the version you
     # originally installed.
