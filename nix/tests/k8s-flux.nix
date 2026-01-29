@@ -100,6 +100,8 @@ pkgs.testers.runNixOSTest {
       # time.sleep(120)
       axiom_vm_utility.wait_until_succeeds("kubectl describe services -n kube-system hubble-relay")
 
+      # flux bootstrap github --token-auth --owner=lucasfehres --repository=axiom --branch=main --path=flux/clusters/axiom --personal
+
       print("waiting for cilium to become ready")
       print(axiom_vm_utility.succeed("cilium status --wait"))
       print(axiom_vm_utility.succeed("kubectl get nodes"))
