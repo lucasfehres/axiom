@@ -33,7 +33,7 @@ spec:
         allowDeviceClassUpdate: true
         allowOsdCrushWeightUpdate: false
     monitoring:
-        enabled: false
+        enabled: true
     healthCheck:
         daemonHealth:
             mon:

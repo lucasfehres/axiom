@@ -1,9 +1,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+    # DO NOT TOUCH!
     name: infrastructure-rook-ceph
     namespace: flux-system
 spec:
+    dependsOn:
+        # cluster won't deploy if the Prometheus types don't exist
+        - infrastructure-observability
     interval: 10m
     sourceRef:
         kind: GitRepository
