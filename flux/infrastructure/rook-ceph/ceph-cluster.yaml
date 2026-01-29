@@ -21,6 +21,8 @@ spec:
     dashboard:
         enabled: true
         ssl: true
+        prometheusEndpoint: http://prometheus-kube-prometheus-prometheus.observability.svc.cluster.local:9090
+        prometheusEndpointSSLVerify: true
     crashCollector:
         disable: true
     storage:
