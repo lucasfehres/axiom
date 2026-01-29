@@ -9,6 +9,7 @@ spec:
         kind: GitRepository
         name: flux-system
     path: ./flux/infrastructure/rook-ceph
-    prune: true
+    # DO NOT PRUNE CEPH
+    prune: false
     wait: true
     timeout: 10m
