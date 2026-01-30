@@ -20,3 +20,6 @@ spec:
               certificateRefs:
                   - kind: Secret
                     name: tls-gateway-cert
+          allowedRoutes:
+              namespaces:
+                  from: All
