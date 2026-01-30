@@ -1,0 +1,6 @@
+# Utility stuff for making some dark infrastructure running in the K8s environment available
+# This should NEVER be depended on
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+    - chesem3ood.yaml
