@@ -1,0 +1,33 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: traefik
+    namespace: kube-system
+spec:
+    interval: 30m
+    chart:
+        spec:
+            chart: traefik
+            version: "39.0.0"
+            sourceRef:
+                kind: HelmRepository
+                name: traefik
+                namespace: kube-system
+            interval: 12h
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        gateway:
+            # handled by infrastructure-gateway and infrastructure-secure-gateway
+            enabled: false
+        gatewayClass:
+            enabled: true
+        providers:
+            kubernetesGateway:
+                enabled: true
