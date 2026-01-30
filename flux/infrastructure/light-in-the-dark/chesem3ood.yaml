@@ -17,3 +17,63 @@ spec:
           backendRefs:
               - name: webfrontend
                 port: 8080
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+    name: aspire-aspdashboard
+    namespace: chesem3ood
+spec:
+    parentRefs:
+        - name: tls-gateway
+          namespace: kube-system
+    hostnames:
+        - "aspire-aspdash.ood.che.axiom.lucasfehres.nl"
+    rules:
+        - matches:
+              - path:
+                    type: PathPrefix
+                    value: /
+          backendRefs:
+              - name: aspire-dashboard
+                port: 18888
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+    name: apiservice
+    namespace: chesem3ood
+spec:
+    parentRefs:
+        - name: tls-gateway
+          namespace: kube-system
+    hostnames:
+        - "aspire-apiservice.ood.che.axiom.lucasfehres.nl"
+    rules:
+        - matches:
+              - path:
+                    type: PathPrefix
+                    value: /
+          backendRefs:
+              - name: apiservice
+                port: 8080
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+    name: mlservice
+    namespace: chesem3ood
+spec:
+    parentRefs:
+        - name: tls-gateway
+          namespace: kube-system
+    hostnames:
+        - "aspire-mlservice.ood.che.axiom.lucasfehres.nl"
+    rules:
+        - matches:
+              - path:
+                    type: PathPrefix
+                    value: /
+          backendRefs:
+              - name: mlservice
+                port: 8080
