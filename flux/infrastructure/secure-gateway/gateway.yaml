@@ -23,3 +23,17 @@ spec:
           allowedRoutes:
               namespaces:
                   from: All
+        - name: https
+          protocol: HTTPS
+          port: 443
+          hostname: "*.ood.che.axiom.lucasfehres.nl"
+          tls:
+              certificateRefs:
+                  - kind: Secret
+                    name: tls-gateway-che-ood-cert
+          allowedRoutes:
+              namespaces:
+                  from: Selector
+                  selector:
+                      matchLabels:
+                          kubernetes.io/metadata.name: chesem3ood
