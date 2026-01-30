@@ -23,7 +23,7 @@ spec:
           allowedRoutes:
               namespaces:
                   from: All
-        - name: https
+        - name: https-che-ood
           protocol: HTTPS
           port: 443
           hostname: "*.ood.che.axiom.lucasfehres.nl"
