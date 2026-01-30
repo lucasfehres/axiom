@@ -31,3 +31,6 @@ spec:
         providers:
             kubernetesGateway:
                 enabled: true
+        service:
+            # disable service in favor of gateways
+            enabled: false
