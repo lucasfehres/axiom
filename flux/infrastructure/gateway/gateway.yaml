@@ -7,6 +7,10 @@ metadata:
         cert-manager.io/issuer: letsencrypt
 spec:
     gatewayClassName: cilium
+    addresses:
+        - type: IPAddress
+          # axiom-vm-k8s-master
+          value: "10.67.1.103"
     listeners:
         - name: https
           protocol: HTTPS
