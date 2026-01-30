@@ -17,6 +17,8 @@ spec:
           enabled: true
           hostNetwork:
             enabled: true
+        nodePort:
+          enabled: true
         envoy:
           enabled: true
           securityContext:

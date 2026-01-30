@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+    name: insecure-gateway
+    namespace: kube-system
+spec:
+    gatewayClassName: cilium
+    listeners:
+        - protocol: HTTP
+          port: 80
+          name: insecure
+          allowedRoutes:
+              # TODO: specify ONLY cert-manager
+              namespaces:
+                  from: Same
