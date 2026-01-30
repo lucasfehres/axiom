@@ -5,6 +5,10 @@ metadata:
     namespace: kube-system
 spec:
     gatewayClassName: cilium
+    addresses:
+        - type: IPAddress
+          # axiom-vm-k8s-master
+          value: "10.67.1.103"
     listeners:
         - protocol: HTTP
           port: 80
