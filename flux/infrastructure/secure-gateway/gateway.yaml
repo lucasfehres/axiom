@@ -6,7 +6,7 @@ metadata:
     annotations:
         cert-manager.io/cluster-issuer: letsencrypt
 spec:
-    gatewayClassName: cilium
+    gatewayClassName: traefik
     addresses:
         - type: IPAddress
           # axiom-vm-k8s-master
