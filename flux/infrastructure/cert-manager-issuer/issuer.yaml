@@ -14,3 +14,9 @@ spec:
                           - name: insecure-gateway
                             namespace: kube-system
                             kind: Gateway
+            - dns01:
+                  cloudflare:
+                      apiTokenSecretRef:
+                          # must be in the cert-manager namespace
+                          name: cloudflare-api-token-secret
+                          key: api-token

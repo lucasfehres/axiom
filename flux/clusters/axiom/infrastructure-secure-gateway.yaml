@@ -1,17 +1,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-    name: infrastructure-cert-manager-issuer
+    name: infrastructure-gateway
     namespace: flux-system
 spec:
     dependsOn:
-        - name: infrastructure-cert-manager
-        - name: infrastructure-gateway
+        - name: infrastructure-cert-manager-issuer
     interval: 10m
     sourceRef:
         kind: GitRepository
         name: flux-system
-    path: ./flux/infrastructure/cert-manager-issuer
+    path: ./flux/infrastructure/secure-gateway
     prune: true
     wait: true
     timeout: 10m
