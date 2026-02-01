@@ -5,4 +5,4 @@ metadata:
     namespace: authentik
 spec:
     interval: 24h
-    url: ://charts.goauthentik.io
+    url: https://charts.goauthentik.io
