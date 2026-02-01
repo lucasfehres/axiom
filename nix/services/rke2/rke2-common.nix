@@ -6,6 +6,10 @@
 
     environment.systemPackages = [
       pkgs.kubectl
+      pkgs.kubectl-cnpg
+      pkgs.kubectl-rook-ceph
+      pkgs.kubectl-df-pv
+      pkgs.kubectl-klock
       pkgs.cilium-cli
       pkgs.velero
       pkgs.fluxcd

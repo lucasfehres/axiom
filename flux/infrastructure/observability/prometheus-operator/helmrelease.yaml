@@ -28,6 +28,8 @@ spec:
             prometheusSpec:
                 serviceMonitorSelector: {}
                 serviceMonitorSelectorNilUsesHelmValues: false
+                podMonitorSelector: {}
+                podMonitorSelectorNilUsesHelmValues: false
                 additionalScrapeConfigs:
                     - job_name: "zfs-exporter"
                       static_configs:
@@ -113,6 +115,22 @@ spec:
                           editable: true
                           options:
                               path: /var/lib/grafana/dashboards/cilium
+                        - name: "cloudnative-pg"
+                          orgId: 1
+                          folder: "CloudNativePG"
+                          type: file
+                          disableDeletion: false
+                          editable: true
+                          options:
+                              path: /var/lib/grafana/dashboards/cloudnative-pg
+                        - name: "traefik"
+                          orgId: 1
+                          folder: "Traefik"
+                          type: file
+                          disableDeletion: false
+                          editable: true
+                          options:
+                              path: /var/lib/grafana/dashboards/traefik
             dashboards:
                 rookceph:
                     cluster-dashboard:
@@ -145,3 +163,11 @@ spec:
                         url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/hubble/dashboards/hubble-l7-http-metrics-by-workload.json
                     hubble-network-overview-namespace:
                         url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/hubble/dashboards/hubble-network-overview-namespace.json
+                cloudnative-pg:
+                    dashboard:
+                        url: https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/refs/heads/main/charts/cluster/grafana-dashboard.json
+                traefik:
+                    traefik-official:
+                        gnetId: 17347
+                        revision: 9
+                        datasource: Prometheus
