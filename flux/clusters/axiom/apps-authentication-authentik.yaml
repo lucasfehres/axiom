@@ -5,7 +5,7 @@ metadata:
     namespace: flux-system
 spec:
     dependsOn:
-        - name: infrastructure-cloudnative-pg
+        - name: apps-authentication-authentik-postgres
     interval: 10m
     sourceRef:
         kind: GitRepository
