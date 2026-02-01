@@ -35,16 +35,15 @@ spec:
             # Secret key - generate with: openssl rand -base64 32
             secret_key: file:///secrets/axiom/secret-key
 
-        route:
-            main:
-                enabled: true
-                parentRefs:
-                    - name: tls-gateway
-                      namespace: kube-system
-                hostnames:
-                    - "authentik.axiom.lucasfehres.nl"
-
         server:
+            route:
+                main:
+                    enabled: true
+                    parentRefs:
+                        - name: tls-gateway
+                          namespace: kube-system
+                          hostnames:
+                              - "authentik.axiom.lucasfehres.nl"
             volumes:
                 - name: postgres-app-secret
                   secret:
