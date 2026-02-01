@@ -6,4 +6,5 @@ metadata:
 spec:
     instances: 3
     storage:
+        storageClass: rook-ceph-block
         size: 1Gi
