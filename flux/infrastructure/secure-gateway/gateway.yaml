@@ -12,6 +12,7 @@ spec:
           # axiom-vm-k8s-master
           value: "10.67.1.103"
     listeners:
+        # should not have more than 50 here due to letsencrypt rate limiting https://letsencrypt.org/docs/rate-limits/
         - name: https
           protocol: HTTPS
           port: 443
