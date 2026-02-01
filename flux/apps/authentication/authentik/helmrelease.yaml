@@ -29,8 +29,8 @@ spec:
                 host: file:///secrets/postgres-app/host
                 port: file:///secrets/postgres-app/port
                 name: file:///secrets/postgres-app/dbname
-                user: file:///secrets/postgres-app/password
-                password: file:///secrets/postgres-app/user
+                user: file:///secrets/postgres-app/user
+                password: file:///secrets/postgres-app/password
 
             # Secret key - generate with: openssl rand -base64 32
             secret_key: file:///secrets/axiom/secret-key
