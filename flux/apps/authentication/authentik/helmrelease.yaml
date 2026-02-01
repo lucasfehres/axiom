@@ -23,16 +23,75 @@ spec:
         remediation:
             retries: 3
     values:
-        # Operator configuration
-        resources:
-            limits:
-                memory: 512Mi
-            requests:
-                cpu: 100m
-                memory: 128Mi
-        # Enable monitoring if you have Prometheus
-        monitoring:
-            enabled: true
-        # Configure node affinity if needed
-        nodeSelector: {}
-        tolerations: []
+        authentik:
+            # TODO: postgresql SSL
+            postgresql:
+                host: file:///secrets/postgres-app/host
+                port: file:///secrets/postgres-app/port
+                name: file:///secrets/postgres-app/dbname
+                user: file:///secrets/postgres-app/password
+                password: file:///secrets/postgres-app/user
+
+            # Secret key - generate with: openssl rand -base64 32
+            secret_key: file:///secrets/axiom/secret-key
+
+        route:
+            main:
+                enabled: true
+                parentRefs:
+                    - name: tls-gateway
+                      namespace: kube-system
+                hostnames:
+                    - "authentik.axiom.lucasfehres.nl"
+
+        server:
+            volumes:
+                - name: postgres-app-secret
+                  secret:
+                      secretName: authentik-postgres-app
+                      optional: false
+                - name: postgres-server-secret
+                  secret:
+                      secretName: authentik-postgres-server
+                      optional: false
+                - name: axiom-authentik-secrets
+                  secret:
+                      secretName: axiom-authentik-secrets
+                      optional: false
+
+            volumeMounts:
+                - name: postgres-app-secret
+                  mountPath: /secrets/postgres-app
+                  readOnly: true
+                - name: postgres-server-secret
+                  mountPath: /secrets/postgres-server
+                  readOnly: true
+                - name: axiom-authentik-secrets
+                  mountPath: /secrets/axiom
+                  readOnly: true
+
+        worker:
+            volumes:
+                - name: postgres-app-secret
+                  secret:
+                      secretName: authentik-postgres-app
+                      optional: false
+                - name: postgres-server-secret
+                  secret:
+                      secretName: authentik-postgres-server
+                      optional: false
+                - name: axiom-authentik-secrets
+                  secret:
+                      secretName: axiom-authentik-secrets
+                      optional: false
+
+            volumeMounts:
+                - name: postgres-app-secret
+                  mountPath: /secrets/postgres-app
+                  readOnly: true
+                - name: postgres-server-secret
+                  mountPath: /secrets/postgres-server
+                  readOnly: true
+                - name: axiom-authentik-secrets
+                  mountPath: /secrets/axiom
+                  readOnly: true
