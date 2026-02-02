@@ -34,3 +34,14 @@ type: Opaque
 stringData:
     secret-key: <openssl rand -base64 32>
 ```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: axiom-telegrambot-alertmanager
+    namespace: observability
+type: Opaque
+stringData:
+    token: <Telegram BotFather HTTP token>
+```

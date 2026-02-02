@@ -171,3 +171,22 @@ spec:
                         gnetId: 17347
                         revision: 9
                         datasource: Prometheus
+
+        alertmanager:
+            config:
+                receivers:
+                    - name: "Axiom Notifications"
+                      telegram_configs:
+                          - chat_id: 3735046157
+                            bot_token_file: /secrets/axiom-telegrambot-alertmanager/token
+            alertmanagerSpec:
+                volumes:
+                    - name: axiom-telegrambot-alertmanager
+                      secret:
+                          secretName: axiom-telegrambot-alertmanager
+                          optional: false
+
+                volumeMounts:
+                    - name: axiom-telegrambot-alertmanager
+                      mountPath: /secrets/axiom-telegrambot-alertmanager
+                      readOnly: true
