@@ -29,6 +29,9 @@ spec:
         timeZone: Europe/Amsterdam
         signupsAllowed: true
 
+        strategy:
+            type: Recreate
+
         storage:
             data:
                 name: vaultwarden-data
