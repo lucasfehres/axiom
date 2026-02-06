@@ -46,6 +46,9 @@ spec:
             # only provides username and password
             existingSecret: vaultwarden-postgres-app
 
+            # this is a really badly documented value that sets a secretRef for the host
+            existingSecretKey: host
+
         pushNotifications:
             enabled: true
 
