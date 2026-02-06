@@ -57,3 +57,24 @@ stringData:
     id: <Bitwarden selfhosting installation ID>
     key: <Bitwarden selfhosting installation key>
 ```
+
+```yaml
+apiVersion: v1
+data:
+    cloud: <see below>
+kind: Secret
+metadata:
+    creationTimestamp: null
+    labels:
+        component: velero
+    name: cloud-credentials
+    namespace: velero
+```
+
+(contents of cloud key)
+
+```toml
+[default]
+aws_access_key_id=...
+aws_secret_access_key=...
+```
