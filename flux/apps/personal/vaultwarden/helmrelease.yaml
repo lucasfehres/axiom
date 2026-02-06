@@ -27,7 +27,7 @@ spec:
 
         domain: https://bitwarden.axiom.lucasfehres.nl
         timeZone: Europe/Amsterdam
-        signupsAllowed: false
+        signupsAllowed: true
 
         storage:
             data:
