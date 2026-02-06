@@ -25,7 +25,7 @@ spec:
     values:
         replicas: 1
 
-        domain: https://bitwarden.lucasfehres.nl
+        domain: https://bitwarden.axiom.lucasfehres.nl
         timeZone: Europe/Amsterdam
         signupsAllowed: true
 
