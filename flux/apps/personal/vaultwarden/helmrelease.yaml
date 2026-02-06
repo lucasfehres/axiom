@@ -49,8 +49,9 @@ spec:
             # only provides username and password
             existingSecret: vaultwarden-postgres-app
 
-            # this is a really badly documented value that sets a secretRef for the host
-            existingSecretKey: host
+            # this is a really badly documented value that sets a secretRef for DATABASE_URL
+            # it must be provided due to an issue with the helm chart
+            existingSecretKey: uri
 
         pushNotifications:
             enabled: true
