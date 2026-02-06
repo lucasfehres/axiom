@@ -1,0 +1,57 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: vaultwarden
+    namespace: vaultwarden
+spec:
+    interval: 30m
+    chart:
+        spec:
+            chart: vaultwarden
+            version: "0.34.5"
+            sourceRef:
+                kind: HelmRepository
+                name: vaultwarden
+                namespace: vaultwarden
+            interval: 12h
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        replicas: 1
+
+        domain: https://bitwarden.lucasfehres.nl
+        timeZone: Europe/Amsterdam
+        signupsAllowed: true
+
+        storage:
+            data:
+                name: vaultwarden-data
+                size: 500Mi
+                class: rook-ceph-block
+                accessMode: ReadWriteOnce
+
+        database:
+            type: postgres
+
+            host: vaultwarden-postgres-rw
+            port: "5432"
+            dbName: app
+
+            # only provides username and password
+            existingSecret: vaultwarden-postgres-app
+
+        pushNotifications:
+            enabled: true
+
+            existingSecret: axiom-bitwarden-installation-credentials
+
+            installationId:
+                existingSecretKey: id
+            installationKey:
+                existingSecretKey: key

@@ -20,9 +20,11 @@
 
 ### Suballocations
 
-| Block (CIDR) | Range                    | Allocation                 |
-| ------------ | ------------------------ | -------------------------- |
-| 10.67.1.0/24 | 10.67.1.10 - 10.67.1.100 | Temporary DHCP allocations |
+| Block (CIDR) | Range                     | Allocation                 |
+| ------------ | ------------------------- | -------------------------- |
+| 10.67.1.0/24 | 10.67.1.10 - 10.67.1.100  | Temporary DHCP allocations |
+| 10.67.1.0/24 | 10.67.1.101 - 10.67.1.200 | Axiom VMs                  |
+| 10.67.1.0/24 | 10.67.1.201 - 10.67.1.220 | Playground VMs             |
 
 ## Undeclarative Firewall Rules
 

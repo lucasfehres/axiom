@@ -45,3 +45,15 @@ type: Opaque
 stringData:
     token: <Telegram BotFather HTTP token>
 ```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: axiom-bitwarden-installation-credentials
+    namespace: vaultwarden
+type: Opaque
+stringData:
+    id: <Bitwarden selfhosting installation ID>
+    key: <Bitwarden selfhosting installation key>
+```
