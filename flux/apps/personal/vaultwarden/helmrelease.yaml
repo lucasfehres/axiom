@@ -29,6 +29,9 @@ spec:
         timeZone: Europe/Amsterdam
         signupsAllowed: false
 
+        podLabels:
+            backup.velero.io/backup-volumes: vaultwarden-data
+
         strategy:
             type: Recreate
 
