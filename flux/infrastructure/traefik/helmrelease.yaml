@@ -26,6 +26,8 @@ spec:
         deployment:
             # expose Traefik on all nodes
             kind: DaemonSet
+            updateStrategy:
+                type: OnDelete
 
         gateway:
             # handled by infrastructure-gateway and infrastructure-secure-gateway
