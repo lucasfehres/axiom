@@ -4,3 +4,4 @@ resources:
     - namespace.yaml
     - cluster.yaml
     - object-storage.yaml
+    - monitor.yaml
