@@ -14,3 +14,10 @@ spec:
             secretAccessKey:
                 name: axiom-cnpg-s3-creds
                 key: ACCESS_SECRET_KEY
+
+        data:
+            compression: bzip2
+        wal:
+            compression: bzip2
+
+    retentionPolicy: "30d"

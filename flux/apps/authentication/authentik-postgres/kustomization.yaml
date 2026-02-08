@@ -5,3 +5,4 @@ resources:
     - cluster.yaml
     - object-storage.yaml
     - monitor.yaml
+    - backup.yaml
