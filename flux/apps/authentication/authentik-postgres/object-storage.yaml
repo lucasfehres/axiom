@@ -1,0 +1,15 @@
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+    name: authentik-postgres
+    namespace: authentik
+spec:
+    configuration:
+        destinationPath: "s3://lucasfehres.axiom.cnpg/authentik/authentik-postgres"
+        s3Credentials:
+            accessKeyId:
+                name: axiom-cpng-s3-creds
+                key: ACCESS_KEY_ID
+            secretAccessKey:
+                name: axiom-cpng-s3-creds
+                key: ACCESS_SECRET_KEY

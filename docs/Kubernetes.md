@@ -60,15 +60,12 @@ stringData:
 
 ```yaml
 apiVersion: v1
-data:
-    cloud: <see below>
 kind: Secret
 metadata:
-    creationTimestamp: null
-    labels:
-        component: velero
     name: cloud-credentials
     namespace: velero
+data:
+    cloud: <see below>
 ```
 
 (contents of cloud key)
@@ -77,4 +74,15 @@ metadata:
 [default]
 aws_access_key_id=...
 aws_secret_access_key=...
+```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: axiom-cnpg-s3-creds
+    namespace: authentik
+data:
+    ACCESS_KEY_ID: <S3 access key ID>
+    ACCESS_SECRET_KEY: <S3 secret access key>
 ```
