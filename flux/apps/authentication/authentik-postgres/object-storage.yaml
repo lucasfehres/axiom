@@ -6,6 +6,7 @@ metadata:
 spec:
     configuration:
         destinationPath: "s3://lucasfehres.axiom.cnpg/authentik/authentik-postgres"
+        endpointURL: https://eu2.contabostorage.com/
         s3Credentials:
             accessKeyId:
                 name: axiom-cnpg-s3-creds
