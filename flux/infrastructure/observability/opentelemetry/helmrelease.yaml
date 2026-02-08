@@ -12,7 +12,7 @@ spec:
             sourceRef:
                 kind: HelmRepository
                 name: opentelemetry
-                namespace: opentelemetry
+                namespace: observability
             interval: 12h
     install:
         crds: CreateReplace

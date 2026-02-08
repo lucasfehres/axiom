@@ -6,6 +6,7 @@ metadata:
 spec:
     dependsOn:
         - name: infrastructure-cert-manager
+        - name: infrastructure-opentelemetry
     interval: 10m
     sourceRef:
         kind: GitRepository
