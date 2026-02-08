@@ -1,0 +1,28 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: opentelemetry
+    namespace: opentelemetry
+spec:
+    interval: 30m
+    chart:
+        spec:
+            chart: opentelemetry-operator
+            version: "0.105.0"
+            sourceRef:
+                kind: HelmRepository
+                name: opentelemetry
+                namespace: opentelemetry
+            interval: 12h
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        manager:
+            serviceMonitor:
+                enabled: true

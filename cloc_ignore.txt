@@ -1,0 +1,3 @@
+flux/clusters/axiom/flux-system/gotk-components.yaml
+flux/clusters/axiom/flux-system/gotk-sync.yaml
+flux/clusters/axiom/flux-system/kustomization.yaml
