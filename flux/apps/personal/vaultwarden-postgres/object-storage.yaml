@@ -20,4 +20,4 @@ spec:
         wal:
             compression: bzip2
 
-    retentionPolicy: "30d"
+    retentionPolicy: "7d"

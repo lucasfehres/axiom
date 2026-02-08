@@ -1,18 +1,18 @@
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
-    name: authentik-postgres
+    name: authentik-postgres-b2
     namespace: authentik
 spec:
     configuration:
-        destinationPath: "s3://lucasfehres.axiom.cnpg/authentik"
-        endpointURL: https://eu2.contabostorage.com/
+        destinationPath: "s3://lucasfehres-axiom-cnpg/authentik"
+        endpointURL: https://s3.eu-central-003.backblazeb2.com/
         s3Credentials:
             accessKeyId:
-                name: axiom-cnpg-s3-creds
+                name: axiom-cnpg-b2-creds
                 key: ACCESS_KEY_ID
             secretAccessKey:
-                name: axiom-cnpg-s3-creds
+                name: axiom-cnpg-b2-creds
                 key: ACCESS_SECRET_KEY
 
         data:
@@ -20,4 +20,4 @@ spec:
         wal:
             compression: bzip2
 
-    retentionPolicy: "7d"
+    retentionPolicy: "30d"

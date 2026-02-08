@@ -4,5 +4,6 @@ resources:
     - namespace.yaml
     - cluster.yaml
     - object-storage.yaml
+    - object-storage-b2.yaml
     - monitor.yaml
     - backup.yaml
