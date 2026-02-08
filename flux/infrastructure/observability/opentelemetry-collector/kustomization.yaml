@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
     - basic-collector.yaml
     - httproute.yaml
+    - monitor.yaml
