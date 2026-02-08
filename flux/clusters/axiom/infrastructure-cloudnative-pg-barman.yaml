@@ -1,0 +1,16 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+    name: infrastructure-cloudnative-pg-barman
+    namespace: flux-system
+spec:
+    dependsOn:
+        - name: infrastructure-cloudnative-pg
+    interval: 10m
+    sourceRef:
+        kind: GitRepository
+        name: flux-system
+    path: ./flux/infrastructure/cloudnative-pg-barman
+    prune: true
+    wait: true
+    timeout: 10m
