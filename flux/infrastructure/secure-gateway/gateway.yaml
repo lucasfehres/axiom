@@ -39,3 +39,15 @@ spec:
                   selector:
                       matchLabels:
                           kubernetes.io/metadata.name: chesem3ood
+
+        - name: otel-https
+          protocol: HTTPS
+          port: 4318
+          hostname: "*.otel.axiom.lucasfehres.nl"
+          tls:
+              certificateRefs:
+                  - kind: Secret
+                    name: tls-gateway-che-ood-cert
+          allowedRoutes:
+              namespaces:
+                  from: All
