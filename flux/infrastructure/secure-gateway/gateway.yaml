@@ -47,7 +47,7 @@ spec:
           tls:
               certificateRefs:
                   - kind: Secret
-                    name: tls-gateway-che-ood-cert
+                    name: tls-gateway-otel-cert
           allowedRoutes:
               namespaces:
                   from: All
