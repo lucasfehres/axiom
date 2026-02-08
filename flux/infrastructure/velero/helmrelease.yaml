@@ -1,0 +1,56 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: velero
+    namespace: velero
+spec:
+    interval: 30m
+    chart:
+        spec:
+            chart: velero
+            version: ">=1.12.0 <2.0.0" # Pin to a range
+            sourceRef:
+                kind: HelmRepository
+                name: velero
+                namespace: velero
+            interval: 12h
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        configuration:
+            # https://medium.com/@comes94/using-velero-csi-snapshot-mode-to-backup-block-volumes-in-oke-5b16f8bd4543
+            features: EnableCSI
+
+            backupStorageLocation:
+                - provider: "aws"
+                  bucket: lucasfehres.axiom.velero
+                  config:
+                      region: eu2
+                      s3ForcePathStyle: "true"
+                      s3Url: "https://eu2.contabostorage.com/"
+
+            volumeSnapshotLocation:
+                - provider: aws
+                  config:
+                      region: eu2
+
+        snapshotsEnabled: true
+        deployNodeAgent: false
+
+        initContainers:
+            - name: velero-plugin-for-aws
+              image: velero/velero-plugin-for-aws:v1.8.2 # v1.9.x breaks compatibility with oci
+              imagePullPolicy: IfNotPresent
+              volumeMounts:
+                  - mountPath: /target
+                    name: plugins
+
+        credentials:
+            useSecret: true
+            existingSecret: cloud-credentials
