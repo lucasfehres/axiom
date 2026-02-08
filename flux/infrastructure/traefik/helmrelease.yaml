@@ -48,3 +48,7 @@ spec:
             websecure:
                 port: 443
                 hostPort: 443
+
+            otel:
+                port: 4318
+                hostPort: 4318
