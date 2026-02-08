@@ -15,7 +15,7 @@ spec:
           parameters:
               barmanObjectName: authentik-postgres
 
-        - name: barman-cloud.cloudnative-pg.io
-          isWALArchiver: false
-          parameters:
-              barmanObjectName: authentik-postgres-b2
+        # - name: barman-cloud.cloudnative-pg.io
+        #   isWALArchiver: false
+        #   parameters:
+        #       barmanObjectName: authentik-postgres-b2

@@ -15,7 +15,7 @@ spec:
           parameters:
               barmanObjectName: vaultwarden-postgres
 
-        - name: barman-cloud.cloudnative-pg.io
-          isWALArchiver: false
-          parameters:
-              barmanObjectName: vaultwarden-postgres-b2
+        # - name: barman-cloud.cloudnative-pg.io
+        #   isWALArchiver: false
+        #   parameters:
+        #       barmanObjectName: vaultwarden-postgres-b2
