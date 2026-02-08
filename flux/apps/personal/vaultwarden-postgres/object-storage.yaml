@@ -1,11 +1,11 @@
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
-    name: authentik-postgres
-    namespace: authentik
+    name: vaultwarden-postgres
+    namespace: vaultwarden
 spec:
     configuration:
-        destinationPath: "s3://lucasfehres.axiom.cnpg/authentik"
+        destinationPath: "s3://lucasfehres.axiom.cnpg/vaultwarden"
         endpointURL: https://eu2.contabostorage.com/
         s3Credentials:
             accessKeyId:
