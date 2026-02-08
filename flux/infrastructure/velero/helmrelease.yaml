@@ -41,7 +41,7 @@ spec:
                       region: eu2
 
         snapshotsEnabled: true
-        deployNodeAgent: false
+        deployNodeAgent: true
 
         initContainers:
             - name: velero-plugin-for-aws
