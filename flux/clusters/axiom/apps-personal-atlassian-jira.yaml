@@ -5,7 +5,7 @@ metadata:
     namespace: flux-system
 spec:
     dependsOn:
-        - name: apps-personal-atlassian-jira-postgres
+        - name: apps-personal-atlassian-postgres
         - name: infrastructure-secure-gateway
     interval: 10m
     sourceRef:

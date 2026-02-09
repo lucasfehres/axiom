@@ -185,7 +185,7 @@ spec:
                         revision: 1
                         datasource:
                             - name: DS_PROMETHEUS
-                              value: "${datasource}"
+                              value: "prometheus"
 
         alertmanager:
             config:
