@@ -9,6 +9,7 @@
   imports = [
     ./security.nix
     ./openssh.nix
+    ./updates.nix
   ];
 
   environment.systemPackages = [
