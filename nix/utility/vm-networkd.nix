@@ -26,11 +26,10 @@
         Gateway = "10.67.1.102";
         Destination = "192.168.0.0/16";
       }
-    ];
-
-    routes = lib.optionals (config.networking.hostName == "axiom-vm-wireguard") [
+    ]
+    ++ lib.optionals (config.networking.hostName == "axiom-vm-wireguard") [
       {
-        # Make the K8s Cilium pool available over the WireGuar router
+        # Make the K8s Cilium pool available over the WireGuard router
         Gateway = "10.67.1.103";
         Destination = "10.67.3.0/24";
       }

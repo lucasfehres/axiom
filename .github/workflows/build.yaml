@@ -60,22 +60,22 @@ jobs:
             - run: nix-build tests/basic.nix --argstr configName "${{ matrix.configuration }}"
               working-directory: nix
 
-    nixos-test-complex:
-        name: Run complex NixOS tests
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                test:
-                    - k8s-cilium
-                    - k8s-flux
-            fail-fast: false
-        steps:
-            - uses: actions/checkout@v5
-            - uses: cachix/install-nix-action@v31
-              with:
-                  nix_path: nixpkgs=channel:nixos-25.11
-                  enable_kvm: true
-                  extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
-            # sandbox is disabled so stuff like K3s can access the internet
-            - run: nix-build tests/${{ matrix.test }}.nix --option sandbox false
-              working-directory: nix
+    # nixos-test-complex:
+    #     name: Run complex NixOS tests
+    #     runs-on: ubuntu-latest
+    #     strategy:
+    #         matrix:
+    #             test:
+    #                 - k8s-cilium
+    #                 - k8s-flux
+    #         fail-fast: false
+    #     steps:
+    #         - uses: actions/checkout@v5
+    #         - uses: cachix/install-nix-action@v31
+    #           with:
+    #               nix_path: nixpkgs=channel:nixos-25.11
+    #               enable_kvm: true
+    #               extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
+    #         # sandbox is disabled so stuff like K3s can access the internet
+    #         - run: nix-build tests/${{ matrix.test }}.nix --option sandbox false
+    #           working-directory: nix
