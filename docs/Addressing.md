@@ -6,6 +6,7 @@
 | --------------- | ---------------------------------- |
 | 10.67.1.0/24    | Proxmox FSN01-01                   |
 | 10.67.2.0/24    | Axiom WireGuard clients            |
+| 10.67.3.0/24    | Axiom K8s Cilium pool              |
 | 192.168.1.0/24  | Home network: General clients      |
 | 192.168.2.0/24  | Home network: Legacy               |
 | 192.168.3.0/24  | Home network: WireGuard            |
