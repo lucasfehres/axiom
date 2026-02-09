@@ -1,0 +1,14 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+    name: harbor-postgres
+    namespace: harbor
+spec:
+    parentRefs:
+        - name: postgres-gateway
+          namespace: kube-system
+          sectionName: postgres-harbor
+    rules:
+        - backendRefs:
+              - name: harbor-postgres-rw
+                port: 5432

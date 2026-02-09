@@ -1,0 +1,23 @@
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+    name: harbor-postgres-b2
+    namespace: harbor
+spec:
+    configuration:
+        destinationPath: "s3://lucasfehres-axiom-cnpg/harbor"
+        endpointURL: https://s3.eu-central-003.backblazeb2.com/
+        s3Credentials:
+            accessKeyId:
+                name: axiom-cnpg-b2-creds
+                key: ACCESS_KEY_ID
+            secretAccessKey:
+                name: axiom-cnpg-b2-creds
+                key: ACCESS_SECRET_KEY
+
+        data:
+            compression: bzip2
+        wal:
+            compression: bzip2
+
+    retentionPolicy: "30d"

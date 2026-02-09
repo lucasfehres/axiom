@@ -1,0 +1,29 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+    name: postgres-gateway
+    namespace: kube-system
+    annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+spec:
+    gatewayClassName: cilium
+    addresses:
+        - type: IPAddress
+          # axiom-vm-k8s-master
+          value: "10.67.1.103"
+    listeners:
+        # some services run outside of the cluster but need Postgres
+        - name: postgres-harbor
+          protocol: TCP
+          port: 5433
+          hostname: "*.postgres.axiom.lucasfehres.nl"
+          tls:
+              certificateRefs:
+                  - kind: Secret
+                    name: tls-gateway-postgres-cert
+          allowedRoutes:
+              namespaces:
+                  from: Selector
+                  selector:
+                      matchLabels:
+                          kubernetes.io/metadata.name: harbor

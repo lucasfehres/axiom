@@ -102,6 +102,28 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
+    name: axiom-cnpg-s3-creds
+    namespace: atlassian
+stringData:
+    ACCESS_KEY_ID: <S3 access key ID>
+    ACCESS_SECRET_KEY: <S3 secret access key>
+```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: axiom-cnpg-s3-creds
+    namespace: harbor
+stringData:
+    ACCESS_KEY_ID: <S3 access key ID>
+    ACCESS_SECRET_KEY: <S3 secret access key>
+```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
     name: axiom-cnpg-b2-creds
     namespace: authentik
 stringData:
@@ -115,6 +137,28 @@ kind: Secret
 metadata:
     name: axiom-cnpg-b2-creds
     namespace: vaultwarden
+stringData:
+    ACCESS_KEY_ID: <B2 access key ID>
+    ACCESS_SECRET_KEY: <B2 secret access key>
+```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: axiom-cnpg-b2-creds
+    namespace: atlassian
+stringData:
+    ACCESS_KEY_ID: <B2 access key ID>
+    ACCESS_SECRET_KEY: <B2 secret access key>
+```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: axiom-cnpg-b2-creds
+    namespace: harbor
 stringData:
     ACCESS_KEY_ID: <B2 access key ID>
     ACCESS_SECRET_KEY: <B2 secret access key>

@@ -1,0 +1,21 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+    name: harbor-postgres
+    namespace: harbor
+spec:
+    instances: 3
+    storage:
+        storageClass: rook-ceph-block
+        size: 1Gi
+
+    plugins:
+        - name: barman-cloud.cloudnative-pg.io
+          isWALArchiver: true
+          parameters:
+              barmanObjectName: harbor-postgres
+
+        # - name: barman-cloud.cloudnative-pg.io
+        #   isWALArchiver: false
+        #   parameters:
+        #       barmanObjectName: harbor-postgres-b2
