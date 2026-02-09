@@ -16,11 +16,6 @@ spec:
         - name: postgres-harbor
           protocol: TCP
           port: 5433
-          hostname: "*.postgres.axiom.lucasfehres.nl"
-          tls:
-              certificateRefs:
-                  - kind: Secret
-                    name: tls-gateway-postgres-cert
           allowedRoutes:
               namespaces:
                   from: Selector
