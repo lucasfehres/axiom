@@ -131,6 +131,14 @@ spec:
                           editable: true
                           options:
                               path: /var/lib/grafana/dashboards/traefik
+                        - name: "proxmox"
+                          orgId: 1
+                          folder: "Proxmox"
+                          type: file
+                          disableDeletion: false
+                          editable: true
+                          options:
+                              path: /var/lib/grafana/dashboards/proxmox
             dashboards:
                 rookceph:
                     cluster-dashboard:
@@ -171,9 +179,20 @@ spec:
                         gnetId: 17347
                         revision: 9
                         datasource: Prometheus
+                proxmox:
+                    proxmox-via-prometheus:
+                        gnetId: 10347
+                        revision: 5
+                        datasource: Prometheus
 
         alertmanager:
             config:
+                route:
+                    receiver: "Axiom Notifications"
+                    group_by: ["alertname", "cluster", "service"]
+                    group_wait: 10s
+                    group_interval: 10s
+                    repeat_interval: 12h
                 receivers:
                     - name: "Axiom Notifications"
                       telegram_configs:
