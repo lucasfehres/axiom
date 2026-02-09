@@ -5,10 +5,13 @@ metadata:
     namespace: ejbca
 spec:
     interval: 30m
-    chartRef:
-        kind: OCIRepository
-        name: ejbca
-        namespace: ejbca
+    chart:
+        spec:
+            chart: ./charts/ejbca
+            sourceRef:
+                kind: GitRepository
+                name: ejbca
+                namespace: ejbca
     install:
         crds: CreateReplace
         remediation:
@@ -21,6 +24,7 @@ spec:
         ejbca:
             env:
                 METRICS_ENABLED: true
+                LOG_AUDIT_TO_DB: true
             envRaw:
                 - name: DATABASE_JDBC_URL
                   valueFrom:
