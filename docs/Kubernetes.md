@@ -34,6 +34,17 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
+    name: axiom-cloudflare-api-key
+    namespace: kube-system
+type: Opaque
+stringData:
+    api-token: <API Token>
+```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
     name: axiom-authentik-secrets
     namespace: authentik
 type: Opaque

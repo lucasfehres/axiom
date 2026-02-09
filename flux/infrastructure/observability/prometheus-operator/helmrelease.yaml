@@ -139,6 +139,14 @@ spec:
                           editable: true
                           options:
                               path: /var/lib/grafana/dashboards/proxmox
+                        - name: "external-dns"
+                          orgId: 1
+                          folder: "External DNS"
+                          type: file
+                          disableDeletion: false
+                          editable: true
+                          options:
+                              path: /var/lib/grafana/dashboards/external-dns
             dashboards:
                 rookceph:
                     cluster-dashboard:
@@ -186,6 +194,11 @@ spec:
                         datasource:
                             - name: DS_PROMETHEUS
                               value: "prometheus"
+                external-dns:
+                    external-dns:
+                        gnetId: 15038
+                        revision: 3
+                        datasource: Prometheus
 
         alertmanager:
             config:
