@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Endpoints
 metadata:
-    name: external-
+    name: external-harbor
     namespace: harbor
 subsets:
     - addresses:
