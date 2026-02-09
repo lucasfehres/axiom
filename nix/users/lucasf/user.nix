@@ -14,7 +14,16 @@
     ];
 
     openssh.authorizedKeys.keys = [
+      # main
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIADrfGE05Zd40h0IoIsXaewcD1AWNPd12AhJG6h9c8N0 lucasf"
+      # iPhone Axiom Termius
+      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJ1DvFTPFiuBAVoq5YXckfcpVyefM1X0+Cn386WQA9N2cU69jUNd9ACXW7Y+X+bfkVs+FWNfcM4Zp1nyUjEAeco="
+      # iPhone FIDO Yubikey Termius
+      "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBGNjljk8LEZ3fHEHUsZNEytQ4sBIbC9U3FII+Ffp2XPFcv3ZpY2a8KGyLklJaogb8GiG8/ef/0yNIE7T/BY7LtcAAAALdGVybWl1cy5jb20="
+      # Macbook Air Axiom Secretive
+      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL9lvfS3kEC4YjMxjkb8CgM5qf7LKSP52YHE4JS21SOmeIA6EkaPT/Uld9+VOrmfefEKPUy9l32NtbfywcDmz5c="
+      # Macbook Air legacy Secretive
+      "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM4PFeUJVWaVQcmUbeo/22FDFRO9/0WYOruBpI0Lr1Q3MchFYKXFwKCfOvavFyGFOUoxa+kabYhbZyrJ+uetZpw="
     ];
   };
 

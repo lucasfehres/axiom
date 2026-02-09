@@ -1,0 +1,23 @@
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+    name: ejbca-postgres
+    namespace: ejbca
+spec:
+    configuration:
+        destinationPath: "s3://lucasfehres.axiom.cnpg/ejbca"
+        endpointURL: https://eu2.contabostorage.com/
+        s3Credentials:
+            accessKeyId:
+                name: axiom-cnpg-s3-creds
+                key: ACCESS_KEY_ID
+            secretAccessKey:
+                name: axiom-cnpg-s3-creds
+                key: ACCESS_SECRET_KEY
+
+        data:
+            compression: bzip2
+        wal:
+            compression: bzip2
+
+    retentionPolicy: "7d"

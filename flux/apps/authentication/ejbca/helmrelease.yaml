@@ -1,0 +1,33 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: ejbca
+    namespace: ejbca
+spec:
+    interval: 30m
+    chartRef:
+        kind: OCIRepository
+        name: ejbca
+        namespace: ejbca
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        ejbca:
+            env:
+                METRICS_ENABLED: true
+            envRaw:
+                - name: DATABASE_JDBC_URL
+                  valueFrom:
+                      secretKeyRef:
+                          name: ejbca-postgres-app
+                          key: jdbc-uri
+
+        services:
+            proxyHttp:
+                enabled: true

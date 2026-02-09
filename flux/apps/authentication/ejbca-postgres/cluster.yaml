@@ -1,0 +1,21 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+    name: ejbca-postgres
+    namespace: ejbca
+spec:
+    instances: 1
+    storage:
+        storageClass: rook-ceph-block
+        size: 500Mi
+
+    plugins:
+        - name: barman-cloud.cloudnative-pg.io
+          isWALArchiver: true
+          parameters:
+              barmanObjectName: ejbca-postgres
+
+        # - name: barman-cloud.cloudnative-pg.io
+        #   isWALArchiver: false
+        #   parameters:
+        #       barmanObjectName: ejbca-postgres-b2

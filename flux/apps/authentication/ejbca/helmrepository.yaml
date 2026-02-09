@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+    name: ejbca
+    namespace: ejbca
+spec:
+    interval: 5m0s
+    url: oci://repo.keyfactor.com/charts/ejbca-ce
+    ref:
+        tag: latest
