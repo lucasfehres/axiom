@@ -202,7 +202,7 @@ spec:
                 receivers:
                     - name: "Axiom Notifications"
                       telegram_configs:
-                          - chat_id: 3735046157
+                          - chat_id: -1003735046157
                             bot_token_file: /secrets/axiom-telegrambot-alertmanager/token
             alertmanagerSpec:
                 volumes:
