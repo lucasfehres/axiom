@@ -1,0 +1,16 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TLSRoute
+metadata:
+    name: ejbca
+    namespace: ejbca
+spec:
+    parentRefs:
+        - name: tls-gateway
+          namespace: ejbca
+          sectionName: ejbca-passthrough
+    hostnames:
+        - "ejbca.axiom.lucasfehres.nl"
+    rules:
+        - backendRefs:
+              - name: ejbca
+                port: 8082
