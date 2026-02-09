@@ -7,4 +7,5 @@ resources:
     - object-storage-b2.yaml
     - monitor.yaml
     - backup.yaml
-    - tcproute.yaml
+    # BLOCKED: https://github.com/cilium/cilium/issues/21929
+    # - tcproute.yaml
