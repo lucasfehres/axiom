@@ -7,3 +7,4 @@ resources:
     - object-storage-b2.yaml
     - monitor.yaml
     - backup.yaml
+    - tcproute.yaml
