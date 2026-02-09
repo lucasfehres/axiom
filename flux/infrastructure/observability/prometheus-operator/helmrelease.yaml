@@ -180,9 +180,9 @@ spec:
                         revision: 9
                         datasource: Prometheus
                 proxmox:
-                    proxmox-via-prometheus:
-                        gnetId: 10347
-                        revision: 5
+                    proxmox-otel:
+                        gnetId: 23855
+                        revision: 1
                         datasource: Prometheus
 
         alertmanager:
@@ -193,6 +193,10 @@ spec:
                     group_wait: 10s
                     group_interval: 10s
                     repeat_interval: 12h
+                    routes:
+                        - matchers:
+                              - alertname = "Watchdog"
+                          receiver: null
                 receivers:
                     - name: "Axiom Notifications"
                       telegram_configs:
