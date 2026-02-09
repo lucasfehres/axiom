@@ -9,6 +9,7 @@ spec:
           namespace: kube-system
     hostnames:
         - "harbor.axiom.lucasfehres.nl"
+        - "registry.axiom.lucasfehres.nl"
     rules:
         - backendRefs:
               - name: external-harbor
