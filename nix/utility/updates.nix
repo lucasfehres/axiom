@@ -1,8 +1,8 @@
-{ inputs, ... }:
+{ config, ... }:
 {
     system.autoUpgrade = {
       enable = true;
-      flake = inputs.self.outPath;
+      flake = "github:lucasfehres/axiom?dir=nix#${config.networking.hostName}";
       flags = [
         "--print-build-logs"
       ];

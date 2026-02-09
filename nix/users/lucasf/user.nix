@@ -55,7 +55,7 @@
                 let host = (sys host | get hostname)
                 let pwd = (pwd)
 
-                $"($host) ($pwd)> "
+                $"($host) ($pwd) "
             }
         '';
     };
