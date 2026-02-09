@@ -16,8 +16,6 @@ spec:
                   serviceTemplate:
                       metadata:
                           name: "harbor-postgres-lb"
-                          annotations:
-                              io.cilium/lb-ipam-ips: "10.67.1.103"
                       spec:
                           type: LoadBalancer
 
