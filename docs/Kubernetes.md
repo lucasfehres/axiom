@@ -38,7 +38,7 @@ metadata:
     namespace: kube-system
 type: Opaque
 stringData:
-    api-token: <API Token>
+    apiKey: <API Token>
 ```
 
 ```yaml
