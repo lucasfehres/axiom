@@ -40,7 +40,7 @@ spec:
         spec:
             containers:
                 - args:
-                      - -a
+                      - -a=true
                       - -i=kilo0
                       - -p=9586
                   image: mindflavor/prometheus-wireguard-exporter
