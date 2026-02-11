@@ -1,0 +1,17 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+    name: infrastructure-rook-ceph-object
+    namespace: flux-system
+spec:
+    dependsOn:
+        - name: infrastructure-rook-ceph
+    interval: 10m
+    sourceRef:
+        kind: GitRepository
+        name: flux-system
+    path: ./flux/infrastructure/rook-ceph-object
+    # DO NOT PRUNE CEPH
+    prune: false
+    wait: true
+    timeout: 10m

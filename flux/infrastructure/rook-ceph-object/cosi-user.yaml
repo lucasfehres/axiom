@@ -1,0 +1,13 @@
+# The Ceph-COSI driver needs a privileged user for each CephObjectStore
+# in order to provision buckets and users
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStoreUser
+metadata:
+    name: cosi
+    namespace: rook-ceph # rook operator namespace
+spec:
+    displayName: "cosi user"
+    store: object-store # name of the CephObjectStore
+    capabilities:
+        bucket: "*"
+        user: "*"
