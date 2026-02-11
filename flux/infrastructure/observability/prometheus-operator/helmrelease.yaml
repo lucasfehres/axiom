@@ -147,6 +147,22 @@ spec:
                           editable: true
                           options:
                               path: /var/lib/grafana/dashboards/external-dns
+                        - name: "liqo"
+                          orgId: 1
+                          folder: "Liqo"
+                          type: file
+                          disableDeletion: false
+                          editable: true
+                          options:
+                              path: /var/lib/grafana/dashboards/liqo
+                        - name: "kilo"
+                          orgId: 1
+                          folder: "Kilo"
+                          type: file
+                          disableDeletion: false
+                          editable: true
+                          options:
+                              path: /var/lib/grafana/dashboards/kilo
             dashboards:
                 rookceph:
                     cluster-dashboard:
@@ -182,6 +198,14 @@ spec:
                 cloudnative-pg:
                     dashboard:
                         url: https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/refs/heads/main/charts/cluster/grafana-dashboard.json
+                liqo:
+                    network:
+                        url: https://docs.liqo.io/en/stable/_downloads/23c9cfe11717aa285f2c54173b99fbb6/liqonetwork.json
+                    kubelet:
+                        url: https://docs.liqo.io/en/stable/_downloads/e10a7f3958029c024ea97f3334739440/liqovirtualkubelet.json
+                kilo:
+                    dashboard:
+                        url: https://raw.githubusercontent.com/squat/kilo/main/docs/grafana/kilo.json
                 traefik:
                     traefik-official:
                         gnetId: 17347
