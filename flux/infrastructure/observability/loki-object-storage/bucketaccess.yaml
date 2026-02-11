@@ -1,0 +1,10 @@
+kind: BucketAccess
+apiVersion: objectstorage.k8s.io/v1alpha1
+metadata:
+    name: loki
+    namespace: observability
+spec:
+    bucketAccessClassName: ceph-bac
+    bucketClaimName: loki
+    protocol: s3
+    credentialsSecretName: loki-s3-bucket

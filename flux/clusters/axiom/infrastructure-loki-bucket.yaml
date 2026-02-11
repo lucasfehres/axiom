@@ -1,0 +1,16 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+    name: infrastructure-loki-bucket
+    namespace: flux-system
+spec:
+    dependsOn:
+        - name: infrastructure-rook-ceph-object
+    interval: 10m
+    sourceRef:
+        kind: GitRepository
+        name: flux-system
+    path: ./flux/infrastructure/observability/loki-object-storage
+    prune: true
+    wait: true
+    timeout: 10m
