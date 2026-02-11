@@ -200,9 +200,9 @@ spec:
                         url: https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/refs/heads/main/charts/cluster/grafana-dashboard.json
                 liqo:
                     network:
-                        url: https://docs.liqo.io/en/stable/_downloads/23c9cfe11717aa285f2c54173b99fbb6/liqonetwork.json
+                        url: https://raw.githubusercontent.com/liqotech/liqo/refs/heads/master/docs/_downloads/grafana/liqonetwork.json
                     kubelet:
-                        url: https://docs.liqo.io/en/stable/_downloads/e10a7f3958029c024ea97f3334739440/liqovirtualkubelet.json
+                        url: https://raw.githubusercontent.com/liqotech/liqo/refs/heads/master/docs/_downloads/grafana/liqovirtualkubelet.json
                 kilo:
                     dashboard:
                         url: https://raw.githubusercontent.com/squat/kilo/main/docs/grafana/kilo.json
