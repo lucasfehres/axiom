@@ -5,3 +5,4 @@ resources:
     - client-gateway.yaml
     - configuration.yaml
     - rolebinding.yaml
+    - tenant.yaml
