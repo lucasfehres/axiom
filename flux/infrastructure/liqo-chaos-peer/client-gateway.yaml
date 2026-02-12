@@ -1,0 +1,21 @@
+apiVersion: networking.liqo.io/v1beta1
+kind: GatewayClient
+metadata:
+    labels:
+        liqo.io/remote-cluster-id: axiom
+    name: client
+    namespace: liqo-tenant-axiom
+spec:
+    clientTemplateRef:
+        apiVersion: networking.liqo.io/v1beta1
+        kind: WgGatewayClientTemplate
+        name: wireguard-client
+        namespace: liqo
+    secretRef:
+        name: gw-keys
+    endpoint:
+        addresses:
+            - ds01.fsn1.hw.axiom.lucasfehres.nl
+        port: 30742
+        protocol: UDP
+    mtu: 1340
