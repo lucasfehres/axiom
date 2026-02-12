@@ -44,3 +44,7 @@ spec:
             reflection:
                 service:
                     type: AllowList
+
+        discovery:
+            config:
+                clusterID: chaos

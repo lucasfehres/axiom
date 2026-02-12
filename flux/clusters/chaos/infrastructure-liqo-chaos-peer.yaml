@@ -1,0 +1,16 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+    name: infrastructure-liqo-chaos-peer
+    namespace: flux-system
+spec:
+    dependsOn:
+        - name: infrastructure-liqo-chaos
+    interval: 10m
+    sourceRef:
+        kind: GitRepository
+        name: flux-system
+    path: ./flux/infrastructure/liqo-chaos-peer
+    prune: true
+    wait: true
+    timeout: 10m

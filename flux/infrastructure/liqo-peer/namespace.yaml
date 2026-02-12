@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: liqo-tenant-chaos
+    labels:
+        liqo.io/remote-cluster-id: chaos
+        liqo.io/tenant-namespace: "true"
