@@ -5,3 +5,5 @@ pubkey.yaml
 user.key
 user.csr
 user.crt
+kubeconfig.yaml
+identity.yaml

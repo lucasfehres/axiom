@@ -1,0 +1,19 @@
+apiVersion: authentication.liqo.io/v1beta1
+kind: ResourceSlice
+metadata:
+    annotations:
+        liqo.io/create-virtual-node: "true"
+    labels:
+        liqo.io/remote-cluster-id: chaos
+        liqo.io/remoteID: chaos
+        liqo.io/replication: "true"
+    name: chaos
+    namespace: liqo-tenant-axiom
+spec:
+    class: default
+    providerClusterID: chaos
+    resources:
+        # the available resources are dependent on the amount of nodes available. Whatever is configured
+        # here is just a configurable cap.
+        cpu: 20
+        memory: 128Gi

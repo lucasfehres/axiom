@@ -4,3 +4,6 @@ resources:
     - namespace.yaml
     - server-gateway.yaml
     - configuration.yaml
+    - resourceslice.yaml
+    - offloaded-namespace.yaml
+    - namespaceoffloading.yaml
