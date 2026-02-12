@@ -8,7 +8,7 @@ metadata:
         liqo.io/remoteID: chaos
         liqo.io/replication: "true"
     name: chaos
-    namespace: liqo-tenant-axiom
+    namespace: liqo-tenant-chaos
 spec:
     class: default
     providerClusterID: chaos
