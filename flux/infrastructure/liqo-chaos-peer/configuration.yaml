@@ -1,0 +1,14 @@
+apiVersion: networking.liqo.io/v1beta1
+kind: Configuration
+metadata:
+    labels:
+        liqo.io/remote-cluster-id: axiom
+    name: axiom
+    namespace: liqo-tenant-axiom
+spec:
+    remote:
+        cidr:
+            external:
+                - 10.43.0.0/16
+            pod:
+                - 10.42.0.0/16
