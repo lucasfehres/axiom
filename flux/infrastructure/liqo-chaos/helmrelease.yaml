@@ -38,7 +38,7 @@ spec:
         metrics:
             enabled: true
             prometheusOperator:
-                enabled: true
+                enabled: false
 
         offloading:
             reflection:
