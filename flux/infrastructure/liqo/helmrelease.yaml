@@ -32,7 +32,8 @@ spec:
                 - 10.67.0.0/16
                 - 192.168.0.0/16
 
-        apiServer: 88.99.145.187
+        apiServer:
+            address: "https://ds01.fsn1.hw.axiom.lucasfehres.nl:6443"
 
         metrics:
             enabled: true
