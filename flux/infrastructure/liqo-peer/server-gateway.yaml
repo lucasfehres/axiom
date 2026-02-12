@@ -1,0 +1,20 @@
+apiVersion: networking.liqo.io/v1beta1
+kind: GatewayServer
+metadata:
+    labels:
+        liqo.io/remote-cluster-id: chaos
+    name: server
+    namespace: liqo-tenant-chaos
+spec:
+    endpoint:
+        port: 51840
+        serviceType: NodePort
+        nodePort: 30742
+    mtu: 1340
+    secretRef:
+        name: gw-keys
+    serverTemplateRef:
+        apiVersion: networking.liqo.io/v1beta1
+        kind: WgGatewayServerTemplate
+        name: wireguard-server
+        namespace: liqo
