@@ -4,3 +4,4 @@ resources:
     - namespace.yaml
     - client-gateway.yaml
     - configuration.yaml
+    - rolebinding.yaml

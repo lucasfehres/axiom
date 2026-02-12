@@ -2,3 +2,6 @@ privatekey
 publickey
 wg-secret.yaml
 pubkey.yaml
+user.key
+user.csr
+user.crt
