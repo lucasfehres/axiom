@@ -15,5 +15,5 @@ spec:
     resources:
         # the available resources are dependent on the amount of nodes available. Whatever is configured
         # here is just a configurable cap.
-        cpu: 20
-        memory: 128Gi
+        cpu: 200
+        memory: 1Ti
