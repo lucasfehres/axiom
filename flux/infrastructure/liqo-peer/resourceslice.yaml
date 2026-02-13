@@ -17,3 +17,4 @@ spec:
         # here is just a configurable cap.
         cpu: 200
         memory: 1Ti
+        pods: 1000
