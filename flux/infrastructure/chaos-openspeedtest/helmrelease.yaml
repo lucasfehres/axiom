@@ -1,0 +1,28 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: openspeedtest
+    namespace: chaos-openspeedtest
+spec:
+    interval: 30m
+    chart:
+        spec:
+            chart: openspeedtest
+            version: "0.1.2"
+            sourceRef:
+                kind: HelmRepository
+                name: openspeedtest
+                namespace: chaos-openspeedtest
+            interval: 12h
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        service:
+            type: LoadBalancer
+            port: 80

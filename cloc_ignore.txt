@@ -1,3 +1,6 @@
 flux/clusters/axiom/flux-system/gotk-components.yaml
 flux/clusters/axiom/flux-system/gotk-sync.yaml
 flux/clusters/axiom/flux-system/kustomization.yaml
+flux/clusters/chaos/flux-system/gotk-components.yaml
+flux/clusters/chaos/flux-system/gotk-sync.yaml
+flux/clusters/chaos/flux-system/kustomization.yaml
