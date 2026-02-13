@@ -26,6 +26,13 @@ spec:
         # TODO: configure gateway
         prometheus:
             prometheusSpec:
+                # Thanos handles incoming metrics from Chaos and long term storage on S3
+                thanos:
+                    image: quay.io/thanos/thanos:v0.28.1
+                    objectStorageConfig:
+                        key: thanos.yaml
+                        name: axiom-thanos-objstore-config
+
                 serviceMonitorSelector: {}
                 serviceMonitorSelectorNilUsesHelmValues: false
                 podMonitorSelector: {}

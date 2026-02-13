@@ -203,3 +203,24 @@ stringData:
     ACCESS_KEY_ID: <B2 access key ID>
     ACCESS_SECRET_KEY: <B2 secret access key>
 ```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: axiom-thanos-objstore-config
+    namespace: observability
+data:
+    thanos.yaml: <see below>
+```
+
+(contents of the objectStorageConfig)
+
+```yaml
+type: s3
+config:
+    bucket: thanos
+    endpoint: ams3.digitaloceanspaces.com
+    access_key: XXX
+    secret_key: XXX
+```
