@@ -1,0 +1,62 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: thanos
+    namespace: observability
+spec:
+    interval: 30m
+    chart:
+        spec:
+            chart: thanos
+            version: "17.4.0"
+            sourceRef:
+                kind: HelmRepository
+                name: thanos-bitnami
+                namespace: observability
+            interval: 12h
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        # === Object Storage (shared config) ===
+        existingObjstoreSecret: axiom-thanos-objstore-config
+
+        # === Query (the central query layer) ===
+        query:
+            enabled: true
+            replicaCount: 1
+            stores:
+                # Axiom Prometheus
+                - "dnssrv+_grpc._tcp.prometheus-kube-prometheus-thanos-discovery.observability.svc.cluster.local"
+                # historical S3 data
+                - "dnssrv+_grpc._tcp.thanos-storegateway.observability.svc.cluster.local"
+                # TODO: Chaos Prometheus
+
+        queryFrontend:
+            enabled: true
+            replicaCount: 1
+
+        # === Store Gateway (reads historical blocks from S3) ===
+        storegateway:
+            enabled: true
+            replicaCount: 1
+
+        # === Compactor (downsamples + deduplicates in S3) ===
+        compactor:
+            enabled: true
+            retentionResolutionRaw: 30d
+            retentionResolution5m: 60d
+            retentionResolution1h: 180d
+
+        # === We DON'T need these ===
+        receive:
+            enabled: false
+        ruler:
+            enabled: false
+        bucketweb:
+            enabled: true # optional: nice UI to inspect S3 contents
