@@ -37,6 +37,11 @@ spec:
                         key: thanos.yaml
                         name: axiom-thanos-objstore-config
 
+                externalLabels:
+                    cluster: axiom
+
+                retention: 24h
+
                 serviceMonitorSelector: {}
                 serviceMonitorSelectorNilUsesHelmValues: false
                 podMonitorSelector: {}
@@ -97,7 +102,19 @@ spec:
                             regex: (.+)(?::\d+);(\d+)
                             replacement: $1:$2
 
+        thanosService:
+            enabled: true
+        thanosServiceMonitor:
+            enabled: true
+
         grafana:
+            additionalDataSources:
+                - name: Thanos
+                  type: prometheus
+                  url: http://thanos-query.observability.svc.cluster.local:9090
+                  access: proxy
+                  isDefault: true
+
             dashboardProviders:
                 dashboardproviders.yaml:
                     apiVersion: 1
