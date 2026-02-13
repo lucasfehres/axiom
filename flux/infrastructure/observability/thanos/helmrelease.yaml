@@ -18,6 +18,9 @@ spec:
         remediation:
             retries: 3
     values:
+        global:
+            defaultStorageClass: rook-ceph-block
+
         # === Object Storage (shared config) ===
         existingObjstoreSecret: axiom-thanos-objstore-config
 
@@ -41,12 +44,18 @@ spec:
             enabled: true
             replicaCount: 1
 
+            persistence:
+                size: 4Gi
+
         # === Compactor (downsamples + deduplicates in S3) ===
         compactor:
             enabled: true
             retentionResolutionRaw: 30d
             retentionResolution5m: 60d
             retentionResolution1h: 180d
+
+            persistence:
+                size: 4Gi
 
         # === We DON'T need these ===
         receive:
