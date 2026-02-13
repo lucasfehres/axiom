@@ -5,15 +5,10 @@ metadata:
     namespace: observability
 spec:
     interval: 30m
-    chart:
-        spec:
-            chart: thanos
-            version: "17.3.1"
-            sourceRef:
-                kind: HelmRepository
-                name: thanos-bitnami
-                namespace: observability
-            interval: 12h
+    chartRef:
+        kind: OCIRepository
+        name: thanos-bitnami
+        namespace: observability
     install:
         crds: CreateReplace
         remediation:
