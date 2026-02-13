@@ -1,0 +1,11 @@
+apiVersion: offloading.liqo.io/v1beta1
+kind: NamespaceOffloading
+metadata:
+    name: offloading
+    namespace: observability
+spec:
+    clusterSelector:
+        nodeSelectorTerms: []
+    # observability namespace should not be reused in Chaos!
+    namespaceMappingStrategy: EnforceSameName
+    podOffloadingStrategy: Local

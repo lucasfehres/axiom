@@ -25,6 +25,10 @@ spec:
     values:
         # TODO: configure gateway
         prometheus:
+            service:
+                annotations:
+                    liqo.io/allow-reflection: "true"
+
             prometheusSpec:
                 # Thanos handles incoming metrics from Chaos and long term storage on S3
                 thanos:
