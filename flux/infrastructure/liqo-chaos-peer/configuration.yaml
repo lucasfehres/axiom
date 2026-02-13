@@ -9,6 +9,9 @@ spec:
     remote:
         cidr:
             external:
-                - 10.43.0.0/16
+                - 10.70.0.0/16
             pod:
+                # this one is service, idk
+                - 10.43.0.0/16
+                # actual pods
                 - 10.42.0.0/16
