@@ -114,6 +114,7 @@ spec:
                   url: http://thanos-query.observability.svc.cluster.local:9090
                   access: proxy
                   uid: axiom-thanos
+                  isDefault: true
 
             sidecar:
                 dashboards:
@@ -122,6 +123,10 @@ spec:
                             enabled: true
                         etcd:
                             enabled: true
+
+                datasources:
+                    # Prometheus directly is not the default anymore, instead query Thanos
+                    isDefaultDatasource: false
 
             dashboardProviders:
                 dashboardproviders.yaml:
