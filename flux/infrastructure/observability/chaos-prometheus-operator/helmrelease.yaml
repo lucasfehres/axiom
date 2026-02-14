@@ -92,6 +92,8 @@ spec:
 
             thanosService:
                 enabled: true
+                annotations:
+                    external-dns.alpha.kubernetes.io/hostname: thanos.chaos.axiom.lucasfehres.nl
             thanosServiceMonitor:
                 enabled: true
 
