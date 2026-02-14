@@ -115,6 +115,14 @@ spec:
                   access: proxy
                   uid: axiom-thanos
 
+            sidecar:
+                dashboards:
+                    multicluster:
+                        global:
+                            enabled: true
+                        etcd:
+                            enabled: true
+
             dashboardProviders:
                 dashboardproviders.yaml:
                     apiVersion: 1
