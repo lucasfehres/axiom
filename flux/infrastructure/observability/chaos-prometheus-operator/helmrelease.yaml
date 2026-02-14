@@ -1,0 +1,102 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: prometheus
+    namespace: observability
+spec:
+    interval: 30m
+    chart:
+        spec:
+            chart: kube-prometheus-stack
+            version: "81.3.0"
+            sourceRef:
+                kind: HelmRepository
+                name: prometheus-community
+                namespace: observability
+            interval: 12h
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        prometheus:
+            prometheusSpec:
+                thanos:
+                    image: quay.io/thanos/thanos:v0.28.1
+                    objectStorageConfig:
+                        key: thanos.yaml
+                        name: axiom-thanos-objstore-config
+
+                externalLabels:
+                    cluster: chaos
+
+                retention: 24h
+
+                serviceMonitorSelector: {}
+                serviceMonitorSelectorNilUsesHelmValues: false
+                podMonitorSelector: {}
+                podMonitorSelectorNilUsesHelmValues: false
+                additionalScrapeConfigs:
+                    # # used for Cilium
+                    # - job_name: "kubernetes-pods"
+                    #   kubernetes_sd_configs:
+                    #       - role: pod
+                    #   relabel_configs:
+                    #       - source_labels: [__meta_kubernetes_namespace]
+                    #         action: keep
+                    #         regex: kube-system
+                    #       - source_labels:
+                    #             [
+                    #                 __meta_kubernetes_pod_annotation_prometheus_io_scrape,
+                    #             ]
+                    #         action: keep
+                    #         regex: true
+                    #       - source_labels:
+                    #             [
+                    #                 __address__,
+                    #                 __meta_kubernetes_pod_annotation_prometheus_io_port,
+                    #             ]
+                    #         action: replace
+                    #         regex: ([^:]+)(?::\d+)?;(\d+)
+                    #         replacement: ${1}:${2}
+                    #         target_label: __address__
+
+                    # # used for Cilium Hubble
+                    # - job_name: "kubernetes-endpoints"
+                    #   scrape_interval: 30s
+                    #   kubernetes_sd_configs:
+                    #       - role: endpoints
+                    #   relabel_configs:
+                    #       - source_labels: [__meta_kubernetes_namespace]
+                    #         action: keep
+                    #         regex: kube-system
+                    #       - source_labels:
+                    #             [
+                    #                 __meta_kubernetes_service_annotation_prometheus_io_scrape,
+                    #             ]
+                    #         action: keep
+                    #         regex: true
+                    #       - source_labels:
+                    #             [
+                    #                 __address__,
+                    #                 __meta_kubernetes_service_annotation_prometheus_io_port,
+                    #             ]
+                    #         action: replace
+                    #         target_label: __address__
+                    #         regex: (.+)(?::\d+);(\d+)
+                    #         replacement: $1:$2
+
+            thanosService:
+                enabled: true
+            thanosServiceMonitor:
+                enabled: true
+
+        grafana:
+            enabled: false
+
+        alertmanager:
+            enabled: false
