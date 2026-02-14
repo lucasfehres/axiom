@@ -39,7 +39,7 @@ spec:
                 # historical S3 data
                 - "dnssrv+_grpc._tcp.thanos-storegateway.observability.svc.cluster.local"
                 # TODO: Chaos Prometheus
-                - "grpc://thanos.chaos.axiom.lucasfehres.nl:10901"
+                - "thanos.chaos.axiom.lucasfehres.nl:10901"
 
         queryFrontend:
             enabled: true
