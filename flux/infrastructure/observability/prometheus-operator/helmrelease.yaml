@@ -113,7 +113,7 @@ spec:
                   type: prometheus
                   url: http://thanos-query.observability.svc.cluster.local:9090
                   access: proxy
-                  isDefault: true
+                  uid: axiom-thanos
 
             dashboardProviders:
                 dashboardproviders.yaml:
