@@ -102,10 +102,10 @@ spec:
                             regex: (.+)(?::\d+);(\d+)
                             replacement: $1:$2
 
-        thanosService:
-            enabled: true
-        thanosServiceMonitor:
-            enabled: true
+            thanosService:
+                enabled: true
+            thanosServiceMonitor:
+                enabled: true
 
         grafana:
             additionalDataSources:
