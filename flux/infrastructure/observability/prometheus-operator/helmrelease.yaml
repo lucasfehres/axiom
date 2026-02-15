@@ -42,13 +42,13 @@ spec:
 
                 storageSpec:
                     # preserve some data in Axiom's Ceph so that it isn't lost upon a restart
-                    volumeClaimTemplate:
-                        spec:
-                            storageClassName: rook-ceph-block
-                            accessModes: ["ReadWriteOnce"]
-                            resources:
-                                requests:
-                                    storage: 5Gi
+                    # volumeClaimTemplate:
+                    #     spec:
+                    #         storageClassName: rook-ceph-block
+                    #         accessModes: ["ReadWriteOnce"]
+                    #         resources:
+                    #             requests:
+                    #                 storage: 5Gi
 
                 retention: 24h
 
