@@ -37,6 +37,21 @@ spec:
                         key: thanos.yaml
                         name: axiom-thanos-objstore-config
 
+                    arguments:
+                        - name: objstore.config-file
+                          value: /secrets/axiom-thanos-objstore-config/objstore.yml
+
+                    volumeMounts:
+                        - name: axiom-thanos-objstore-config
+                          mountPath: /secrets/axiom-thanos-objstore-config
+                          readOnly: true
+
+                volumes:
+                    - name: axiom-thanos-objstore-config
+                      secret:
+                          name: axiom-thanos-objstore-config
+                          namespace: observability
+
                 externalLabels:
                     cluster: axiom
 
@@ -290,14 +305,14 @@ spec:
                         # TODO: Should be routed to deadmanssnitch
                         - matchers:
                               - alertname = "Watchdog"
-                          receiver: "null"
+                          receiver: null
                         - matchers:
                               - alertname = "etcdInsufficientMembers"
-                          receiver: "null"
+                          receiver: null
                         - matchers:
                               # bad but not terrible
                               - alertname = "KubeAPIErrorBudgetBurn"
-                          receiver: "null"
+                          receiver: null
                 receivers:
                     - name: "Axiom Notifications"
                       telegram_configs:
