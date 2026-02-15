@@ -228,6 +228,9 @@ spec:
                         url: https://raw.githubusercontent.com/d-uzlov/k8s-homelab/refs/heads/master/metrics/zfs-exporter/dashboards/zfs-vdev-list.json
                     zrepl:
                         url: https://raw.githubusercontent.com/zrepl/zrepl/refs/heads/master/dist/grafana/grafana-prometheus-zrepl.json
+                        datasource:
+                            - name: DS_PROMETHEUS
+                              value: "Thanos"
                 cilium:
                     agent:
                         url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/cilium-agent/dashboards/cilium-dashboard.json
@@ -251,19 +254,19 @@ spec:
                     traefik-official:
                         gnetId: 17347
                         revision: 9
-                        datasource: Prometheus
+                        datasource: Thanos
                 proxmox:
                     proxmox-otel:
                         gnetId: 23855
                         revision: 1
                         datasource:
                             - name: DS_PROMETHEUS
-                              value: "prometheus"
+                              value: "Thanos"
                 external-dns:
                     external-dns:
                         gnetId: 15038
                         revision: 3
-                        datasource: Prometheus
+                        datasource: Thanos
 
         alertmanager:
             config:
