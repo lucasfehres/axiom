@@ -26,7 +26,7 @@ spec:
         prometheus:
             prometheusSpec:
                 thanos:
-                    image: quay.io/thanos/thanos:v0.28.1
+                    image: quay.io/thanos/thanos:v0.39.2
                     objectStorageConfig:
                         key: thanos.yaml
                         name: axiom-thanos-objstore-config

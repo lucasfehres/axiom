@@ -32,7 +32,7 @@ spec:
             prometheusSpec:
                 # Thanos handles incoming metrics from Chaos and long term storage on S3
                 thanos:
-                    image: quay.io/thanos/thanos:v0.28.1
+                    image: quay.io/thanos/thanos:v0.39.2
                     objectStorageConfig:
                         key: thanos.yaml
                         name: axiom-thanos-objstore-config
@@ -49,7 +49,16 @@ spec:
                 additionalScrapeConfigs:
                     - job_name: "zfs-exporter"
                       static_configs:
-                          - targets: ["10.67.1.1:9134"]
+                          - targets:
+                                - "10.67.1.1:9134"
+                                - "192.168.2.40:9134"
+                      metrics_path: /metrics
+                      scrape_interval: 30s
+
+                    - job_name: "zrepl"
+                      static_configs:
+                          - targets:
+                                - "192.168.2.40:9811"
                       metrics_path: /metrics
                       scrape_interval: 30s
 
@@ -196,14 +205,6 @@ spec:
                           editable: true
                           options:
                               path: /var/lib/grafana/dashboards/liqo
-                        - name: "kilo"
-                          orgId: 1
-                          folder: "Kilo"
-                          type: file
-                          disableDeletion: false
-                          editable: true
-                          options:
-                              path: /var/lib/grafana/dashboards/kilo
             dashboards:
                 rookceph:
                     cluster-dashboard:
@@ -225,6 +226,8 @@ spec:
                         url: https://raw.githubusercontent.com/d-uzlov/k8s-homelab/refs/heads/master/metrics/zfs-exporter/dashboards/zfs-vdev-disks.json
                     vdev-list:
                         url: https://raw.githubusercontent.com/d-uzlov/k8s-homelab/refs/heads/master/metrics/zfs-exporter/dashboards/zfs-vdev-list.json
+                    zrepl:
+                        url: https://raw.githubusercontent.com/zrepl/zrepl/refs/heads/master/dist/grafana/grafana-prometheus-zrepl.json
                 cilium:
                     agent:
                         url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/cilium-agent/dashboards/cilium-dashboard.json
@@ -244,9 +247,6 @@ spec:
                         url: https://raw.githubusercontent.com/liqotech/liqo/refs/heads/master/docs/_downloads/grafana/liqonetwork.json
                     kubelet:
                         url: https://raw.githubusercontent.com/liqotech/liqo/refs/heads/master/docs/_downloads/grafana/liqovirtualkubelet.json
-                # kilo:
-                #     dashboard:
-                #         url: https://raw.githubusercontent.com/squat/kilo/main/docs/grafana/kilo.json
                 traefik:
                     traefik-official:
                         gnetId: 17347
@@ -274,9 +274,17 @@ spec:
                     group_interval: 10s
                     repeat_interval: 12h
                     routes:
+                        # TODO: Should be routed to deadmanssnitch
                         - matchers:
                               - alertname = "Watchdog"
-                          receiver: null
+                          receiver: "null"
+                        - matchers:
+                              - alertname = "etcdInsufficientMembers"
+                          receiver: "null"
+                        - matchers:
+                              # bad but not terrible
+                              - alertname = "KubeAPIErrorBudgetBurn"
+                          receiver: "null"
                 receivers:
                     - name: "Axiom Notifications"
                       telegram_configs:
