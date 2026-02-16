@@ -326,6 +326,9 @@ spec:
                       telegram_configs:
                           - chat_id: -1003735046157
                             bot_token_file: /secrets/axiom-telegrambot-alertmanager/token
+                    - name: "Dead Mans Snitch"
+                      webhook_configs:
+                          - url_file: /secrets/axiom-telegrambot-alertmanager/deadmanssnitch
             alertmanagerSpec:
                 volumes:
                     - name: axiom-telegrambot-alertmanager

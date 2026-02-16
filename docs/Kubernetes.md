@@ -62,6 +62,7 @@ metadata:
 type: Opaque
 stringData:
     token: <Telegram BotFather HTTP token>
+    deadmanssnitch: <Dead Man's Snitch webhook>
 ```
 
 ```yaml
