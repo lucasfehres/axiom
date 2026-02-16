@@ -7,6 +7,7 @@ metadata:
 spec:
     dependsOn:
         # cluster won't deploy if the Prometheus types don't exist
+        # TODO: circular dependency on observability stack
         - name: infrastructure-observability
         - name: infrastructure-rook-ceph-operator
     interval: 10m

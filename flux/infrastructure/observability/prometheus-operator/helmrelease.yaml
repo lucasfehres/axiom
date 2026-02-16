@@ -46,6 +46,9 @@ spec:
                           mountPath: /secrets/axiom-thanos-objstore-config
                           readOnly: true
 
+                # Disabled for Thanos
+                disableCompaction: true
+
                 volumes:
                     - name: axiom-thanos-objstore-config
                       secret:
@@ -55,14 +58,15 @@ spec:
                     cluster: axiom
 
                 storageSpec:
-                    # preserve some data in Axiom's Ceph so that it isn't lost upon a restart
-                    # volumeClaimTemplate:
-                    #     spec:
-                    #         storageClassName: rook-ceph-block
-                    #         accessModes: ["ReadWriteOnce"]
-                    #         resources:
-                    #             requests:
-                    #                 storage: 5Gi
+                    # preserve some data in Axiom's Ceph so that it isn't lost upon a restart and
+                    # that it can be accessed and archived by Thanos
+                    volumeClaimTemplate:
+                        spec:
+                            storageClassName: rook-ceph-block
+                            accessModes: ["ReadWriteOnce"]
+                            resources:
+                                requests:
+                                    storage: 5Gi
 
                 retention: 24h
 

@@ -31,6 +31,23 @@ spec:
                         key: thanos.yaml
                         name: axiom-thanos-objstore-config
 
+                    additionalArgs:
+                        - name: objstore.config-file
+                          value: /secrets/axiom-thanos-objstore-config/objstore.yml
+
+                    volumeMounts:
+                        - name: axiom-thanos-objstore-config
+                          mountPath: /secrets/axiom-thanos-objstore-config
+                          readOnly: true
+
+                # Disabled for Thanos
+                disableCompaction: true
+
+                volumes:
+                    - name: axiom-thanos-objstore-config
+                      secret:
+                          secretName: axiom-thanos-objstore-config
+
                 externalLabels:
                     cluster: chaos
 
