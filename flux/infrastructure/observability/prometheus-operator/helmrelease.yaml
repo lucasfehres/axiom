@@ -45,6 +45,9 @@ spec:
                         - name: axiom-thanos-objstore-config
                           mountPath: /secrets/axiom-thanos-objstore-config
                           readOnly: true
+                          # provides WAL
+                        - name: prometheus-prometheus-kube-prometheus-prometheus-db
+                          mountPath: /data
 
                 # Disabled for Thanos
                 disableCompaction: true
