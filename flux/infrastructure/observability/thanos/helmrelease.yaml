@@ -29,6 +29,13 @@ spec:
         # === Object Storage (shared config) ===
         existingObjstoreSecret: axiom-thanos-objstore-config
 
+        metrics:
+            enabled: true
+            serviceMonitor:
+                enabled: true
+            prometheusRule:
+                enabled: true
+
         # === Query (the central query layer) ===
         query:
             enabled: true
