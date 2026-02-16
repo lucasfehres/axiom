@@ -55,7 +55,7 @@ spec:
 
         # === Compactor (downsamples + deduplicates in S3) ===
         compactor:
-            enabled: false
+            enabled: true
             retentionResolutionRaw: 30d
             retentionResolution5m: 60d
             retentionResolution1h: 180d
