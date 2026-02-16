@@ -17,5 +17,5 @@
       extraGroups = [
         "podman"
       ];
-    }
+    };
 }
