@@ -48,6 +48,7 @@ spec:
                           # provides WAL
                         - name: prometheus-prometheus-kube-prometheus-prometheus-db
                           mountPath: /data
+                          subPath: prometheus-db
 
                 # Disabled for Thanos
                 disableCompaction: true
