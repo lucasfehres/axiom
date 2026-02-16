@@ -40,6 +40,8 @@ spec:
                     additionalArgs:
                         - name: objstore.config-file
                           value: /secrets/axiom-thanos-objstore-config/objstore.yml
+                        - name: tsdb.path
+                          value: /data/prometheus-db
 
                     volumeMounts:
                         - name: axiom-thanos-objstore-config
@@ -48,7 +50,6 @@ spec:
                           # provides WAL
                         - name: prometheus-prometheus-kube-prometheus-prometheus-db
                           mountPath: /data
-                          subPath: prometheus-db
 
                 # Disabled for Thanos
                 disableCompaction: true
