@@ -4,9 +4,6 @@ metadata:
     name: infrastructure-rook-ceph-operator
     namespace: flux-system
 spec:
-    dependsOn:
-        # cluster won't deploy if the Prometheus types don't exist
-        - name: infrastructure-observability
     interval: 10m
     sourceRef:
         kind: GitRepository
