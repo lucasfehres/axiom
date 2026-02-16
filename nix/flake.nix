@@ -62,6 +62,10 @@
         axiom-vm-utility = commonModules ++ [
           ./hosts/axiom-vm-utility/configuration.nix
         ];
+        axiom-vm-games = commonModules ++ [
+          ./hosts/axiom-vm-games/configuration.nix
+          ./services/podman/podman.nix
+        ]
       };
     in
     {
