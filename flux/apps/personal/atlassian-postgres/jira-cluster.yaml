@@ -9,6 +9,11 @@ spec:
         storageClass: rook-ceph-block
         size: 1Gi
 
+    # makes sure archives to S3 happen even if not that much data was touched in the DB
+    postgresql:
+        parameters:
+            archive_timeout: "15m"
+
     plugins:
         - name: barman-cloud.cloudnative-pg.io
           isWALArchiver: true
