@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+    name: etcd
+    namespace: kube-system
+spec:
+    selector:
+        matchLabels:
+            component: etcd
+    podMetricsEndpoints:
+        - port: metrics
