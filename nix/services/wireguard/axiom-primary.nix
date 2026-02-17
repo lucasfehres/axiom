@@ -70,6 +70,14 @@
               "10.67.3.0/24"
           ];
         }
+        {
+          # cloudwise lucas-test-dc01
+          PublicKey = "FmueXR9v4FXkCI5bqYhImJq2cBMwbKhE9jQyNpzM5ng=";
+          AllowedIPs = [
+              "10.67.2.4/32"
+              "10.171.0.0/16"
+          ]
+        }
       ];
     };
   };
