@@ -37,6 +37,7 @@ spec:
         providers:
             kubernetesGateway:
                 enabled: true
+                experimentalChannel: true
         service:
             # disable service in favor of gateways
             enabled: false
