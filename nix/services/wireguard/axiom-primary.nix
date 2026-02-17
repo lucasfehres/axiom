@@ -78,6 +78,7 @@
           PublicKey = "FmueXR9v4FXkCI5bqYhImJq2cBMwbKhE9jQyNpzM5ng=";
           AllowedIPs = [
               "10.67.2.4/32"
+              "10.67.1.0/24"
               "10.171.0.0/16"
           ];
         }

@@ -46,7 +46,7 @@ spec:
               #- PERFMON
               #- BPF
 
-        devices: "!liqo.*"
+        devices: "!liqo.* ens18"
         affinity:
           nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
