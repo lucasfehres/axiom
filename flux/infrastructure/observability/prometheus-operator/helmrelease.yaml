@@ -344,11 +344,8 @@ spec:
                           receiver: "Dead Mans Snitch"
                         - matchers:
                               - alertname = "etcdInsufficientMembers"
-                          receiver: null
-                        - matchers:
-                              # bad but not terrible
-                              - alertname = "KubeAPIErrorBudgetBurn"
-                          receiver: null
+                          # effectively a dead hole
+                          receiver: "Dead Mans Snitch"
                 receivers:
                     - name: "Axiom Notifications"
                       telegram_configs:

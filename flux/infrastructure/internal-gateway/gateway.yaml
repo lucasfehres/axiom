@@ -6,10 +6,9 @@ metadata:
     annotations:
         cert-manager.io/cluster-issuer: letsencrypt
 spec:
-    gatewayClassName: traefik
+    gatewayClassName: cilium
     listeners:
         # should not have more than 50 here due to letsencrypt rate limiting https://letsencrypt.org/docs/rate-limits/
-        # mTLS depends on https://github.com/traefik/traefik/issues/11975
         - name: https
           protocol: HTTPS
           port: 443
