@@ -5,7 +5,7 @@ metadata:
     namespace: observability
 spec:
     parentRefs:
-        - name: tls-gateway
+        - name: internal-gateway
           namespace: kube-system
     hostnames:
         - "grafana.axiom.lucasfehres.nl"
