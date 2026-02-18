@@ -24,7 +24,15 @@ spec:
                     name: tls-gateway-cert
           allowedRoutes:
               namespaces:
-                  from: All
+                  from: Selector
+                  selector:
+                      # Important for every unscoped subdomain!
+                      matchExpressions:
+                          - key: axiom.lucasfehres.nl/internal
+                            operator: NotIn
+                            values:
+                                - "true"
+
         - name: https-che-ood
           protocol: HTTPS
           port: 443
@@ -51,16 +59,3 @@ spec:
           allowedRoutes:
               namespaces:
                   from: All
-
-        - name: ejbca-passthrough
-          port: 443
-          protocol: TLS
-          hostname: "ejbca.axiom.lucasfehres.nl"
-          tls:
-              mode: Passthrough
-          allowedRoutes:
-              namespaces:
-                  from: Selector
-                  selector:
-                      matchLabels:
-                          kubernetes.io/metadata.name: ejbca
