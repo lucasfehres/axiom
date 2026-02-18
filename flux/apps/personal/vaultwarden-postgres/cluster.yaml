@@ -12,7 +12,7 @@ spec:
     # makes sure archives to S3 happen even if not that much data was touched in the DB
     postgresql:
         parameters:
-            archive_timeout: "15m"
+            archive_timeout: "15min"
 
     plugins:
         - name: barman-cloud.cloudnative-pg.io
