@@ -11,7 +11,7 @@ spec:
         annotations:
             external-dns.alpha.kubernetes.io/hostname: >-
                 thisfirstonedoesabsolutelynothing.axiom.lucasfehes.nl,
-                *.interal.axiom.lucasfehres.nl,
+                *.internal.axiom.lucasfehres.nl,
                 grafana.axiom.lucasfehres.nl,
                 harbor.axiom.lucasfehres.nl
 
