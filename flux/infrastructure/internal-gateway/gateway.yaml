@@ -7,6 +7,13 @@ metadata:
         cert-manager.io/cluster-issuer: letsencrypt
 spec:
     gatewayClassName: cilium
+    infrastructure:
+        annotations:
+            external-dns.alpha.kubernetes.io/hostname: >-
+                *.internal.axiom.lucasfehes.nl,
+                grafana.axiom.lucasfehres.nl,
+                harbor.axiom.lucasfehres.nl
+
     listeners:
         # should not have more than 50 here due to letsencrypt rate limiting https://letsencrypt.org/docs/rate-limits/
         - name: https
