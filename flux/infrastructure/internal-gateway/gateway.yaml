@@ -1,0 +1,35 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+    name: internal-gateway
+    namespace: kube-system
+    annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+spec:
+    gatewayClassName: traefik
+    listeners:
+        # should not have more than 50 here due to letsencrypt rate limiting https://letsencrypt.org/docs/rate-limits/
+        # mTLS depends on https://github.com/traefik/traefik/issues/11975
+        - name: https
+          protocol: HTTPS
+          port: 443
+          hostname: "*.axiom.lucasfehres.nl"
+          tls:
+              certificateRefs:
+                  - kind: Secret
+                    name: tls-gateway-cert
+          allowedRoutes:
+              namespaces:
+                  from: All
+
+        - name: https
+          protocol: HTTPS
+          port: 443
+          hostname: "*.internal.axiom.lucasfehres.nl"
+          tls:
+              certificateRefs:
+                  - kind: Secret
+                    name: tls-gateway-internal-cert
+          allowedRoutes:
+              namespaces:
+                  from: All
