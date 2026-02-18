@@ -10,7 +10,10 @@ spec:
     infrastructure:
         annotations:
             external-dns.alpha.kubernetes.io/hostname: >-
-                *.internal.axiom.lucasfehes.nl,
+                alertmanager.internal.axiom.lucasfehes.nl,
+                prometheus.internal.axiom.lucasfehres.nl,
+                thanos-bucketweb.internal.axiom.lucasfehres.nl,
+                thanos-query.internal.axiom.lucasfehres.nl,
                 grafana.axiom.lucasfehres.nl,
                 harbor.axiom.lucasfehres.nl
 

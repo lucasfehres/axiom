@@ -37,3 +37,43 @@ spec:
           backendRefs:
               - name: prometheus-kube-prometheus-alertmanager
                 port: 9093
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+    name: thanos-bucketweb
+    namespace: observability
+spec:
+    parentRefs:
+        - name: internal-gateway
+          namespace: kube-system
+    hostnames:
+        - "thanos-bucketweb.internal.axiom.lucasfehres.nl"
+    rules:
+        - matches:
+              - path:
+                    type: PathPrefix
+                    value: /
+          backendRefs:
+              - name: thanos-bucketweb
+                port: 8080
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+    name: thanos-query
+    namespace: observability
+spec:
+    parentRefs:
+        - name: internal-gateway
+          namespace: kube-system
+    hostnames:
+        - "thanos-query.internal.axiom.lucasfehres.nl"
+    rules:
+        - matches:
+              - path:
+                    type: PathPrefix
+                    value: /
+          backendRefs:
+              - name: thanos-query-frontend
+                port: 9090
