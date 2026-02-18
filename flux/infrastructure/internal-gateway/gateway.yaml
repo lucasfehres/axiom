@@ -22,7 +22,7 @@ spec:
               namespaces:
                   from: All
 
-        - name: https
+        - name: internal-https
           protocol: HTTPS
           port: 443
           hostname: "*.internal.axiom.lucasfehres.nl"
