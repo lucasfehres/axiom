@@ -4,29 +4,21 @@
   pkgs,
   ...
 }:
-
-{
-  virtualisation.podman.enable = true;
-  virtualisation.oci-containers.backend = "podman";
-
-  environment.etc."kepler/config.yaml".text = ''
+let
+  keplerConfig = pkgs.writeText "kepler-config.yaml" ''
     log:
       level: info
       format: text
-
     monitor:
       interval: 5s
       staleness: 1000ms
       maxTerminated: 500
       minTerminatedEnergyThreshold: 10
-
     host:
       procfs: /host/proc
       sysfs: /host/sys
-
     rapl:
       zones: []
-
     exporter:
       stdout:
         enabled: false
@@ -35,14 +27,16 @@
         metricsLevel:
           - node
           - process
-
     kube:
       enable: false
-
     web:
       listenAddresses:
         - ":28282"
   '';
+in
+{
+  virtualisation.podman.enable = true;
+  virtualisation.oci-containers.backend = "podman";
 
   virtualisation.oci-containers.containers.kepler = {
     image = "quay.io/sustainable_computing_io/kepler:latest";
@@ -52,7 +46,7 @@
     volumes = [
       "/proc:/host/proc:ro"
       "/sys:/host/sys:ro"
-      "/etc/kepler:/etc/kepler:ro"
+      "${keplerConfig}:/etc/kepler/config.yaml:ro"
     ];
 
     extraOptions = [
