@@ -10,6 +10,7 @@
     ./security.nix
     ./openssh.nix
     ./updates.nix
+    ../services/monitoring/monitoring.nix
   ];
 
   environment.systemPackages = [
