@@ -2,10 +2,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
-    # scaphandre is marked broken ):
-    # https://github.com/hubblo-org/scaphandre/issues/403
-    nixpkgs.config.allowBroken = true;
-
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
