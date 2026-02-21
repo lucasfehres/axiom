@@ -9,6 +9,41 @@
   virtualisation.podman.enable = true;
   virtualisation.oci-containers.backend = "podman";
 
+  environment.etc."kepler/config.yaml".text = ''
+    log:
+      level: info
+      format: text
+
+    monitor:
+      interval: 5s
+      staleness: 1000ms
+      maxTerminated: 500
+      minTerminatedEnergyThreshold: 10
+
+    host:
+      procfs: /host/proc
+      sysfs: /host/sys
+
+    rapl:
+      zones: []
+
+    exporter:
+      stdout:
+        enabled: false
+      prometheus:
+        enabled: true
+        metricsLevel:
+          - node
+          - process
+
+    kube:
+      enable: false
+
+    web:
+      listenAddresses:
+        - ":28282"
+  '';
+
   virtualisation.oci-containers.containers.kepler = {
     image = "quay.io/sustainable_computing_io/kepler:latest";
 
@@ -22,17 +57,11 @@
     extraOptions = [
       "--privileged"
       "--pid=host"
+      "/etc/kepler:/etc/kepler:ro"
     ];
 
     cmd = [
-      "--host.procfs=/host/proc"
-      "--host.sysfs=/host/sys"
-      "--metrics=node"
-      "--metrics=process"
-      "--kube.enable=false"
-      "--exporter.stdout=false"
-      "--monitor.max-terminated=500"
-      "--web.listen-address=:28282"
+      "--config.file=/etc/kepler/config.yaml"
     ];
 
     autoStart = true;

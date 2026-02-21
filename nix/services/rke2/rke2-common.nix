@@ -20,4 +20,6 @@
       settings.advertise-address = config.axiom.host.ipv4;
       settings.node-ip = config.axiom.host.ipv4;
     };
+
+    boot.kernelModules = [ "rbd" "nbd" ];
 }
