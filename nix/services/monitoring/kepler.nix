@@ -52,12 +52,12 @@
     volumes = [
       "/proc:/host/proc:ro"
       "/sys:/host/sys:ro"
+      "/etc/kepler:/etc/kepler:ro"
     ];
 
     extraOptions = [
       "--privileged"
       "--pid=host"
-      "/etc/kepler:/etc/kepler:ro"
     ];
 
     cmd = [
