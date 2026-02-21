@@ -25,18 +25,7 @@
       home-manager
     }:
     let
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config = {
-          # scaphandre is marked broken ):
-          # https://github.com/hubblo-org/scaphandre/issues/403
-          allowBroken = true;
-        };
-      };
-
       commonModules = [
-        { nixpkgs.pkgs = pkgs; }
-
         disko.nixosModules.disko
         agenix.nixosModules.default
         home-manager.nixosModules.home-manager

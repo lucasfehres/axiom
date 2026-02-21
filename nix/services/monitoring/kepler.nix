@@ -12,7 +12,7 @@
   virtualisation.oci-containers.containers.kepler = {
     image = "quay.io/sustainable_computing_io/kepler:latest";
 
-    ports = [ "192.168.3.2:28282:28282" "127.0.0.1:28282:28282" ];
+    ports = [ "127.0.0.1:28282:28282" ];
 
     volumes = [
       "/proc:/host/proc:ro"
