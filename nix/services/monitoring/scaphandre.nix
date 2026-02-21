@@ -13,8 +13,4 @@
   };
 
   boot.kernelModules = [ "intel_rapl_common" ];
-
-  # scaphandre is marked broken ):
-  # https://github.com/hubblo-org/scaphandre/issues/403
-  nixpkgs.config.allowBroken = true;
 }
