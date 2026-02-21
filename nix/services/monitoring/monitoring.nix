@@ -7,6 +7,6 @@
 
 {
   imports = [
-    ./scaphandre.nix
+    ./kepler.nix
   ];
 }
