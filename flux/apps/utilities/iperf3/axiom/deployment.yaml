@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: iperf3-server
+    namespace: iperf3
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: iperf3
+    template:
+        metadata:
+            labels:
+                app: iperf3
+        spec:
+            containers:
+                - name: iperf3
+                  image: networkstatic/iperf3
+                  args: ["-s"]
+                  ports:
+                      - containerPort: 5201
+                        protocol: TCP

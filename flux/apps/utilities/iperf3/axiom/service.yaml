@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: iperf3-server
+    namespace: iperf3
+    annotations:
+        external-dns.alpha.kubernetes.io/hostname: iperf3.axiom.lucasfehres.nl
+spec:
+    type: LoadBalancer
+    selector:
+        app: iperf3
+    ports:
+        - port: 5201
+          targetPort: 5201
+          protocol: TCP
