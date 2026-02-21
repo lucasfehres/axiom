@@ -2,9 +2,9 @@ apiVersion: networking.liqo.io/v1beta1
 kind: GatewayServer
 metadata:
     labels:
-        liqo.io/remote-cluster-id: chaos
+        liqo.io/remote-cluster-id: chaos-2
     name: server
-    namespace: liqo-tenant-chaos
+    namespace: liqo-tenant-chaos-2
 spec:
     endpoint:
         port: 51840

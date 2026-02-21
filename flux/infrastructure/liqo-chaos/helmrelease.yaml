@@ -33,7 +33,7 @@ spec:
                 - 192.168.0.0/16
 
         apiServer:
-            address: "https://hcp-af7d3cef-fc72-4b18-8ae4-d6d6bb862d4a.spot.rackspace.com"
+            address: "https://hcp-a0334cc9-e2db-451a-921b-65998a8ab326.spot.rackspace.com"
 
         metrics:
             enabled: true

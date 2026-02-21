@@ -2,9 +2,9 @@ apiVersion: networking.liqo.io/v1beta1
 kind: Configuration
 metadata:
     labels:
-        liqo.io/remote-cluster-id: chaos
-    name: chaos
-    namespace: liqo-tenant-chaos
+        liqo.io/remote-cluster-id: chaos-2
+    name: chaos-2
+    namespace: liqo-tenant-chaos-2
 spec:
     remote:
         cidr:

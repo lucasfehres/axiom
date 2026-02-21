@@ -4,14 +4,14 @@ metadata:
     annotations:
         liqo.io/create-virtual-node: "true"
     labels:
-        liqo.io/remote-cluster-id: chaos
-        liqo.io/remoteID: chaos
+        liqo.io/remote-cluster-id: chaos-2
+        liqo.io/remoteID: chaos-2
         liqo.io/replication: "true"
-    name: chaos
-    namespace: liqo-tenant-chaos
+    name: chaos-2
+    namespace: liqo-tenant-chaos-2
 spec:
     class: default
-    providerClusterID: chaos
+    providerClusterID: chaos-2
     resources:
         # the available resources are dependent on the amount of nodes available. Whatever is configured
         # here is just a configurable cap.

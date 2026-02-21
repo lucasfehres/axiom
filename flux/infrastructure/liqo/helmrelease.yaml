@@ -23,6 +23,9 @@ spec:
         remediation:
             retries: 3
     values:
+        # TODO: schedule downtime and put some limits on the gw-server and gw-client. There is a bug
+        # where it may loop when applying firewall configurations, using 700 mCPU.
+
         # cilium !
         ipam:
             # Cilium uses per-node CIDRs, but this encompasses all of 'em
