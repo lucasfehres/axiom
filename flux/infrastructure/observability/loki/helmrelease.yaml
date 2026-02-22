@@ -23,6 +23,9 @@ spec:
         remediation:
             retries: 3
     values:
+        global:
+            dnsService: rke2-coredns-rke2-coredns
+
         loki:
             storage:
                 bucketNames:
@@ -46,7 +49,7 @@ spec:
 
             # https://grafana.com/docs/loki/latest/operations/storage/retention/#compactor
             compactor:
-                working_directory: /data/retention
+                working_directory: /tmp/retention
                 compaction_interval: 10m
                 retention_enabled: true
                 retention_delete_delay: 2h
