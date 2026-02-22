@@ -35,12 +35,9 @@ spec:
                 use_thanos_objstore: true
                 object_store:
                     s3:
-                        # really unforunate to store secrets here but the bucket is provisioned
-                        # using COSI and that just isn't supported by the Loki helm chart
-                        # it's cluster internal though
                         endpoint: eu2.contabostorage.com
-                        access_key_id: ${GRAFANA-LOKI-S3-ACCESKEYID}
-                        secret_access_key: ${GRAFANA-LOKI-S3-SECRETACCESSKEY}
+                        access_key_id: "${GRAFANALOKIS3ACCESKEYID}"
+                        secret_access_key: "${GRAFANALOKIS3SECRETACCESSKEY}"
                         insecure: false
 
             ui:
@@ -84,12 +81,12 @@ spec:
             extraArgs:
                 - "-config.expand-env=true"
             extraEnv:
-                - name: GRAFANA-LOKI-S3-ACCESKEYID
+                - name: GRAFANALOKIS3ACCESKEYID
                   valueFrom:
                       secretKeyRef:
                           name: axiom-s3-creds
                           key: ACCESS_KEY_ID
-                - name: GRAFANA-LOKI-S3-SECRETACCESSKEY
+                - name: GRAFANALOKIS3SECRETACCESSKEY
                   valueFrom:
                       secretKeyRef:
                           name: axiom-s3-creds
