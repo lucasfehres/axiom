@@ -162,7 +162,7 @@ spec:
                   url: http://loki-read.observability.svc.cluster.local:3100
                   access: proxy
                   uid: axiom-loki
-                  isDefault: true
+                  isDefault: false
 
             sidecar:
                 dashboards:
