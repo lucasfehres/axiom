@@ -36,9 +36,10 @@ spec:
                         # really unforunate to store secrets here but the bucket is provisioned
                         # using COSI and that just isn't supported by the Loki helm chart
                         # it's cluster internal though
-                        endpoint: http://rook-ceph-rgw-object-store.rook-ceph.svc:80
+                        endpoint: rook-ceph-rgw-object-store.rook-ceph.svc:80
                         access_key_id: PRT7N6RLF5X93V9IBKJH
                         secret_access_key: nYi6I4ER2Mdy3xPTv52BWpalJC1232FWAgWjTBlz
+                        insecure: true
 
             ui:
                 enabled: true
@@ -62,3 +63,18 @@ spec:
                       store: tsdb
             limits_config:
                 retention_period: 168h
+
+        write:
+            replicas: 1
+            persistence:
+                storageClass: rook-ceph-block
+                size: 2Gi
+
+        read:
+            replicas: 1
+
+        backend:
+            replicas: 1
+            persistence:
+                storageClass: rook-ceph-block
+                size: 2Gi
