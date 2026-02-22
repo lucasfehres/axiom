@@ -60,7 +60,7 @@ in
             {
               name = "loki";
               match = "*";
-              labels = "job=nix-fluentbit, host=${config.networking.hostName}, unit=$_SYSTEMD_UNIT, priority=$PRIORITY";
+              labels = "job=nix-fluentbit, host=${config.networking.hostName}, unit=$_SYSTEMD_UNIT, priority=$PRIORITY, level=$level";
 
               host = "loki-write.internal.axiom.lucasfehres.nl";
               port = 443;
