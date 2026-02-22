@@ -225,3 +225,14 @@ config:
     access_key: XXX
     secret_key: XXX
 ```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: axiom-s3-creds
+    namespace: observability
+stringData:
+    ACCESS_KEY_ID: <S3 access key ID>
+    ACCESS_SECRET_KEY: <S3 secret access key>
+```

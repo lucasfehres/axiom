@@ -29,9 +29,8 @@ spec:
         loki:
             storage:
                 bucketNames:
-                    # will it be happy sharing a bucket? i don't know
-                    chunks: loki-chunks-d3a95f78-ce55-45d6-9335-e445183caa2f
-                    ruler: loki-chunks-d3a95f78-ce55-45d6-9335-e445183caa2f
+                    chunks: lucasfehres.axiom.loki.chunks
+                    ruler: lucasfehres.axiom.loki.ruler
 
                 use_thanos_objstore: true
                 object_store:
@@ -39,10 +38,10 @@ spec:
                         # really unforunate to store secrets here but the bucket is provisioned
                         # using COSI and that just isn't supported by the Loki helm chart
                         # it's cluster internal though
-                        endpoint: rook-ceph-object.internal.axiom.lucasfehres.nl
-                        access_key_id: MMAMMXTM7COCR6PJV8M8
-                        secret_access_key: 5pwOqYGK1HXWV8PUV3uCezFqDkZoHdJbRlC6o5St
-                        insecure: true
+                        endpoint: eu2.contabostorage.com
+                        access_key_id: ${GRAFANA-LOKI-S3-ACCESKEYID}
+                        secret_access_key: ${GRAFANA-LOKI-S3-SECRETACCESSKEY}
+                        insecure: false
 
             ui:
                 enabled: true
@@ -81,6 +80,20 @@ spec:
             persistence:
                 storageClass: rook-ceph-block
                 size: 2Gi
+
+            extraArgs:
+                - "-config.expand-env=true"
+            extraEnv:
+                - name: GRAFANA-LOKI-S3-ACCESKEYID
+                  valueFrom:
+                      secretKeyRef:
+                          name: axiom-s3-creds
+                          key: ACCESS_KEY_ID
+                - name: GRAFANA-LOKI-S3-SECRETACCESSKEY
+                  valueFrom:
+                      secretKeyRef:
+                          name: axiom-s3-creds
+                          key: ACCESS_SECRET_KEY
 
         chunksCache:
             enabled: false
