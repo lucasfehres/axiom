@@ -7,7 +7,7 @@
 let
   cfg = config.axiom.monitoring.fluent-bit;
 
-  priorityMapScript = pkgs.writeText "fluent-bit-priority-map.lua" ''
+  logMapScript = pkgs.writeText "fluent-bit-log-map.lua" ''
       local levels = {
         ["0"] = "emergency",
         ["1"] = "alert",
@@ -19,11 +19,29 @@ let
         ["7"] = "debug",
       }
 
-      function map_priority(tag, timestamp, record)
+      function normalize_unit(unit)
+        if unit == nil then return "unknown" end
+
+        -- sshd@8-118634-10.67.1.103:22-10.67.1.102:42944.service -> sshd@[session].service
+        local s = unit:match("^(sshd)@.+%.service$")
+        if s then return "sshd@[session].service" end
+
+        -- session-14.scope -> session-[id].scope
+        if unit:match("^session%-%d+%.scope$") then
+          return "session-[id].scope"
+        end
+
+        return unit
+      end
+
+      function map_log(tag, timestamp, record)
         local p = record["PRIORITY"]
         if p ~= nil then
           record["level"] = levels[p] or "unknown"
         end
+
+        record["_SYSTEMD_UNIT"] = normalize_unit(record["_SYSTEMD_UNIT"])
+
         return 1, timestamp, record
       end
     '';
@@ -52,8 +70,8 @@ in
             {
               name = "lua";
               match = "*";
-              script = "${priorityMapScript}";
-              call = "map_priority";
+              script = "${logMapScript}";
+              call = "map_log";
             }
           ];
           outputs = [
