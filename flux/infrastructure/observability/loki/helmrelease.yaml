@@ -30,6 +30,10 @@ spec:
             # run in single tenant mode
             auth_enabled: false
 
+            commonConfig:
+                # needs to be 1 to run everything with single replicas
+                replication_factor: 1
+
             storage:
                 bucketNames:
                     chunks: lucasfehres.axiom.loki.chunks
