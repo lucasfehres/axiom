@@ -1,8 +1,8 @@
-apiVersion: ceph.rook.io/v1
-kind: CephObjectStoreUser
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
 metadata:
-    name: loki-objectstorage-user
+    name: loki-ruler-bucket
     namespace: observability
 spec:
-    store: my-store
-    displayName: "Loki"
+    generateBucketName: loki-ruler
+    storageClassName: rook-ceph-bucket
