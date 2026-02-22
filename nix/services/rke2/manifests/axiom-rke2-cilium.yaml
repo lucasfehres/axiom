@@ -22,6 +22,10 @@ spec:
         nodePort:
           enabled: true
 
+        # required for accessing the 10.67.3.0/8 block from K8s nodes
+        socketLB:
+          enabled: true
+
         envoy:
           enabled: true
           affinity:
