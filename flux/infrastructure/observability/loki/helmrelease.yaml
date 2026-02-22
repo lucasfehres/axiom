@@ -27,6 +27,9 @@ spec:
             dnsService: rke2-coredns-rke2-coredns
 
         loki:
+            # run in single tenant mode
+            auth_enabled: false
+
             storage:
                 bucketNames:
                     chunks: lucasfehres.axiom.loki.chunks
