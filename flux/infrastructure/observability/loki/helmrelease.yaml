@@ -30,8 +30,8 @@ spec:
             storage:
                 bucketNames:
                     # will it be happy sharing a bucket? i don't know
-                    chunks: ceph-bcc28bc7ec4-833c-41c1-95fd-26e467335bc7
-                    ruler: ceph-bcc28bc7ec4-833c-41c1-95fd-26e467335bc7
+                    chunks: loki-chunks-d3a95f78-ce55-45d6-9335-e445183caa2f
+                    ruler: loki-chunks-d3a95f78-ce55-45d6-9335-e445183caa2f
 
                 use_thanos_objstore: true
                 object_store:
@@ -40,8 +40,8 @@ spec:
                         # using COSI and that just isn't supported by the Loki helm chart
                         # it's cluster internal though
                         endpoint: rook-ceph-object.internal.axiom.lucasfehres.nl
-                        access_key_id: PRT7N6RLF5X93V9IBKJH
-                        secret_access_key: nYi6I4ER2Mdy3xPTv52BWpalJC1232FWAgWjTBlz
+                        access_key_id: MMAMMXTM7COCR6PJV8M8
+                        secret_access_key: 5pwOqYGK1HXWV8PUV3uCezFqDkZoHdJbRlC6o5St
                         insecure: true
 
             ui:
