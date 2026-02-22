@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.axiom.monitoring.kepler;
+  cfg = config.axiom.monitoring.fluent-bit;
 in
 {
   options.axiom.monitoring.fluent-bit.enable = lib.mkOption {
