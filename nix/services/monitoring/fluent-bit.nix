@@ -6,6 +6,27 @@
 }:
 let
   cfg = config.axiom.monitoring.fluent-bit;
+
+  priorityMapScript = pkgs.writeText "fluent-bit-priority-map.lua" ''
+      local levels = {
+        ["0"] = "emergency",
+        ["1"] = "alert",
+        ["2"] = "critical",
+        ["3"] = "error",
+        ["4"] = "warning",
+        ["5"] = "notice",
+        ["6"] = "info",
+        ["7"] = "debug",
+      }
+
+      function map_priority(tag, timestamp, record)
+        local p = record["PRIORITY"]
+        if p ~= nil then
+          record["level"] = levels[p] or "unknown"
+        end
+        return 1, timestamp, record
+      end
+    '';
 in
 {
   options.axiom.monitoring.fluent-bit.enable = lib.mkOption {
@@ -25,6 +46,14 @@ in
               # everything except debug
               systemd_filter = "PRIORITY=6";
               read_from_tail = true;
+            }
+          ];
+          filters = [
+            {
+              name = "lua";
+              match = "*";
+              script = "${priorityMapScript}";
+              call = "map_priority";
             }
           ];
           outputs = [
