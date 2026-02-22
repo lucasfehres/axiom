@@ -1,0 +1,62 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: loki
+    namespace: observability
+spec:
+    interval: 30m
+    chart:
+        spec:
+            chart: loki
+            version: "6.53.0"
+            sourceRef:
+                kind: HelmRepository
+                name: loki
+                namespace: observability
+            interval: 12h
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        loki:
+            storage:
+                use_thanos_objstore: true
+                object_store:
+                    s3:
+                        # really unforunate to store secrets here but the bucket is provisioned
+                        # using COSI and that just isn't supported by the Loki helm chart
+                        # it's cluster internal though
+                        endpoint: http://rook-ceph-rgw-object-store.rook-ceph.svc:80
+                        access_key_id: PRT7N6RLF5X93V9IBKJH
+                        secret_access_key: nYi6I4ER2Mdy3xPTv52BWpalJC1232FWAgWjTBlz
+
+            ui:
+                enabled: true
+
+            # https://grafana.com/docs/loki/latest/operations/storage/retention/#compactor
+            compactor:
+                working_directory: /data/retention
+                compaction_interval: 10m
+                retention_enabled: true
+                retention_delete_delay: 2h
+                retention_delete_worker_count: 150
+                delete_request_store: s3
+            schema_config:
+                configs:
+                    - from: "2025-02-20"
+                      index:
+                          period: 24h
+                          prefix: index_
+                      object_store: s3
+                      schema: v13
+                      store: tsdb
+            limits_config:
+                retention_period: 168h
+
+        compactor:
+            replicas: 1

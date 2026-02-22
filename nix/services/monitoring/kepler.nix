@@ -73,5 +73,5 @@ in
     networking.firewall.allowedTCPPorts = [ 28282 ];
 
     boot.kernelModules = [ "intel_rapl_common" ];
-  }
+  };
 }
