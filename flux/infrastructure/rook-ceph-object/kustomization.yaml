@@ -6,3 +6,4 @@ resources:
     - cosi-user.yaml
     - bucketclass.yaml
     - bucketaccessclass.yaml
+    - internal-httproute.yaml

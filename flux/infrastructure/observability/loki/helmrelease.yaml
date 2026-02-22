@@ -39,7 +39,7 @@ spec:
                         # really unforunate to store secrets here but the bucket is provisioned
                         # using COSI and that just isn't supported by the Loki helm chart
                         # it's cluster internal though
-                        endpoint: rook-ceph-rgw-object-store.rook-ceph.svc:80
+                        endpoint: rook-ceph-object.internal.axiom.lucasfehres.nl
                         access_key_id: PRT7N6RLF5X93V9IBKJH
                         secret_access_key: nYi6I4ER2Mdy3xPTv52BWpalJC1232FWAgWjTBlz
                         insecure: true
