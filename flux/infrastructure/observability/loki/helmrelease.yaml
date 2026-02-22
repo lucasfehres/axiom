@@ -84,3 +84,8 @@ spec:
 
         chunksCache:
             enabled: false
+
+        memberlist:
+            service:
+                # resolves a circular dependency issue
+                publishNotReadyAddresses: true
