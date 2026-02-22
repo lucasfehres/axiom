@@ -5,6 +5,8 @@
   ...
 }:
 let
+  cfg = config.axiom.monitoring.kepler;
+
   keplerConfig = pkgs.writeText "kepler-config.yaml" ''
     log:
       level: info
@@ -35,33 +37,41 @@ let
   '';
 in
 {
-  virtualisation.podman.enable = true;
-  virtualisation.oci-containers.backend = "podman";
-
-  virtualisation.oci-containers.containers.kepler = {
-    image = "quay.io/sustainable_computing_io/kepler:latest";
-
-    ports = [ "127.0.0.1:28282:28282" ];
-
-    volumes = [
-      "/proc:/host/proc:ro"
-      "/sys:/host/sys:ro"
-      "${keplerConfig}:/etc/kepler/config.yaml:ro"
-    ];
-
-    extraOptions = [
-      "--privileged"
-      "--pid=host"
-    ];
-
-    cmd = [
-      "--config.file=/etc/kepler/config.yaml"
-    ];
-
-    autoStart = true;
+  options.axiom.monitoring.kepler.enable = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Enable Kepler energy monitoring";
   };
 
-  networking.firewall.allowedTCPPorts = [ 28282 ];
+  config = lib.mkIf cfg.enable {
+    virtualisation.podman.enable = true;
+    virtualisation.oci-containers.backend = "podman";
 
-  boot.kernelModules = [ "intel_rapl_common" ];
+    virtualisation.oci-containers.containers.kepler = {
+      image = "quay.io/sustainable_computing_io/kepler:latest";
+
+      ports = [ "127.0.0.1:28282:28282" ];
+
+      volumes = [
+        "/proc:/host/proc:ro"
+        "/sys:/host/sys:ro"
+        "${keplerConfig}:/etc/kepler/config.yaml:ro"
+      ];
+
+      extraOptions = [
+        "--privileged"
+        "--pid=host"
+      ];
+
+      cmd = [
+        "--config.file=/etc/kepler/config.yaml"
+      ];
+
+      autoStart = true;
+    };
+
+    networking.firewall.allowedTCPPorts = [ 28282 ];
+
+    boot.kernelModules = [ "intel_rapl_common" ];
+  }
 }
