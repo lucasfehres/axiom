@@ -8,5 +8,6 @@
 {
   imports = [
     ./kepler.nix
+    ./fluent-bit.nix
   ];
 }
