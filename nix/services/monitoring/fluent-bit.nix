@@ -23,7 +23,7 @@ in
             {
               name = "systemd";
               # everything except debug
-              systemd_filter = "PRIORITY<=6";
+              systemd_filter = "PRIORITY=6";
               read_from_tail = true;
             }
           ];
