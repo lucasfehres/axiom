@@ -62,6 +62,3 @@ spec:
                       store: tsdb
             limits_config:
                 retention_period: 168h
-
-        compactor:
-            replicas: 1
