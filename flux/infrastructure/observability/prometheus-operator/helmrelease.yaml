@@ -157,6 +157,12 @@ spec:
                   access: proxy
                   uid: axiom-thanos
                   isDefault: true
+                - name: Loki
+                  type: loki
+                  url: http://loki-read.observability.svc.cluster.local:3100
+                  access: proxy
+                  uid: axiom-loki
+                  isDefault: false
 
             sidecar:
                 dashboards:
