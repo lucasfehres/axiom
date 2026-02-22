@@ -1,0 +1,8 @@
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStoreUser
+metadata:
+    name: loki-objectstorage-user
+    namespace: observability
+spec:
+    store: my-store
+    displayName: "Loki"
