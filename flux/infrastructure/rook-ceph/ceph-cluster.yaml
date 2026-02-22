@@ -20,7 +20,8 @@ spec:
               enabled: true
     dashboard:
         enabled: true
-        ssl: true
+        port: 8080
+        ssl: false
         prometheusEndpoint: http://prometheus-kube-prometheus-prometheus.observability.svc.cluster.local:9090
         prometheusEndpointSSLVerify: true
     crashCollector:
