@@ -16,6 +16,13 @@ spec:
                 harbor.axiom.lucasfehres.nl
 
     listeners:
+        - protocol: HTTP
+          port: 80
+          name: insecure
+          allowedRoutes:
+              namespaces:
+                  from: All
+
         # should not have more than 50 here due to letsencrypt rate limiting https://letsencrypt.org/docs/rate-limits/
         - name: https
           protocol: HTTPS
