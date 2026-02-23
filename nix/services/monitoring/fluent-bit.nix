@@ -121,5 +121,10 @@ in
         };
       };
     };
+
+    networking.firewall.allowedTCPPorts = lib.optionals (config.axiom.monitoring.fluent-bit.prometheus-exporter) [
+      # Fluent Bit Prometheus exporter port
+      2021
+    ];
   };
 }
