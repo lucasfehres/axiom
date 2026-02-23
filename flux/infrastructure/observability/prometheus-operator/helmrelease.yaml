@@ -371,3 +371,15 @@ spec:
                     - name: axiom-telegrambot-alertmanager
                       mountPath: /secrets/axiom-telegrambot-alertmanager
                       readOnly: true
+
+        prometheus-node-exporter:
+            prometheus:
+                monitor:
+                    relablings:
+                        # useful for showing actual node names of node-exporter pods in dashboard
+                        - sourceLabels: [__meta_kubernetes_pod_node_name]
+                          separator: ;
+                          regex: ^(.*)$
+                          targetLabel: nodename
+                          replacement: $1
+                          action: replace
