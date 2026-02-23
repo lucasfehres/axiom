@@ -20,6 +20,8 @@ in
       enable = true;
       openFirewall = true;
       listenAddress = config.axiom.monitoring.listen-addr;
+
+      extraFlags = [ "--systemd.collector.enable-resolved" ];
     };
   };
 }
