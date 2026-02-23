@@ -15,8 +15,10 @@ in
 
         wifi.powersave = true;
         wifi.macAddress = "stable-ssid";
-        # more modern than wpa_supplicant, but Intel
-        wifi.backend = "iwd";
+        wifi.backend = "wpa_supplicant";
+
+        # more modern than wpa_supplicant, but less solid. maybe for later
+        # wifi.backend = "iwd";
 
         ethernet.macAddress = "permanent";
 
