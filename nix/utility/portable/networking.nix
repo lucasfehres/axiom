@@ -36,13 +36,18 @@ in
     # DNS
     services.resolved = {
       enable = true;
-      dnssec = "true";
-      domains = [ "~." ];
-      fallbackDns = [
-        "1.1.1.1"
-        "1.0.0.1"
-      ];
-      dnsovertls = "true";
+
+      settings = {
+        Resolve = {
+          DNS = "1.1.1.1#cloudflare-dns.com 1.0.0.1#cloudflare-dns.com 194.242.2.2#dns.mullvad.net 2a07:e340::2#dns.mullvad.net";
+          Domains = "~.";
+          DNSSEC = "allow-downgrade";
+          Cache = "no-negative";
+          DNSOverTLS = true;
+
+          FallbackDNS = "1.1.1.1 1.0.0.1";
+        };
+      };
     };
   };
 }
