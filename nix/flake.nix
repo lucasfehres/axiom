@@ -13,8 +13,10 @@
 
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-  };
 
+    nur.url = "github:nix-community/NUR";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
+  };
   outputs =
     {
       self,
@@ -22,10 +24,13 @@
       nixpkgs,
       agenix,
       rke2,
-      home-manager
+      home-manager,
+      nur
     }:
     let
       commonModules = [
+        nur.modules.nixos.default
+
         disko.nixosModules.disko
         agenix.nixosModules.default
         home-manager.nixosModules.home-manager

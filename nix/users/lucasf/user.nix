@@ -14,8 +14,8 @@
       # WiFi configuration
       ++ lib.optionals (config.axiom.host.portable) [ "networkmanager" ];
 
-    packages = with pkgs; [
-    ];
+    packages = with pkgs; []
+      ++ lib.optionals (config.axiom.host.gui) [ nur.repos.Ev357.helium ];
 
     openssh.authorizedKeys.keys = [
       # main
