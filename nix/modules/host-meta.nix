@@ -18,4 +18,10 @@
     default = false;
     description = "Enables the graphical user interface";
   };
+
+  options.axiom.host.wlan-interface = lib.mkOption {
+    type = lib.types.str;
+    example = "wlo1";
+    description = "Configures the default wireless interface";
+  };
 }

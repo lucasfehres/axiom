@@ -4,6 +4,7 @@
   networking.hostName = "laptop-test";
   axiom.host.portable = true;
   axiom.host.gui = true;
+  axiom.host.wlan-interface = "wlo1";
 
   # required for ZFS
   networking.hostId = "dead2bad";
