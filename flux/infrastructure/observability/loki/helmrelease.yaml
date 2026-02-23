@@ -76,8 +76,36 @@ spec:
                 storageClass: rook-ceph-block
                 size: 2Gi
 
+            extraArgs:
+                - "-config.expand-env=true"
+            extraEnv:
+                - name: GRAFANALOKIS3ACCESKEYID
+                  valueFrom:
+                      secretKeyRef:
+                          name: axiom-s3-creds
+                          key: ACCESS_KEY_ID
+                - name: GRAFANALOKIS3SECRETACCESSKEY
+                  valueFrom:
+                      secretKeyRef:
+                          name: axiom-s3-creds
+                          key: ACCESS_SECRET_KEY
+
         read:
             replicas: 1
+
+            extraArgs:
+                - "-config.expand-env=true"
+            extraEnv:
+                - name: GRAFANALOKIS3ACCESKEYID
+                  valueFrom:
+                      secretKeyRef:
+                          name: axiom-s3-creds
+                          key: ACCESS_KEY_ID
+                - name: GRAFANALOKIS3SECRETACCESSKEY
+                  valueFrom:
+                      secretKeyRef:
+                          name: axiom-s3-creds
+                          key: ACCESS_SECRET_KEY
 
         backend:
             replicas: 1
