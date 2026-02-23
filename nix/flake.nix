@@ -34,7 +34,7 @@
         ./utility/general.nix
       ];
 
-      hardwareSupportModules = [
+      vmSupportModules = [
         ./utility/vm.nix
         ./utility/basic-partitioning.nix
       ];
@@ -42,30 +42,30 @@
       configModules = {
         nixos-init-test = commonModules ++ [
           ./hosts/nixos-init-test/configuration.nix
-        ];
+        ] ++ vmSupportModules;
         axiom-vm-wireguard = commonModules ++ [
           ./hosts/axiom-vm-wireguard/configuration.nix
           ./services/wireguard/axiom-primary.nix
-        ];
+        ] ++ vmSupportModules;
         axiom-vm-k8s-master = commonModules ++ [
           rke2.nixosModules.default
           ./hosts/axiom-vm-k8s-master/configuration.nix
           ./services/rke2/rke2-common.nix
           ./services/rke2/rke2-master.nix
-        ];
+        ] ++ vmSupportModules;
         axiom-vm-k8s-agent-1 = commonModules ++ [
           rke2.nixosModules.default
           ./hosts/axiom-vm-k8s-agent-1/configuration.nix
           ./services/rke2/rke2-common.nix
           ./services/rke2/rke2-agent.nix
-        ];
+        ] ++ vmSupportModules;
         axiom-vm-utility = commonModules ++ [
           ./hosts/axiom-vm-utility/configuration.nix
-        ];
+        ] ++ vmSupportModules;
         axiom-vm-games = commonModules ++ [
           ./hosts/axiom-vm-games/configuration.nix
           ./services/podman/podman.nix
-        ];
+        ] ++ vmSupportModules;
 
         laptop-test = commonModules ++ [
           ./hosts/laptop-test/configuration.nix
@@ -77,7 +77,7 @@
         name: modules:
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          modules = modules ++ hardwareSupportModules;
+          modules = modules;
         }
       ) configModules;
 
