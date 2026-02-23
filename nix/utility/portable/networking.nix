@@ -9,6 +9,9 @@ let
 in
 {
   config = lib.mkIf hostCfg.portable {
+    # Portable devices do not have static IP addresses
+    axiom.monitoring.listen-addr = "127.0.0.1";
+
     # WiFi
     networking.networkmanager = {
         enable = true;

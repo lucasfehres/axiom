@@ -109,7 +109,7 @@ in
             {
               name = "prometheus_exporter";
               match = "prom_*";
-              host = config.axiom.host.ipv4;
+              host = config.axiom.monitoring.listen-addr;
               port = 2021;
               add_label = [
                 # called nodename to match the relabeling in the K8s node exporter
