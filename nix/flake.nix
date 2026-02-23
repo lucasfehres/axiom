@@ -66,6 +66,10 @@
           ./hosts/axiom-vm-games/configuration.nix
           ./services/podman/podman.nix
         ];
+
+        laptop-test = commonModules ++ [
+          ./hosts/laptop-test/configuration.nix
+        ];
       };
     in
     {

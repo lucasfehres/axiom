@@ -9,7 +9,11 @@
   users.users.lucasf = {
     isNormalUser = true;
     shell = pkgs.nushell;
-    extraGroups = [ "wheel" ];
+
+    extraGroups = [ "wheel" ]
+      # WiFi configuration
+      ++ lib.optionals (config.axiom.host.portable) [ "networkmanager" ];
+
     packages = with pkgs; [
     ];
 
