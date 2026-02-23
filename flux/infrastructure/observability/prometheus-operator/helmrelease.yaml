@@ -375,7 +375,7 @@ spec:
         prometheus-node-exporter:
             prometheus:
                 monitor:
-                    relablings:
+                    relabelings:
                         # useful for showing actual node names of node-exporter pods in dashboard
                         - sourceLabels: [__meta_kubernetes_pod_node_name]
                           separator: ;
