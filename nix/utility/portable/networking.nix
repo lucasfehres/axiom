@@ -27,7 +27,7 @@ in
           networkmanager-openvpn
         ];
 
-        dns = "systemd-resolvd";
+        dns = "systemd-resolved";
     };
   };
 }
