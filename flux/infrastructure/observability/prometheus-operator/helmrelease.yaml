@@ -95,6 +95,13 @@ spec:
                       metrics_path: /metrics
                       scrape_interval: 30s
 
+                    - job_name: "fluentbit"
+                      static_configs:
+                          - targets:
+                                - "10.67.1.102:2021"
+                      metrics_path: /metrics
+                      scrape_interval: 30s
+
                     # used for Cilium
                     - job_name: "kubernetes-pods"
                       kubernetes_sd_configs:
