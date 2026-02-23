@@ -82,6 +82,8 @@ in
             {
               name = "node_exporter_metrics";
               tag = "prom_node_exporter";
+              # everything but uname due to duplicate nodename labels
+              metrics = "cpu,cpufreq,meminfo,diskstats,filesystem,stat,time,loadavg,vmstat,netdev,netstat,sockstat,filefd,systemd,nvme,thermal_zone,hwmon";
             }
           ];
           filters = [
