@@ -22,4 +22,7 @@
     };
 
     boot.kernelModules = [ "rbd" "nbd" ];
+
+    # kube-prometheus-stack already runs node exporter on all K8s nodes
+    axiom.monitoring.fluent-bit.node-metrics = false;
 }

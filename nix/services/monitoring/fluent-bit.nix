@@ -53,6 +53,18 @@ in
     description = "Enable Fluent Bit log shipping";
   };
 
+  options.axiom.monitoring.fluent-bit.node-metrics = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Enable Fluent Bit node metrics input";
+  };
+
+  options.axiom.monitoring.fluent-bit.prometheus-exporter = lib.mkOption {
+    type = lib.types.bool;
+    default = config.axiom.monitoring.fluent-bit.node-metrics;
+    description = "Enable Fluent Bit Prometheus exporter output";
+  };
+
   config = lib.mkIf cfg.enable {
     services.fluent-bit = {
       enable = true;
@@ -64,6 +76,12 @@ in
               # everything except debug
               systemd_filter = "PRIORITY=6";
               read_from_tail = true;
+            }
+          ]
+          ++ lib.optionals (config.axiom.monitoring.fluent-bit.node-metrics) [
+            {
+              name = "node_exporter_metrics";
+              tag = "prom_node_exporter";
             }
           ];
           filters = [
@@ -83,6 +101,18 @@ in
               host = "loki-write.internal.axiom.lucasfehres.nl";
               port = 443;
               tls = "on";
+            }
+          ]
+          ++ lib.optionals (config.axiom.monitoring.fluent-bit.prometheus-exporter) [
+            {
+              name = "prometheus_exporter";
+              match = "prom_*";
+              host = config.axiom.host.ipv4;
+              port = 2021;
+              add_label = [
+                # called nodename to match the relabeling in the K8s node exporter
+                "nodename ${config.networking.hostName}"
+              ];
             }
           ];
         };
