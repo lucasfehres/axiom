@@ -14,6 +14,7 @@
 
     # portable stuff manages the config in a nix-native way instead of the messy way that VM config is handled
     ./portable/networking.nix
+    ./portable/boot.nix
   ];
 
   environment.systemPackages = [
