@@ -15,5 +15,6 @@
   imports = [
     ./kepler.nix
     ./fluent-bit.nix
+    ./systemd.nix
   ];
 }

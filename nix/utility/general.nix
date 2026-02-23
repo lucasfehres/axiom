@@ -13,6 +13,7 @@
     ../services/monitoring/monitoring.nix
 
     # portable stuff manages the config in a nix-native way instead of the messy way that VM config is handled
+    ./portable/general.nix
     ./portable/networking.nix
     ./portable/boot.nix
     ../gui/gui.nix
