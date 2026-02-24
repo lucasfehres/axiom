@@ -35,8 +35,8 @@
     home.username = "lucasf";
     home.homeDirectory = "/home/lucasf";
 
-    home.packages = [
-    ];
+    home.packages = with pkgs; []
+      ++ lib.optionals (config.axiom.host.gui) [ zed-editor ];
     programs.bash.enable = true;
 
     programs.git = {
