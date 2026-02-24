@@ -1,5 +1,6 @@
 {
   inputs = {
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     disko.url = "github:nix-community/disko/latest";
@@ -74,6 +75,9 @@
 
         laptop-test = commonModules ++ [
           ./hosts/laptop-test/configuration.nix
+
+          # try out on the test laptop for now
+          determinate.nixosModules.default
         ];
       };
     in
