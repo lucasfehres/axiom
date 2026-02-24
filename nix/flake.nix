@@ -26,7 +26,8 @@
       agenix,
       rke2,
       home-manager,
-      nur
+      nur,
+      determinate
     }:
     let
       commonModules = [
