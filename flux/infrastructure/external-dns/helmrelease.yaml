@@ -34,3 +34,9 @@ spec:
 
         serviceMonitor:
             enabled: true
+
+        managedRecordTypes:
+            - A
+            - AAAA
+            - CNAME
+            - SRV
