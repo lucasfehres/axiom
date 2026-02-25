@@ -8,7 +8,18 @@ spec:
     chart:
         spec:
             chart: liqo
-            version: "1.1.1"
+            # the 1.1.1 release has an issue where firewall rules are applied endlessly, consuming an entire CPU
+            # core 24/7. with these logs on repeat
+            # I0225 21:28:58.982159       1 firewallconfiguration_controller.go:159] Applied firewallconfiguration liqo/gw-mss-clamping
+            # I0225 21:28:58.986486       1 firewallconfiguration_controller.go:159] Applied firewallconfiguration liqo/service-nodeport-routing
+            # I0225 21:28:58.992054       1 firewallconfiguration_controller.go:159] Applied firewallconfiguration liqo-tenant-chaos-2/chaos-2-remap-externalcidr
+            # I0225 21:28:58.996639       1 firewallconfiguration_controller.go:159] Applied firewallconfiguration liqo-tenant-chaos-2/chaos-2-remap-podcidr
+            # I0225 21:28:59.000736       1 firewallconfiguration_controller.go:159] Applied firewallconfiguration liqo-tenant-chaos-2/chaos-2-unknown-source-remap-ipmapping-gw
+            # I0225 21:28:59.010639       1 firewallconfiguration_controller.go:159] Applied firewallconfiguration liqo/api-server-proxy-remap-ipmapping-gw
+            # I0225 21:28:59.024074       1 firewallconfiguration_controller.go:159] Applied firewallconfiguration liqo/api-server-remap-ipmapping-gw
+            # I0225 21:28:59.029704       1 netmonitor.go:269] Nftables rule removed: mss-clamping-out
+            # Liqo has been temporarily downgraded because of this issue.
+            version: "1.0.3"
             sourceRef:
                 kind: HelmRepository
                 name: liqo
