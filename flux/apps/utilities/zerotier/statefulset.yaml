@@ -78,7 +78,7 @@ spec:
                       - name: NEXTAUTH_URL
                         value: "https://zerotier.axiom.lucasfehres.nl"
                       - name: NEXTAUTH_URL_INTERNAL
-                        value: "http://localhost:3000"
+                        value: "http://ztnet-web:3000"
                       - name: NEXTAUTH_SECRET
                         valueFrom:
                             secretKeyRef:
