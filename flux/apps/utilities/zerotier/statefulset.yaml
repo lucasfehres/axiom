@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    name: ztnet-stack
+    namespace: zerotier
+spec:
+    serviceName: ztnet-stack
+    replicas: 1
+    selector:
+        matchLabels:
+            app: ztnet-stack
+    template:
+        metadata:
+            labels:
+                app: ztnet-stack
+        spec:
+            # /dev/net/tun for ZeroTier
+            volumes:
+                - name: zerotier-data
+                  persistentVolumeClaim:
+                      claimName: zerotier-data
+                - name: dev-net-tun
+                  hostPath:
+                      path: /dev/net/tun
+                      type: CharDevice
+            containers:
+                - name: zerotier
+                  image: zyclonite/zerotier:1.16.0
+                  env:
+                      # Keep local.conf override and allow mgmt API from Pod CIDR ranges if needed.
+                      # For a strict stance, limit to 127.0.0.1/32 since UI is sidecar in same Pod.
+                      - name: ZT_OVERRIDE_LOCAL_CONF
+                        value: "true"
+                      - name: ZT_ALLOW_MANAGEMENT_FROM
+                        value: "127.0.0.1/32"
+                  securityContext:
+                      capabilities:
+                          add: ["NET_ADMIN", "SYS_ADMIN"]
+                      allowPrivilegeEscalation: true
+                  volumeMounts:
+                      - name: zerotier-data
+                        mountPath: /var/lib/zerotier-one
+                      - name: dev-net-tun
+                        mountPath: /dev/net/tun
+                  ports:
+                      - name: zt-udp
+                        containerPort: 9993
+                        protocol: UDP
+                - name: ztnet
+                  image: sinamics/ztnet:0.7.14
+                  workingDir: /app
+                  env:
+                      - name: POSTGRES_HOST
+                        valueFrom:
+                            secretKeyRef:
+                                name: zerotier-postgres-app
+                                key: host
+                      - name: POSTGRES_PORT
+                        valueFrom:
+                            secretKeyRef:
+                                name: zerotier-postgres-app
+                                key: port
+                      - name: POSTGRES_USER
+                        valueFrom:
+                            secretKeyRef:
+                                name: zerotier-postgres-app
+                                key: user
+                      - name: POSTGRES_PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: zerotier-postgres-app
+                                key: password
+                      - name: POSTGRES_DB
+                        valueFrom:
+                            secretKeyRef:
+                                name: zerotier-postgres-app
+                                key: dbname
+                      - name: NEXTAUTH_URL
+                        value: "https://zerotier.axiom.lucasfehres.nl"
+                      - name: NEXTAUTH_URL_INTERNAL
+                        value: "http://localhost:3000"
+                      - name: NEXTAUTH_SECRET
+                        valueFrom:
+                            secretKeyRef:
+                                name: ztnet-nextauth
+                                key: NEXTAUTH_SECRET
+                      # UI talks to local controller on 127.0.0.1:9993
+                      - name: ZT_ADDR
+                        value: "http://127.0.0.1:9993"
+                      # If ZT_SECRET not set, ztnet will read /var/lib/zerotier-one/authtoken.secret
+                  ports:
+                      - name: http
+                        containerPort: 3000
+                  volumeMounts:
+                      - name: zerotier-data
+                        mountPath: /var/lib/zerotier-one
