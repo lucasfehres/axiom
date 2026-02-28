@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-    name: apps-personal-zerotier
+    name: apps-utilities-zerotier
     namespace: flux-system
 spec:
     dependsOn:
-        - name: apps-personal-zerotier-postgres
+        - name: apps-utilities-zerotier-postgres
     interval: 10m
     sourceRef:
         kind: GitRepository
