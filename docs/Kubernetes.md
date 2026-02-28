@@ -236,3 +236,13 @@ stringData:
     ACCESS_KEY_ID: <S3 access key ID>
     ACCESS_SECRET_KEY: <S3 secret access key>
 ```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: ztnet-nextauth
+    namespace: zerotier
+stringData:
+    NEXTAUTH_SECRET: "some secret"
+```

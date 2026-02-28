@@ -1,0 +1,26 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+    name: zerotier-postgres
+    namespace: zerotier
+spec:
+    instances: 1
+    storage:
+        storageClass: rook-ceph-block
+        size: 1Gi
+
+    # makes sure archives to S3 happen even if not that much data was touched in the DB
+    postgresql:
+        parameters:
+            archive_timeout: "15min"
+
+    plugins:
+        - name: barman-cloud.cloudnative-pg.io
+          isWALArchiver: true
+          parameters:
+              barmanObjectName: zerotier-postgres
+
+        # - name: barman-cloud.cloudnative-pg.io
+        #   isWALArchiver: false
+        #   parameters:
+        #       barmanObjectName: zerotier-postgres-b2
