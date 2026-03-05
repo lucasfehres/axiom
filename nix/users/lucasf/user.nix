@@ -28,6 +28,8 @@
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL9lvfS3kEC4YjMxjkb8CgM5qf7LKSP52YHE4JS21SOmeIA6EkaPT/Uld9+VOrmfefEKPUy9l32NtbfywcDmz5c="
       # Macbook Air legacy Secretive
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM4PFeUJVWaVQcmUbeo/22FDFRO9/0WYOruBpI0Lr1Q3MchFYKXFwKCfOvavFyGFOUoxa+kabYhbZyrJ+uetZpw="
+      # Authentik
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/YxvESiCGKeLy7rJkqbBJE5r9QCE17PR6VINTgna5L authentik"
     ];
   };
 
