@@ -22,4 +22,4 @@ spec:
         - name: ldap
           port: 1389
           targetPort: 1389
-    clusterIP: Loadbalancer
+    type: LoadBalancer
