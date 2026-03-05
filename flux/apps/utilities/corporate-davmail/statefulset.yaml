@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    name: corporate-davmail
+    namespace: davmail
+spec:
+    serviceName: corporate-davmail
+    replicas: 1
+    selector:
+        matchLabels:
+            app: corporate-davmail
+    template:
+        metadata:
+            labels:
+                app: corporate-davmail
+        spec:
+            securityContext:
+                seccompProfile:
+                    type: Unconfined
+                fsGroup: 1000
+
+            containers:
+                - name: corporate-davmail
+                  image: ghcr.io/lucasfehres/axiom-utility-corporate-davmail-box:latest
+                  imagePullPolicy: Always
+                  ports:
+                      - containerPort: 14500
+                        name: xpra-web
+                      - containerPort: 1143
+                        name: imap
+                      - containerPort: 1025
+                        name: smtp
+                      - containerPort: 1080
+                        name: caldav
+                      - containerPort: 1389
+                        name: ldap
+
+                  securityContext:
+                      runAsUser: 0 # starts as root, priv-entrypoint drops to xprauser
+                      capabilities:
+                          add:
+                              - SYS_ADMIN # needed for dbus-daemon --system
+
+                  volumeMounts:
+                      - name: user-home
+                        mountPath: /home/xprauser
+                      - name: dbus-socket
+                        mountPath: /run/dbus
+                      - name: shm
+                        mountPath: /dev/shm # Edge needs more than the default 64MB
+
+                  livenessProbe:
+                      tcpSocket:
+                          port: 14500
+                      initialDelaySeconds: 15
+                      periodSeconds: 30
+
+                  readinessProbe:
+                      tcpSocket:
+                          port: 14500
+                      initialDelaySeconds: 10
+                      periodSeconds: 10
+
+            volumes:
+                - name: dbus-socket
+                  emptyDir: {}
+                - name: shm
+                  emptyDir:
+                      medium: Memory
+                      sizeLimit: 512Mi # give Edge enough shm
+
+    volumeClaimTemplates:
+        - metadata:
+              name: user-home
+          spec:
+              accessModes:
+                  - ReadWriteOnce
+              resources:
+                  requests:
+                      storage: 1Gi
+              storageClassName: rook-ceph-block
