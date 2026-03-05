@@ -4,6 +4,11 @@ jobs:
     docker-util:
         name: Build utility Docker image
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+            attestations: write
+            id-token: write
         strategy:
             matrix:
                 utility:
