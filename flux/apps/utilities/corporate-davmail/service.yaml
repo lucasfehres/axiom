@@ -3,6 +3,8 @@ kind: Service
 metadata:
     name: corporate-davmail
     namespace: davmail
+    annotations:
+        external-dns.alpha.kubernetes.io/hostname: davmail-access.internal.axiom.lucasfehres.nl
 spec:
     selector:
         app: corporate-davmail
