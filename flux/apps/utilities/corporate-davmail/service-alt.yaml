@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: corporate-davmail-alt
+    namespace: davmail
+    annotations:
+        external-dns.alpha.kubernetes.io/hostname: davmail-access-alt.internal.axiom.lucasfehres.nl
+spec:
+    selector:
+        app: corporate-davmail
+    ports:
+        - name: xpra-web
+          port: 14500
+          targetPort: 14500
+        # iPhone compatibility
+        - name: imap
+          port: 143
+          targetPort: 1143
+        - name: smtp
+          port: 587
+          targetPort: 1025
+        - name: caldav
+          port: 1080
+          targetPort: 1080
+        - name: ldap
+          port: 1389
+          targetPort: 1389
+    type: LoadBalancer
