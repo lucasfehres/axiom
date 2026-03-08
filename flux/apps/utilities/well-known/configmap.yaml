@@ -5,6 +5,7 @@ metadata:
     namespace: well-known
 data:
     atproto-did: did:plc:y2dhgjku4yviuzyzftv5ilqf
+    discord: dh=8de898afd3bf117c7e01b213fabbb717d6eef981
     pgp.asc: |
         -----BEGIN PGP PUBLIC KEY BLOCK-----
 

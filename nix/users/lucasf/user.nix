@@ -44,7 +44,7 @@
     programs.git = {
       enable = true;
       settings.user.name = "Lucas Fehres";
-      settings.user.email = "180476097+lucasfehres@users.noreply.github.com";
+      settings.user.email = "lucasfehres@gmail.com";
       settings.user.signingkey = "8F6F0936E39D9D0E";
       settings.user.commit.gpgsign = "true";
       settings.user.tag.gpgSign = "true";
