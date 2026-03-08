@@ -24,4 +24,10 @@
     example = "wlo1";
     description = "Configures the default wireless interface";
   };
+
+  options.axiom.host.storage-constrained = lib.mkOption {
+    types = lib.types.bool;
+    default = false;
+    description = "Sets configuration options for storage constrained hosts";
+  };
 }
