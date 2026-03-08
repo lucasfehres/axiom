@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: nginx
+    namespace: well-known
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: nginx
+    template:
+        metadata:
+            labels:
+                app: nginx
+        spec:
+            containers:
+                - name: nginx
+                  image: nginx:alpine
+                  volumeMounts:
+                      - name: well-known
+                        mountPath: /usr/share/nginx/html/.well-known
+                  ports:
+                      - name: http
+                        containerPort: 80
+                        protocol: TCP
+            volumes:
+                - name: well-known
+                  configMap:
+                      name: well-known-files

@@ -1,0 +1,19 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+    name: well-known
+    namespace: well-known
+spec:
+    parentRefs:
+        - name: tls-gateway
+          namespace: kube-system
+    hostnames:
+        - lucasfehres.nl
+    rules:
+        - matches:
+              - path:
+                    type: PathPrefix
+                    value: /.well-known
+          backendRefs:
+              - name: nginx
+                port: 80

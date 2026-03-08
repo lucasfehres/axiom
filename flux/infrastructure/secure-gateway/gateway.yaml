@@ -59,3 +59,15 @@ spec:
           allowedRoutes:
               namespaces:
                   from: All
+
+        - name: lucasfehres-https
+          protocol: HTTPS
+          port: 443
+          hostname: "lucasfehres.nl"
+          tls:
+              certificateRefs:
+                  - kind: Secret
+                    name: tls-gateway-lucasfehres-cert
+          allowedRoutes:
+              namespaces:
+                  from: All

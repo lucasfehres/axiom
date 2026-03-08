@@ -8,6 +8,7 @@ spec:
         privateKeySecretRef:
             name: letsencrypt
         solvers:
+            # doesn't work for *.internal.axiom.lucasfehres.nl
             # - http01:
             #       gatewayHTTPRoute:
             #           parentRefs:

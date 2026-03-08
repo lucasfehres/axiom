@@ -42,6 +42,15 @@ configure Cilium myself on any Chaos cluster deployments.
 | 10.67.1.0/24 | 10.67.1.101 - 10.67.1.200 | Axiom VMs                  |
 | 10.67.1.0/24 | 10.67.1.201 - 10.67.1.220 | Playground VMs             |
 
+## IPv6
+
+IPv6 is in the planning phase.
+
+| Block (CIDR)           | Allocation                  | Where |
+| ---------------------- | --------------------------- | ----- |
+| 2a01:4f8:10a:29cc::/64 | FNS01-01                    | FSN01 |
+| fc67:1::/112           | Proxmox FSN01-01 (internal) | FSN01 |
+
 ## Undeclarative Firewall Rules
 
 The external to internal allow is unfortunate as this is not restricted to just the Axiom
