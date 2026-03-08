@@ -1,3 +1,7 @@
 # It's mostly yaml
 *.yaml linguist-detectable=true
 *.yml linguist-detectable=true
+
+# FluxCD manifests aren't interesting
+flux/clusters/axiom/flux-system/* linguist-vendored=true
+flux/clusters/chaos/flux-system/* linguist-vendored=true
