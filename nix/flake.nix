@@ -17,6 +17,9 @@
 
     nur.url = "github:nix-community/NUR";
     nur.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     {
@@ -27,7 +30,8 @@
       rke2,
       home-manager,
       nur,
-      determinate
+      determinate,
+      nixos-hardware
     }:
     let
       commonModules = [
@@ -79,7 +83,12 @@
 
           # try out on the test laptop for now
           determinate.nixosModules.default
+
+          # it's a 3210 but close enough
+          nixos-hardware.nixosModules.dell-latitude-3340
         ];
+
+        # https://github.com/NixOS/nixos-hardware/blob/master/framework/13-inch
       };
     in
     {

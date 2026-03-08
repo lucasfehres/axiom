@@ -17,7 +17,7 @@ in
         wifi.macAddress = "stable-ssid";
         wifi.backend = "wpa_supplicant";
 
-        # more modern than wpa_supplicant, but less solid. maybe for later
+        # more modern than wpa_supplicant, but was unreliable on the test laptop. maybe for later
         # wifi.backend = "iwd";
 
         ethernet.macAddress = "permanent";

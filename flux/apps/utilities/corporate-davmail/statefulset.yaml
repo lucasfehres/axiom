@@ -48,6 +48,9 @@ spec:
                         mountPath: /run/dbus
                       - name: shm
                         mountPath: /dev/shm # Edge needs more than the default 64MB
+                      - name: cert
+                        mountPath: /cert
+                        readOnly: true
 
                   livenessProbe:
                       tcpSocket:
@@ -68,6 +71,9 @@ spec:
                   emptyDir:
                       medium: Memory
                       sizeLimit: 512Mi # give Edge enough shm
+                - name: cert
+                  secret:
+                      secretName: davmail-cert
 
     volumeClaimTemplates:
         - metadata:
