@@ -6,3 +6,5 @@ resources:
     - service-alt.yaml
     - statefulset.yaml
     - httproute.yaml
+    - certificate.yaml
+    - certificate-secret.yaml

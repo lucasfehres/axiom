@@ -1,0 +1,28 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: davmail-cert
+    namespace: davmail
+spec:
+    secretName: davmail-cert
+
+    # davmail requires pkcs12 or jks
+    keystores:
+        pkcs12:
+            create: true
+            passwordSecretRef:
+                name: davmail-cert-pkcs12-password
+                key: password
+            profile: Modern2023
+
+    duration: 2160h # 90d
+    renewBefore: 360h # 15d
+
+    dnsNames:
+        - davmail.internal.axiom.lucasfehres.nl
+        - davmail-access.internal.axiom.lucasfehres.nl
+        - davmail-access-alt.internal.axiom.lucasfehres.nl
+
+    issuerRef:
+        name: letsencrypt
+        kind: ClusterIssuer
