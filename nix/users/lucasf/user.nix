@@ -66,7 +66,8 @@
         kube-busybox = "kubectl run -i --rm -t busybox --image=busybox --restart=Never";
         kube-hubble = "kubectl port-forward -n kube-system service/hubble-ui --address 0.0.0.0 8080:80";
 
-        unfuck-gpg = "gpgconf --kill gpg-agent; sudo systemctl restart pcscd";
+        unfuck-gpg = "{ gpgconf --kill gpg-agent; sudo systemctl restart pcscd }";
+        unfuck-pgp = "{ gpgconf --kill gpg-agent; sudo systemctl restart pcscd }";
       };
 
       configFile.text = ''
