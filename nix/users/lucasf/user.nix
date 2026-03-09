@@ -52,10 +52,12 @@
 
     programs.gpg = {
       enable = true;
-      publicKeys.lucasfehres = {
-        trust = 5;
-        source = ./pgp.pub;
-      };
+      publicKeys = [
+        {
+          trust = 5;
+          source = ./pgp.pub;
+        }
+      ];
     };
 
     programs.nushell = {
