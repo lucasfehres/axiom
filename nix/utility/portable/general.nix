@@ -14,5 +14,8 @@ in
 
     # power monitoring
     axiom.monitoring.kepler.enable = true;
+
+    hardware.gpgSmartcards.enable = true;
+    services.pcscd.enable = true;
   };
 }
