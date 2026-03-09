@@ -26,7 +26,7 @@
   };
 
   options.axiom.host.storage-constrained = lib.mkOption {
-    types = lib.types.bool;
+    type = lib.types.bool;
     default = false;
     description = "Sets configuration options for storage constrained hosts";
   };
