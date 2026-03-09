@@ -29,7 +29,7 @@ in
         k3s-token.file = ../secrets/k3s-token.txt.age;
       })
 
-      (lib.mkIf config.axiom.personal.pgp {
+      (lib.mkIf config.axiom.personal.local-pgp {
         pgp-sign-key = {
           file = ../secrets/pgp-sign-key.age;
           path = "/home/lucasf/.pgp-sign-key";
