@@ -4,7 +4,6 @@ let
   pkgs = import flake.inputs.nixpkgs {
     system = "x86_64-linux";
     config = { };
-    overlays = [ ];
   };
 in
 pkgs.testers.runNixOSTest {
