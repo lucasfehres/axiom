@@ -50,23 +50,33 @@
       settings.user.tag.gpgSign = "true";
     };
 
+    programs.gpg = {
+      enable = true;
+      publicKeys.lucasfehres = {
+        trust = 5;
+        source = ./pgp.pub;
+      };
+    };
+
     programs.nushell = {
-        enable = true;
-        shellAliases = {
-            kube-busybox = "kubectl run -i --rm -t busybox --image=busybox --restart=Never";
-            kube-hubble = "kubectl port-forward -n kube-system service/hubble-ui --address 0.0.0.0 8080:80";
-        };
+      enable = true;
+      shellAliases = {
+        kube-busybox = "kubectl run -i --rm -t busybox --image=busybox --restart=Never";
+        kube-hubble = "kubectl port-forward -n kube-system service/hubble-ui --address 0.0.0.0 8080:80";
 
-        configFile.text = ''
-            $env.EDITOR = "vim"
+        unfuck-gpg = "gpgconf --kill gpg-agent; sudo systemctl restart pcscd";
+      };
 
-            $env.PROMPT_COMMAND = {
-                let host = (sys host | get hostname)
-                let pwd = (pwd)
+      configFile.text = ''
+        $env.EDITOR = "vim"
 
-                $"($host) ($pwd) "
-            }
-        '';
+        $env.PROMPT_COMMAND = {
+          let host = (sys host | get hostname)
+          let pwd = (pwd)
+
+          $"($host) ($pwd) "
+        }
+      '';
     };
 
     programs.vim = {
