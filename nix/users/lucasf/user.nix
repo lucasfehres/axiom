@@ -43,11 +43,16 @@
 
     programs.git = {
       enable = true;
-      settings.user.name = "Lucas Fehres";
-      settings.user.email = "lucasfehres@gmail.com";
-      settings.user.signingkey = "8F6F0936E39D9D0E";
-      settings.user.commit.gpgsign = "true";
-      settings.user.tag.gpgSign = "true";
+
+      settings = {
+        user.name = "Lucas Fehres";
+        user.email = "lucasfehres@gmail.com";
+        user.signingkey = "8F6F0936E39D9D0E";
+
+        init.defaultbranch = "main";
+        commit.gpgsign = "true";
+        tag.gpgSign = "true";
+      };
     };
 
     programs.gpg = {
@@ -58,6 +63,12 @@
           source = ./pgp.pub;
         }
       ];
+
+      scdaemonSettings = {
+        # pcsc-driver = "/usr/lib/libpcsclite.so.1";
+        card-timeout = "5";
+        disable-ccid = true;
+      };
     };
 
     programs.nushell = {
