@@ -28,6 +28,16 @@ in
       (lib.mkIf hasK3s {
         k3s-token.file = ../secrets/k3s-token.txt.age;
       })
+
+      (lib.mkIf config.axiom.personal.pgp {
+        pgp-sign-key = {
+          file = ../secrets/pgp-sign-key.age;
+          path = "/home/lucasf/.pgp-sign-key";
+          mode = "400";
+          owner = "lucasf";
+          group = "users";
+        };
+      })
     ];
   };
 }

@@ -30,6 +30,8 @@
       "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBM4PFeUJVWaVQcmUbeo/22FDFRO9/0WYOruBpI0Lr1Q3MchFYKXFwKCfOvavFyGFOUoxa+kabYhbZyrJ+uetZpw="
       # Authentik
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/YxvESiCGKeLy7rJkqbBJE5r9QCE17PR6VINTgna5L authentik"
+      # PGP Authentication key
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBxpkLVz4yvM7io7W+4Xo7Y86hD1srAdR9nHF1NIoMU8 openpgp:0x4C2F50F4"
     ];
   };
 
@@ -108,6 +110,15 @@
     programs.vim = {
         enable = true;
     };
+
+    # any personal activation scripts that may have to run
+    home.activation = lib.mkMerge [
+      (lib.mkIf config.axiom.personal.local-pgp {
+        gpg-load-local-pgp-keys = lib.hm.dag.entryAfter ["writeBoundary"] ''
+          gpg --import /home/lucasf/.pgp-sign-key
+        '';
+      })
+    ];
 
     # The state version is required and should stay at the version you
     # originally installed.
