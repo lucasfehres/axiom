@@ -71,6 +71,12 @@
       };
     };
 
+    services.gpg-agent = {
+      enable = true;
+      enableNushellIntegration = true;
+      pinentry.package = pkgs.pinentry-qt;
+    };
+
     programs.nushell = {
       enable = true;
       shellAliases = {
