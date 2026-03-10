@@ -12,6 +12,8 @@
       settings.cni = "cilium";
       settings.agent-token = "uwubernetes";
 
+      settings.disable-kube-proxy = "true";
+
       manifests = {
         "axiom-rke2-cilium.yaml" = ./manifests/axiom-rke2-cilium.yaml;
       };
