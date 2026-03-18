@@ -19,6 +19,7 @@
       enable = true;
       settings.advertise-address = config.axiom.host.ipv4;
       settings.node-ip = config.axiom.host.ipv4;
+      settings.disable-kube-proxy = "true";
     };
 
     boot.kernelModules = [ "rbd" "nbd" ];

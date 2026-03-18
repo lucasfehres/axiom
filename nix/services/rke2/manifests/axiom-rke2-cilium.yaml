@@ -17,6 +17,29 @@ spec:
         # Cilium's Gateway API support is exclusively used to support the internal-gateway
         gatewayAPI:
           enabled: true
+          secretsNamespace:
+            # handled by cert-manager
+            create: false
+            name: "kube-system"
+            sync: false
+
+        tls:
+          secretsNamespace:
+            # handled by cert-manager
+            create: false
+            name: "kube-system"
+
+        envoyConfig:
+          secretsNamespace:
+            # handled by cert-manager
+            create: false
+            name: "kube-system"
+
+        l2announcements:
+          enabled: true
+        kubeProxyReplacement: true
+        k8sServiceHost: "10.67.1.103"
+        k8sServicePort: "6443"
 
         # I don't think this is even a valid option
         nodePort:
