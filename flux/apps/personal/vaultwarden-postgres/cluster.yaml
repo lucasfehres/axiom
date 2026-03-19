@@ -7,7 +7,7 @@ spec:
     instances: 3
     storage:
         storageClass: rook-ceph-block
-        size: 1Gi
+        size: 2Gi
 
     # makes sure archives to S3 happen even if not that much data was touched in the DB
     postgresql:
