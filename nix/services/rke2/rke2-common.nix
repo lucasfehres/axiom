@@ -26,4 +26,10 @@
 
     # kube-prometheus-stack already runs node exporter on all K8s nodes
     axiom.monitoring.fluent-bit.node-metrics = false;
+
+    # avoids being ratelimited up the ass by Dockerhub
+    environment.etc."rancher/rke2/registries.yaml" = {
+      mode = "0600";
+      source = config.age.secrets.axiom-harbor-k8s-registries.path;
+    };
 }

@@ -5,7 +5,7 @@ let
 
   # prevents agenix errors when rebuilding
   hasWireguard = builtins.elem hostname [ "axiom-vm-wireguard" ];
-  hasK3s = builtins.elem hostname [ "axiom-vm-k3s-master" ];
+  hasK3s = builtins.elem hostname [ "axiom-vm-k8s-master" "axiom-vm-k8s-agent-1" ];
 in
 {
   options.axiom.secrets.enable = lib.mkOption {
@@ -27,6 +27,7 @@ in
 
       (lib.mkIf hasK3s {
         k3s-token.file = ../secrets/k3s-token.txt.age;
+        axiom-harbor-k8s-registries.file = ../secrets/axiom-harbor-k8s-registries.age;
       })
 
       (lib.mkIf config.axiom.personal.local-pgp {
