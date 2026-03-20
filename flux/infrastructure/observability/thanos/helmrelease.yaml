@@ -68,7 +68,8 @@ spec:
             retentionResolution1h: 180d
 
             persistence:
-                size: 8Gi
+                # jebus
+                size: 16Gi
 
         # === We DON'T need these ===
         receive:
