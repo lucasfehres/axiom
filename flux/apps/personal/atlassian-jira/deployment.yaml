@@ -6,7 +6,7 @@ metadata:
     labels:
         app: jira
 spec:
-    replicas: 1
+    replicas: 0 # SETUP RESOURCE STUFF BEFORE RE-ENABLING JIRA
     selector:
         matchLabels:
             app: jira
