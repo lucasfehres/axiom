@@ -67,6 +67,14 @@ spec:
             retentionResolution5m: 60d
             retentionResolution1h: 180d
 
+            resources:
+                requests:
+                    cpu: 1
+                    memory: 256Mi
+                limits:
+                    cpu: 1
+                    memory: 512Mi
+
             persistence:
                 # jebus
                 size: 16Gi
