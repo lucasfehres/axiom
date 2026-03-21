@@ -67,6 +67,13 @@ spec:
             retentionResolution5m: 60d
             retentionResolution1h: 180d
 
+            nodeAffinityPreset:
+                # prevent compactor starving apiserver
+                type: hard
+                key: kubernetes.io/hostname
+                values:
+                    - axiom-vm-k8s-agent-1
+
             resources:
                 requests:
                     cpu: 1
