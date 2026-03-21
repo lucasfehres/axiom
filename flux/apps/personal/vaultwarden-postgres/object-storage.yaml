@@ -5,7 +5,7 @@ metadata:
     namespace: vaultwarden
 spec:
     configuration:
-        destinationPath: "s3://lucasfehres.axiom.cnpg/vaultwarden"
+        destinationPath: "s3://lucasfehres.axiom.cnpg/vaultwardenv2"
         endpointURL: https://eu2.contabostorage.com/
         s3Credentials:
             accessKeyId:
