@@ -5,7 +5,7 @@ metadata:
     namespace: authentik
 spec:
     configuration:
-        destinationPath: "s3://lucasfehres.axiom.cnpg/authentik"
+        destinationPath: "s3://lucasfehres.axiom.cnpg/authentikv2"
         endpointURL: https://eu2.contabostorage.com/
         s3Credentials:
             accessKeyId:
