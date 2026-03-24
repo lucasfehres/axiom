@@ -14,13 +14,25 @@ spec:
         parameters:
             archive_timeout: "15min"
 
-    plugins:
-        - name: barman-cloud.cloudnative-pg.io
-          isWALArchiver: true
-          parameters:
-              barmanObjectName: authentik-postgres
+    # BACKUP RESTORE
+    bootstrap:
+        recovery:
+            source: authentik-postgres
 
-        # - name: barman-cloud.cloudnative-pg.io
-        #   isWALArchiver: false
-        #   parameters:
-        #       barmanObjectName: authentik-postgres-b2
+    externalClusters:
+        - name: authentik-postgres
+          plugin:
+              name: barman-cloud.cloudnative-pg.io
+              parameters:
+                  barmanObjectName: authentik-postgres
+
+    # plugins:
+    #     - name: barman-cloud.cloudnative-pg.io
+    #       isWALArchiver: true
+    #       parameters:
+    #           barmanObjectName: authentik-postgres
+
+    # - name: barman-cloud.cloudnative-pg.io
+    #   isWALArchiver: false
+    #   parameters:
+    #       barmanObjectName: authentik-postgres-b2
