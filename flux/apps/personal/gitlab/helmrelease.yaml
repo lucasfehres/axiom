@@ -15,10 +15,6 @@ spec:
                 namespace: gitlab
     values:
         global:
-            ingress:
-                # not spending $10pm on a loadbalancer
-                enabled: false
-
             hosts:
                 domain: gitlab.axiom.lucasfehres.nl
                 https: false
@@ -133,5 +129,8 @@ spec:
             install: false
 
         nginx-ingress:
-            # this makes a LoadBalancer ._.
-            enabled: false
+            service:
+                # not spending the $10 per month
+                type: ClusterIP
+                annotations:
+                    external-dns.alpha.kubernetes.io/hostname: internal-gitlab.chaos.axiom.lucasfehres.nl
