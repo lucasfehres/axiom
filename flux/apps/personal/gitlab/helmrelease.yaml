@@ -38,6 +38,9 @@ spec:
         certmanager-issuer:
             email: DONOTMAKEACERTMANAGERCONFIG@gitlab.com
 
+        registry:
+            enabled: false
+
         gitlab:
             webservice:
                 minReplicas: 1
@@ -92,6 +95,27 @@ spec:
                 storageClass: rook-ceph-block
 
         redis:
+            persistence:
+                storageClass: rook-ceph-block
+                size: 1Gi
+            resources:
+                requests:
+                    cpu: 25m
+                    memory: 64Mi
+                limits:
+                    cpu: 100m
+                    memory: 128Mi
+            replica:
+                persistence:
+                    storageClass: rook-ceph-block
+                    size: 1Gi
+                resources:
+                    requests:
+                        cpu: 25m
+                        memory: 64Mi
+                    limits:
+                        cpu: 100m
+                        memory: 128Mi
             master:
                 persistence:
                     storageClass: rook-ceph-block
