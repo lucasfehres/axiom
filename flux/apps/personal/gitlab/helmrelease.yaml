@@ -29,12 +29,6 @@ spec:
             ingress:
                 configureCertmanager: false
 
-            psql:
-                host: gitlab-postgres-rw
-                password:
-                    key: password
-                    secret: gitlab-postgres-app
-
         certmanager-issuer:
             email: DONOTMAKEACERTMANAGERCONFIG@gitlab.com
 
