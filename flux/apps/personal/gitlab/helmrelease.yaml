@@ -129,8 +129,9 @@ spec:
             install: false
 
         nginx-ingress:
-            service:
-                # not spending the $10 per month
-                type: ClusterIP
-                annotations:
-                    external-dns.alpha.kubernetes.io/hostname: internal-gitlab.chaos.axiom.lucasfehres.nl
+            controller:
+                service:
+                    # not spending the $10 per month
+                    type: ClusterIP
+                    annotations:
+                        external-dns.alpha.kubernetes.io/hostname: internal-gitlab.chaos.axiom.lucasfehres.nl
