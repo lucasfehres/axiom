@@ -45,7 +45,7 @@ spec:
                 workerProcesses: 0
                 resources:
                     requests:
-                        cpu: 100m
+                        cpu: 25m
                         memory: 800Mi
                     limits:
                         cpu: 500m
@@ -57,7 +57,7 @@ spec:
                 concurrency: 5
                 resources:
                     requests:
-                        cpu: 50m
+                        cpu: 25m
                         memory: 256Mi
                     limits:
                         cpu: 200m
@@ -69,7 +69,7 @@ spec:
                     storageClass: rook-ceph-block
                 resources:
                     requests:
-                        cpu: 50m
+                        cpu: 25m
                         memory: 128Mi
                     limits:
                         cpu: 200m
@@ -86,7 +86,7 @@ spec:
         redis:
             resources:
                 requests:
-                    cpu: 50m
+                    cpu: 25m
                     memory: 64Mi
                 limits:
                     cpu: 100m
