@@ -35,6 +35,9 @@ spec:
                     key: password
                     secret: gitlab-postgres-app
 
+        certmanager-issuer:
+            email: DONOTMAKEACERTMANAGERCONFIG@gitlab.com
+
         gitlab:
             webservice:
                 minReplicas: 1
