@@ -62,7 +62,7 @@ spec:
                         memory: 256Mi
                     limits:
                         cpu: 2
-                        memory: 800Mi
+                        memory: 2Gi
 
             gitaly:
                 persistence:
