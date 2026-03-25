@@ -15,6 +15,10 @@ spec:
                 namespace: gitlab
     values:
         global:
+            ingress:
+                # not spending $10pm on a loadbalancer
+                enabled: false
+
             hosts:
                 domain: gitlab.axiom.lucasfehres.nl
                 https: false
@@ -127,3 +131,7 @@ spec:
 
         gitlab-runner:
             install: false
+
+        nginx-ingress:
+            # this makes a LoadBalancer ._.
+            enabled: false
