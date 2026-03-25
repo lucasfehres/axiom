@@ -42,10 +42,10 @@ spec:
                 workerProcesses: 0
                 resources:
                     requests:
-                        cpu: 25m
+                        cpu: 250m
                         memory: 400Mi
                     limits:
-                        cpu: 500m
+                        cpu: 1
                         memory: 1Gi
 
             sidekiq:
@@ -54,10 +54,10 @@ spec:
                 concurrency: 5
                 resources:
                     requests:
-                        cpu: 25m
+                        cpu: 250m
                         memory: 256Mi
                     limits:
-                        cpu: 200m
+                        cpu: 500m
                         memory: 400Mi
 
             gitaly:
