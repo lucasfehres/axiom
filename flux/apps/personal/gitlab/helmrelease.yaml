@@ -17,6 +17,7 @@ spec:
         global:
             hosts:
                 domain: gitlab.axiom.lucasfehres.nl
+                https: false
             prometheus:
                 install: false
             grafana:
@@ -25,6 +26,8 @@ spec:
                 enabled: false
             registry:
                 enabled: false
+            ingress:
+                configureCertmanager: false
 
             psql:
                 host: gitlab-postgres-rw
