@@ -46,7 +46,7 @@ spec:
                 resources:
                     requests:
                         cpu: 25m
-                        memory: 800Mi
+                        memory: 400Mi
                     limits:
                         cpu: 500m
                         memory: 1Gi
@@ -83,14 +83,26 @@ spec:
         postgresql:
             install: false
 
-        redis:
+        minio:
             resources:
-                requests:
-                    cpu: 25m
-                    memory: 64Mi
-                limits:
-                    cpu: 100m
-                    memory: 128Mi
+                cpu: 25m
+                memory: 128m
+            persistence:
+                size: 1Gi
+                storageClass: rook-ceph-block
+
+        redis:
+            master:
+                persistence:
+                    storageClass: rook-ceph-block
+                    size: 1Gi
+                resources:
+                    requests:
+                        cpu: 25m
+                        memory: 64Mi
+                    limits:
+                        cpu: 100m
+                        memory: 128Mi
 
         gitlab-runner:
             install: false
