@@ -69,7 +69,7 @@ spec:
             gitaly:
                 persistence:
                     size: 5Gi
-                    storageClass: rook-ceph-block
+                    storageClass: sata
                 resources:
                     requests:
                         cpu: 25m
@@ -84,20 +84,23 @@ spec:
         prometheus:
             install: false
         postgresql:
-            install: false
+            primary:
+                persistence:
+                    storageClass: sata
+                    size: 5Gi
 
         minio:
             resources:
                 cpu: 25m
                 memory: 128m
             persistence:
-                size: 1Gi
-                storageClass: rook-ceph-block
+                size: 5Gi
+                storageClass: sata
 
         redis:
             persistence:
-                storageClass: rook-ceph-block
-                size: 1Gi
+                storageClass: sata
+                size: 5Gi
             resources:
                 requests:
                     cpu: 25m
@@ -107,8 +110,8 @@ spec:
                     memory: 128Mi
             replica:
                 persistence:
-                    storageClass: rook-ceph-block
-                    size: 1Gi
+                    storageClass: sata
+                    size: 5Gi
                 resources:
                     requests:
                         cpu: 25m
@@ -118,8 +121,8 @@ spec:
                         memory: 128Mi
             master:
                 persistence:
-                    storageClass: rook-ceph-block
-                    size: 1Gi
+                    storageClass: sata
+                    size: 5Gi
                 resources:
                     requests:
                         cpu: 25m
