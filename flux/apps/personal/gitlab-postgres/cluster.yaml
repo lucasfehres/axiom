@@ -9,6 +9,8 @@ spec:
         storageClass: rook-ceph-block
         size: 2Gi
 
+        # TODO: username gitlab
+
     # BACKUP RESTORE
     # bootstrap:
     #     recovery:
