@@ -56,18 +56,23 @@ spec:
                       - -c
                       - |
                           while true; do
-                            NODE_IPS=$(kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}')
-                            ADDRESSES=""
-                            for ip in $NODE_IPS; do
-                              ADDRESSES="$ADDRESSES {\"ip\": \"$ip\"},"
-                            done
-                            ADDRESSES="[${ADDRESSES%,}]"
+                          # get node IPs as a clean array
+                          mapfile -t NODE_IPS < <(kubectl get nodes -o jsonpath='{range .items[*]}{.status.addresses[?(@.type=="InternalIP")].address}{"\n"}{end}')
+
+                            # build endpoints addresses JSON
+                            ADDR_JSON=$(printf '{"ip": "%s"},' "${NODE_IPS[@]}")
+                            ADDR_JSON="[${ADDR_JSON%,}]"
+
+                            # build endpointslice endpoints JSON (different schema)
+                            EP_JSON=$(printf '{"addresses": ["%s"]},' "${NODE_IPS[@]}")
+                            EP_JSON="[${EP_JSON%,}]"
 
                             kubectl patch endpoints kubernetes -n default --type=merge -p \
-                              "{\"subsets\": [{\"addresses\": $ADDRESSES, \"ports\": [{\"port\": 6443, \"protocol\": \"TCP\"}]}]}"
+                            "{\"subsets\": [{\"addresses\": ${ADDR_JSON}, \"ports\": [{\"port\": 6443, \"protocol\": \"TCP\"}]}]}"
 
                             kubectl patch endpointslice kubernetes -n default --type=merge -p \
-                              "{\"endpoints\": $(kubectl get nodes -o jsonpath='[{range .items[*]}{"{"}"addresses":["{.status.addresses[?(@.type==\"InternalIP\")].address}"]},{ end}]' | sed 's/,]$/]/'), \"ports\": [{\"port\": 6443, \"protocol\": \"TCP\"}]}"
+                            "{\"endpoints\": ${EP_JSON}, \"ports\": [{\"name\": \"\", \"port\": 6443, \"protocol\": \"TCP\"}]}"
 
+                            echo "synced at $(date) with IPs: ${NODE_IPS[*]}"
                             sleep 30
-                          done
+                            done
