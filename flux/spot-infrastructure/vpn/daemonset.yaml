@@ -31,7 +31,7 @@ spec:
                                 name: tailscale-axiom-vpn-auth
                                 key: client-secret
                       - name: TS_EXTRA_ARGS
-                        value: "--accept-routes"
+                        value: "--accept-routes --advertise-tags=tag:k8s-spot"
                       - name: TS_STATE_DIR
                         value: /var/lib/tailscale
                       - name: TS_USERSPACE
