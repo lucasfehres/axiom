@@ -86,4 +86,13 @@
       ];
     };
   };
+
+  # in addition to the normal wireguard stuff the Spot nodes need access to 10.67.0.0/16
+  # over tailscale to support dynamic provisioning.
+  services.tailscale = {
+    enable = true;
+    extraSetFlags = [
+      "--advertise-routes=10.67.0.0/16"
+    ];
+  };
 }
