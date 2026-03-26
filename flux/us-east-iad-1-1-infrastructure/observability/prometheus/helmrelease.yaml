@@ -45,8 +45,6 @@ spec:
                 enabled: true
                 annotations:
                     external-dns.alpha.kubernetes.io/hostname: thanos.us-east-iad-1-1.axiom.lucasfehres.nl
-                    tailscale.com/expose: "true"
-                    tailscale.com/hostname: "thanos-us-east-iad-1-1"
             thanosServiceMonitor:
                 enabled: true
 
