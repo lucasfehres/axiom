@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+    name: endpoint-sync
+    namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+    name: endpoint-sync
+rules:
+    - apiGroups: [""]
+      resources: ["nodes", "endpoints"]
+      verbs: ["get", "list", "watch", "patch", "update"]
+    - apiGroups: ["discovery.k8s.io"]
+      resources: ["endpointslices"]
+      verbs: ["get", "list", "watch", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+    name: endpoint-sync
+roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: endpoint-sync
+subjects:
+    - kind: ServiceAccount
+      name: endpoint-sync
+      namespace: kube-system
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: kubernetes-endpoint-sync
+    namespace: kube-system
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: kubernetes-endpoint-sync
+    template:
+        metadata:
+            labels:
+                app: kubernetes-endpoint-sync
+        spec:
+            hostNetwork: true # doesn't depend on pod networking to function
+            serviceAccountName: endpoint-sync
+            tolerations:
+                - operator: Exists
+            containers:
+                - name: sync
+                  image: bitnami/kubectl:latest
+                  command:
+                      - /bin/bash
+                      - -c
+                      - |
+                          while true; do
+                            NODE_IPS=$(kubectl get nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}')
+                            ADDRESSES=""
+                            for ip in $NODE_IPS; do
+                              ADDRESSES="$ADDRESSES {\"ip\": \"$ip\"},"
+                            done
+                            ADDRESSES="[${ADDRESSES%,}]"
+
+                            kubectl patch endpoints kubernetes -n default --type=merge -p \
+                              "{\"subsets\": [{\"addresses\": $ADDRESSES, \"ports\": [{\"port\": 6443, \"protocol\": \"TCP\"}]}]}"
+
+                            kubectl patch endpointslice kubernetes -n default --type=merge -p \
+                              "{\"endpoints\": $(kubectl get nodes -o jsonpath='[{range .items[*]}{"{"}"addresses":["{.status.addresses[?(@.type==\"InternalIP\")].address}"]},{ end}]' | sed 's/,]$/]/'), \"ports\": [{\"port\": 6443, \"protocol\": \"TCP\"}]}"
+
+                            sleep 30
+                          done

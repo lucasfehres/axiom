@@ -134,4 +134,4 @@ spec:
                     # not spending the $10 per month
                     type: ClusterIP
                     annotations:
-                        external-dns.alpha.kubernetes.io/hostname: internal-gitlab.chaos.axiom.lucasfehres.nl
+                        external-dns.alpha.kubernetes.io/hostname: internal-gitlab.us-east-iad-1-1.axiom.lucasfehres.nl
