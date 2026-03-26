@@ -1,0 +1,55 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: prometheus
+    namespace: chaos-observability
+spec:
+    interval: 30m
+    chart:
+        spec:
+            chart: kube-prometheus-stack
+            version: "81.3.0"
+            sourceRef:
+                kind: HelmRepository
+                name: prometheus-community
+                namespace: chaos-observability
+            interval: 12h
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        prometheus:
+            prometheusSpec:
+                thanos:
+                    image: quay.io/thanos/thanos:v0.39.2
+
+                # Disabled for Thanos
+                disableCompaction: true
+
+                externalLabels:
+                    cluster: us-east-iad-1-1
+
+                retention: 24h
+
+                serviceMonitorSelector: {}
+                serviceMonitorSelectorNilUsesHelmValues: false
+                podMonitorSelector: {}
+                podMonitorSelectorNilUsesHelmValues: false
+
+            thanosService:
+                enabled: true
+                annotations:
+                    external-dns.alpha.kubernetes.io/hostname: thanos.us-east-iad-1-1.axiom.lucasfehres.nl
+            thanosServiceMonitor:
+                enabled: true
+
+        grafana:
+            enabled: false
+
+        alertmanager:
+            enabled: false
