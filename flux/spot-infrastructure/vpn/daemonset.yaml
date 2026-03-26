@@ -14,6 +14,8 @@ spec:
         spec:
             hostNetwork: true
             priorityClassName: system-node-critical
+            # disables k8s mode in the tailscale client
+            automountServiceAccountToken: false
             containers:
                 - name: tailscale
                   image: tailscale/tailscale:latest
