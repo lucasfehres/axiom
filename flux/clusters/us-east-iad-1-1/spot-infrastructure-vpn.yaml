@@ -1,0 +1,14 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+    name: spot-infrastructure-vpn
+    namespace: flux-system
+spec:
+    interval: 10m
+    sourceRef:
+        kind: GitRepository
+        name: flux-system
+    path: ./flux/spot-infrastructure/vpn
+    prune: true
+    wait: true
+    timeout: 10m

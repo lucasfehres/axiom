@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+    name: tailscale-axiom-vpn
+    namespace: kube-system
+spec:
+    selector:
+        matchLabels:
+            app: tailscale-axiom-vpn
+    template:
+        metadata:
+            labels:
+                app: tailscale-axiom-vpn
+        spec:
+            hostNetwork: true
+            priorityClassName: system-node-critical
+            containers:
+                - name: tailscale
+                  image: tailscale/tailscale:latest
+                  env:
+                      - name: TS_API_CLIENT_ID
+                        valueFrom:
+                            secretKeyRef:
+                                name: tailscale-axiom-vpn-auth
+                                key: client-id
+                      - name: TS_API_CLIENT_SECRET
+                        valueFrom:
+                            secretKeyRef:
+                                name: tailscale-axiom-vpn-auth
+                                key: client-secret
+                      - name: TS_EXTRA_ARGS
+                        value: "--accept-routes"
+                      - name: TS_STATE_DIR
+                        value: /var/lib/tailscale
+                      - name: TS_USERSPACE
+                        value: "false"
+                      - name: TS_ACCEPT_ROUTES
+                        value: "true"
+                  securityContext:
+                      capabilities:
+                          add: [NET_ADMIN, NET_RAW]
+                  volumeMounts:
+                      - name: dev-tun
+                        mountPath: /dev/net/tun
+                      - name: tailscale-state
+                        mountPath: /var/lib/tailscale
+            volumes:
+                - name: dev-tun
+                  hostPath:
+                      path: /dev/net/tun
+                - name: tailscale-state
+                  hostPath:
+                      path: /var/lib/tailscale
+                      type: DirectoryOrCreate

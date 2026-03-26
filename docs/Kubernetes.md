@@ -246,3 +246,25 @@ metadata:
 stringData:
     NEXTAUTH_SECRET: "some secret"
 ```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: operator-oauth
+    namespace: tailscale
+stringData:
+    client_id: ""
+    client_secret: ""
+```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: tailscale-axiom-vpn-auth
+    namespace: kube-system
+stringData:
+    client-id: ""
+    client-secret: ""
+```
