@@ -126,7 +126,7 @@ spec:
                         memory: 128Mi
 
         gitlab-runner:
-            install: false
+            install: true
 
         nginx-ingress:
             controller:
