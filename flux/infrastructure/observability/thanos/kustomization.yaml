@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
     - ocirepository.yaml
     - helmrelease.yaml
+    - us-east-iad-1-1.yaml
