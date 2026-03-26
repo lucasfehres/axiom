@@ -84,7 +84,7 @@ spec:
 
             persistence:
                 # jebus
-                size: 16Gi
+                size: 24Gi
 
         # === We DON'T need these ===
         receive:
