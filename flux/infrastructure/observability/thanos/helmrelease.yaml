@@ -47,7 +47,7 @@ spec:
                 - "dnssrv+_grpc._tcp.thanos-storegateway.observability.svc.cluster.local"
                 # TODO: Chaos Prometheus
                 - "thanos.chaos.axiom.lucasfehres.nl:10901"
-                - "thanos-us-east-iad-1-1.observability.svc.cluster.local:10901"
+                - "thanos.us-east-iad-1-1.axiom.lucasfehres.nl:10901"
 
         queryFrontend:
             enabled: true
