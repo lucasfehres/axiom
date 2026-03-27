@@ -95,4 +95,13 @@
       "--advertise-routes=10.67.0.0/16"
     ];
   };
+
+  # setting the tailscale source IP for 10.67.0.0/16 devices to that of axiom-vm-wireguard
+  # resolves issues with the return path traffic. NAT is unfortunate but it's much easier
+  # than setting up the tailscale on spot nodes.
+  networking.nat = {
+    enable = true;
+    externalInterface = "tailscale0";
+    internalIPs = [ "10.67.0.0/16" ];
+  };
 }
