@@ -5,6 +5,8 @@ metadata:
     namespace: gitlab
 spec:
     interval: 1h
+    # gitlab is a slow aaahh
+    timeout: 30m
     chart:
         spec:
             chart: gitlab
@@ -40,6 +42,9 @@ spec:
                 minReplicas: 1
                 maxReplicas: 1
                 workerProcesses: 0
+                service:
+                    annotations:
+                        external-dns.alpha.kubernetes.io/hostname: gitlab-webservice.us-east-iad-1-1.axiom.lucasfehres.nl
                 resources:
                     requests:
                         cpu: 250m
@@ -74,6 +79,11 @@ spec:
 
             toolbox:
                 enabled: false
+
+            gitlab-shell:
+                service:
+                    annotations:
+                        external-dns.alpha.kubernetes.io/hostname: gitlab-shell.us-east-iad-1-1.axiom.lucasfehres.nl
 
         prometheus:
             install: false
