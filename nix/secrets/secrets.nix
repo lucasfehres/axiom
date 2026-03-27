@@ -16,8 +16,10 @@ in
   "k3s-token.txt.age".publicKeys = [
     lucasf
     axiom-vm-k3s-master
+    axiom-vm-k8s-agent-1
     pgp-authentication
   ];
   "pgp-sign-key.age".publicKeys = [ lucasf pgp-authentication ];
   "axiom-harbor-k8s-registries.age".publicKeys = [ lucasf pgp-authentication axiom-vm-k3s-master axiom-vm-k8s-agent-1 ];
+  "axiom-rke2-cilium.yaml.age".publicKeys = [ lucasf pgp-authentication axiom-vm-k3s-master axiom-vm-k8s-agent-1 ];
 }
