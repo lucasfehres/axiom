@@ -6,6 +6,6 @@ metadata:
 spec:
     ports:
         - name: http
-          port: forgejo
+          port: 3000
           protocol: TCP
-          targetPort: forgejo
+          targetPort: 3000
