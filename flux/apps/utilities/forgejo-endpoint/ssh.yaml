@@ -17,7 +17,7 @@ metadata:
     name: external-forgejo-ssh
     namespace: forgejo
     annotations:
-        external-dns.alpha.kubernetes.io/hostname: git.axiom.lucasfehes.nl
+        external-dns.alpha.kubernetes.io/hostname: git.axiom.lucasfehres.nl
 spec:
     type: LoadBalancer
     ports:
