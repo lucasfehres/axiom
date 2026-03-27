@@ -1,0 +1,11 @@
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+    name: ts-pod-cidrs
+    namespace: kube-system
+spec:
+    replicas: 2
+    hostnamePrefix: us-east-iad-1-1-ts-pod-cidrs
+    subnetRouter:
+        advertiseRoutes:
+            - "10.101.0.0/16"

@@ -1,0 +1,16 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+    name: us-east-iad-1-1-infrastructure-tailscale
+    namespace: flux-system
+spec:
+    dependsOn:
+        - name: shared-infrastructure-tailscale
+    interval: 10m
+    sourceRef:
+        kind: GitRepository
+        name: flux-system
+    path: ./flux/us-east-iad-1-1-infrastructure/tailscale
+    prune: true
+    wait: true
+    timeout: 10m
