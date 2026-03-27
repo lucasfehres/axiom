@@ -15,6 +15,16 @@ spec:
                 kind: HelmRepository
                 name: gitlab
                 namespace: gitlab
+    postRenderers:
+        - kustomize:
+              patches:
+                  - target:
+                        kind: Service
+                        name: gitlab-webservice-default
+                    patch: |
+                        - op: add
+                          path: /metadata/annotations/external-dns.alpha.kubernetes.io~1hostname
+                          value: gitlab-webservice.us-east-iad-1-1.axiom.lucasfehres.nl
     values:
         global:
             hosts:
@@ -44,7 +54,8 @@ spec:
                 workerProcesses: 0
                 service:
                     annotations:
-                        external-dns.alpha.kubernetes.io/hostname: gitlab-webservice.us-east-iad-1-1.axiom.lucasfehres.nl
+                        # these get duplicated for some reason
+                        # external-dns.alpha.kubernetes.io/hostname: gitlab-webservice.us-east-iad-1-1.axiom.lucasfehres.nl
                 resources:
                     requests:
                         cpu: 250m
