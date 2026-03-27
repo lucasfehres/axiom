@@ -26,6 +26,11 @@
         Gateway = "10.67.1.102";
         Destination = "192.168.0.0/16";
       }
+      {
+        # axiom-vm-wireguard has the Tailscale connection to us-east-iad-1-1
+        Gateway = "10.67.1.102";
+        Destination = "10.101.0.0/16";
+      }
     ]
     ++ lib.optionals (config.networking.hostName == "axiom-vm-wireguard") [
       {
