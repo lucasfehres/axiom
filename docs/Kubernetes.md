@@ -279,3 +279,15 @@ stringData:
     WOODPECKER_FORGEJO_CLIENT: ""
     WOODPECKER_FORGEJO_SECRET: ""
 ```
+
+(axiom-woodpecker must be installed where there are agent deployments)
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: axiom-woodpecker
+    namespace: woodpecker-agent
+stringData:
+    WOODPECKER_AGENT_SECRET: ""
+```
