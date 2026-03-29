@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+    annotations:
+        tailscale.com/tailnet-fqdn: woodpecker-server.tail5694a.ts.net
+    name: woodpecker-server
+    namespace: woodpecker-agent
+spec:
+    externalName: placeholder
+    type: ExternalName
