@@ -25,3 +25,4 @@ spec:
                 WOODPECKER_HOST: "https://woodpecker.internal.axiom.lucasfehres.nl"
             persistentVolume:
                 size: 4Gi
+                storageClass: rook-ceph-block
