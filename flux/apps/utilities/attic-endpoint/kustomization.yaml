@@ -5,4 +5,3 @@ resources:
     - service.yaml
     - endpoint.yaml
     - httproute.yaml
-    - ssh.yaml
