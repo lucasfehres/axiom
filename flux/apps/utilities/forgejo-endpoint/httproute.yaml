@@ -5,7 +5,9 @@ metadata:
     namespace: forgejo
 spec:
     parentRefs:
-        - name: internal-gateway
+        # has to be to the public internet unfortunately do to issues having Woodpecker pods in
+        # us-east-iad-1-1 accessing Forgejo.
+        - name: tls-gateway
           namespace: kube-system
     hostnames:
         - "forgejo.axiom.lucasfehres.nl"
