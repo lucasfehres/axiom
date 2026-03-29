@@ -12,8 +12,7 @@ spec:
             external-dns.alpha.kubernetes.io/hostname: >-
                 thisfirstonedoesabsolutelynothing.axiom.lucasfehes.nl,
                 *.internal.axiom.lucasfehres.nl,
-                grafana.axiom.lucasfehres.nl,
-                forgejo.axiom.lucasfehres.nl
+                grafana.axiom.lucasfehres.nl
 
     listeners:
         - protocol: HTTP
