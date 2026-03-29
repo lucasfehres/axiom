@@ -32,10 +32,7 @@ spec:
             persistentVolume:
                 size: 4Gi
                 storageClass: rook-ceph-block
-            ingress:
-                enabled: true
-                ingressClassName: tailscale
-                hosts: []
-                tls:
-                    hosts:
-                        - woodpecker-server
+            service:
+                annotations:
+                    tailscale.com/expose: "true"
+                    tailscale.com/hostname: axiom-woodpecker-server
