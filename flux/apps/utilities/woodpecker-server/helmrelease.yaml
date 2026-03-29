@@ -25,6 +25,8 @@ spec:
                 WOODPECKER_HOST: "https://woodpecker.internal.axiom.lucasfehres.nl"
                 WOODPECKER_FORGEJO: "true"
                 WOODPECKER_FORGEJO_URL: "https://forgejo.axiom.lucasfehres.nl"
+                WOODPECKER_OPEN: "false"
+                WOODPECKER_ADMIN: lucasf
             extraSecretNamesForEnvFrom:
                 - axiom-forgejo
             persistentVolume:
