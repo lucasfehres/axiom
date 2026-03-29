@@ -23,8 +23,8 @@ spec:
             replicaCount: 1
             env:
                 # WOODPECKER_SERVER: "https://woodpecker.internal.axiom.lucasfehres.nl"
-                # referenced internally over Tailscale
-                WOODPECKER_SERVER: "https://woodpecker-server"
+                # referenced internally over Tailscale, manual IP due to DNS issue
+                WOODPECKER_SERVER: "https://10.101.1.73"
                 # for use on Rackspace
                 WOODPECKER_BACKEND_K8S_STORAGE_CLASS: sata
                 WOODPECKER_BACKEND_K8S_NAMESPACE: woodpecker-agent
