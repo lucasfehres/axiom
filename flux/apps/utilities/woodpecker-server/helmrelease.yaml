@@ -1,0 +1,27 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: woodpecker
+    namespace: woodpecker
+spec:
+    interval: 30m
+    chartRef:
+        kind: OCIRepository
+        name: woodpecker
+        namespace: woodpecker
+    install:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        agent:
+            enabled: false
+        server:
+            env:
+                WOODPECKER_HOST: "https://woodpecker.internal.axiom.lucasfehres.nl"
+            persistentVolume:
+                size: 4Gi
