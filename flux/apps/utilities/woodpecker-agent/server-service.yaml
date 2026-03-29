@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
     annotations:
-        tailscale.com/tailnet-fqdn: woodpecker-server.tail5694a.ts.net
-    name: woodpecker-server
+        tailscale.com/tailnet-fqdn: axiom-woodpecker-server.tail5694a.ts.net
+    name: woodpecker-server-ts
     namespace: woodpecker-agent
 spec:
     externalName: placeholder
