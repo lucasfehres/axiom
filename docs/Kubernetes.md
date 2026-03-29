@@ -268,3 +268,14 @@ stringData:
     client-id: ""
     client-secret: ""
 ```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+    name: axiom-forgejo
+    namespace: woodpecker
+stringData:
+    WOODPECKER_FORGEJO_CLIENT: ""
+    WOODPECKER_FORGEJO_SECRET: ""
+```

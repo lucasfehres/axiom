@@ -23,6 +23,10 @@ spec:
         server:
             env:
                 WOODPECKER_HOST: "https://woodpecker.internal.axiom.lucasfehres.nl"
+                WOODPECKER_FORGEJO: "true"
+                WOODPECKER_FORGEJO_URL: "https://forgejo.axiom.lucasfehres.nl"
+            extraSecretNamesForEnvFrom:
+                - axiom-forgejo
             persistentVolume:
                 size: 4Gi
                 storageClass: rook-ceph-block
