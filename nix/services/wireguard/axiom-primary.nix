@@ -59,7 +59,8 @@
           PublicKey = "ujqoaf2NnGWXmDyfGkRHXcbIGFczuPSbAM57R8u/ayE=";
           AllowedIPs = [
             "10.67.2.2/32"
-            "fdc1:64af:3a3c:0001::0003/128"
+            # UniFi does not yet support IPv6 over WireGuard
+            # "fdc1:64af:3a3c:0001::0003/128"
             "10.67.1.0/24"
             "10.67.3.0/24"
             "10.171.0.0/16"
@@ -84,6 +85,16 @@
               "10.67.2.4/32"
               "10.67.1.0/24"
               "10.171.0.0/16"
+          ];
+        }
+        {
+          # fw13
+          PublicKey = "TTeDhMLPthYt7LwB53wD2nx9oCnM1O0oLQt79Em3T2o=";
+          AllowedIPs = [
+            "10.67.2.5/32"
+            "fdc1:64af:3a3c:0001::0002/128"
+            "10.67.1.0/24"
+            "10.67.3.0/24"
           ];
         }
       ];

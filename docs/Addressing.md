@@ -15,6 +15,7 @@
 | 10.67.2.2/32     | USG                                 | UGC             |
 | 10.67.2.3/32     | lucasfehres-cloudwise-probook       | Somewhere       |
 | 10.67.2.4/32     | CW lucas-test-dc01                  | GCP             |
+| 10.67.2.5/32     | fw13                                | Somewhere       |
 | 10.67.3.0/24     | Axiom K8s Cilium pool               | FSN01           |
 | 10.80.0.0/16     | Liqo cross-cluster networking       | FSN01 <> Chaos  |
 | 10.101.0.0/16    | us-east-iad-1-1 pod CIDR            | us-east-iad-1-1 |
