@@ -11,6 +11,10 @@
 | 10.43.0.0/16     | Service CIDR                        | FSN01           |
 | 10.67.1.0/24     | Proxmox FSN01-01                    | FSN01           |
 | 10.67.2.0/24     | Axiom WireGuard clients             | FSN01           |
+| 10.67.2.1/32     | axiom-vm-wireguard                  | FSN01           |
+| 10.67.2.2/32     | USG                                 | UGC             |
+| 10.67.2.3/32     | lucasfehres-cloudwise-probook       | Somewhere       |
+| 10.67.2.4/32     | CW lucas-test-dc01                  | GCP             |
 | 10.67.3.0/24     | Axiom K8s Cilium pool               | FSN01           |
 | 10.80.0.0/16     | Liqo cross-cluster networking       | FSN01 <> Chaos  |
 | 10.101.0.0/16    | us-east-iad-1-1 pod CIDR            | us-east-iad-1-1 |
@@ -47,10 +51,16 @@ configure Cilium myself on any Chaos cluster deployments.
 
 IPv6 is in the planning phase.
 
-| Block (CIDR)           | Allocation                  | Where |
-| ---------------------- | --------------------------- | ----- |
-| 2a01:4f8:10a:29cc::/64 | FNS01-01                    | FSN01 |
-| fc67:1::/112           | Proxmox FSN01-01 (internal) | FSN01 |
+| Block (CIDR)                  | Allocation                  | Where     |
+| ----------------------------- | --------------------------- | --------- |
+| 2a01:4f8:10a:29cc::/64        | FNS01-01                    | FSN01     |
+| fc67:1::/112                  | Proxmox FSN01-01 (internal) | FSN01     |
+| fdc1:64af:3a3c::/48           | Random RFC4193 allocation   | Global    |
+| fdc1:64af:3a3c:0001::/64      | Axiom WireGuard             | Global    |
+| fdc1:64af:3a3c:0001::0001/128 | axiom-vm-wireguard          | FSN01     |
+| fdc1:64af:3a3c:0001::0002/128 | fw13                        | Somewhere |
+| fdc1:64af:3a3c:0001::0003/128 | USG                         | Somewhere |
+| fdc1:64af:3a3c:0001::0004/128 | iPhone LF                   | Somewhere |
 
 ## Undeclarative Firewall Rules
 
