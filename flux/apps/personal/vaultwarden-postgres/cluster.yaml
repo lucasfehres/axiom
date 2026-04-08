@@ -10,27 +10,27 @@ spec:
         size: 2Gi
 
     # BACKUP RESTORE
-    bootstrap:
-        recovery:
-            source: vaultwarden-postgres
+    # bootstrap:
+    #     recovery:
+    #         source: vaultwarden-postgres
 
-    externalClusters:
-        - name: vaultwarden-postgres
-          plugin:
-              name: barman-cloud.cloudnative-pg.io
-              parameters:
-                  barmanObjectName: vaultwarden-postgres
+    # externalClusters:
+    #     - name: vaultwarden-postgres
+    #       plugin:
+    #           name: barman-cloud.cloudnative-pg.io
+    #           parameters:
+    #               barmanObjectName: vaultwarden-postgres
 
     # makes sure archives to S3 happen even if not that much data was touched in the DB
     postgresql:
         parameters:
             archive_timeout: "15min"
 
-    # plugins:
-    #     - name: barman-cloud.cloudnative-pg.io
-    #       isWALArchiver: true
-    #       parameters:
-    #           barmanObjectName: vaultwarden-postgres
+    plugins:
+        - name: barman-cloud.cloudnative-pg.io
+          isWALArchiver: true
+          parameters:
+              barmanObjectName: vaultwarden-postgres
 
     # - name: barman-cloud.cloudnative-pg.io
     #   isWALArchiver: false
