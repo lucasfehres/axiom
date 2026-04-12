@@ -36,80 +36,18 @@
   };
 
   home-manager.users.lucasf = { pkgs, ... }: {
+    imports = [
+      # make sure to only import home-manager modules!
+      ./shell.nix
+      ./plasma.nix
+      ./git.nix
+    ];
+
     home.username = "lucasf";
     home.homeDirectory = "/home/lucasf";
 
     home.packages = with pkgs; []
       ++ lib.optionals (config.axiom.host.gui) [ zed-editor ];
-    programs.bash.enable = true;
-
-    programs.git = {
-      enable = true;
-
-      settings = {
-        user.name = "Lucas Fehres";
-        user.email = "lucasfehres@gmail.com";
-        user.signingkey = "8F6F0936E39D9D0E";
-
-        init.defaultbranch = "main";
-        commit.gpgsign = "true";
-        tag.gpgSign = "true";
-      };
-    };
-
-    programs.gpg = {
-      enable = true;
-      publicKeys = [
-        {
-          trust = 5;
-          source = ./pgp.pub;
-        }
-      ];
-
-      scdaemonSettings = {
-        # pcsc-driver = "/usr/lib/libpcsclite.so.1";
-        card-timeout = "5";
-        disable-ccid = true;
-      };
-    };
-
-    services.gpg-agent = {
-      enable = true;
-      enableNushellIntegration = true;
-      pinentry.package = pkgs.pinentry-qt;
-    };
-
-    programs.nushell = {
-      enable = true;
-      shellAliases = {
-        kube-busybox = "kubectl run -i --rm -t busybox --image=busybox --restart=Never";
-        kube-hubble = "kubectl port-forward -n kube-system service/hubble-ui --address 0.0.0.0 8080:80";
-      };
-
-      configFile.text = ''
-        $env.EDITOR = "vim"
-
-        $env.PROMPT_COMMAND = {
-          let host = (sys host | get hostname)
-          let pwd = (pwd)
-
-          $"($host) ($pwd) "
-        }
-
-        def unfuck-gpg [] {
-          gpgconf --kill gpg-agent
-          sudo systemctl restart pcscd
-        }
-
-        def unfuck-pgp [] {
-          unfuck-gpg
-        }
-      '';
-    };
-
-    programs.vim = {
-        enable = true;
-    };
 
     # any personal activation scripts that may have to run
     home.activation = lib.mkMerge [

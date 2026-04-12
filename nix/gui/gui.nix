@@ -25,7 +25,7 @@ in
     environment.systemPackages = with pkgs;
     [
       # KDE
-      kdePackages.discover # Optional: Install if you use Flatpak or fwupd firmware update sevice
+      kdePackages.discover # used for fwupd
       kdePackages.kcalc # Calculator
       kdePackages.kcharselect # Tool to select and copy special characters from all installed fonts
       kdePackages.kclock # Clock app
@@ -34,8 +34,9 @@ in
       kdePackages.ksystemlog # KDE SystemLog Application
       kdePackages.sddm-kcm # Configuration module for SDDM
       kdePackages.konsole # Terminal emulator
-      kdePackages.okular # Document viewer
+      # kdePackages.okular # Document viewer
       kdePackages.dolphin # File manager
+      kdePackages.kleopatra # PGP manager
       kdiff3 # Compares and merges 2 or 3 files or directories
       kdePackages.isoimagewriter # Optional: Program to write hybrid ISO files onto USB disks
       kdePackages.partitionmanager # Optional: Manage the disk devices, partitions and file systems on your computer
