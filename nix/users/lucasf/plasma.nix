@@ -35,6 +35,7 @@ in
       panels = [
         {
           widgets = [
+            # https://nix-community.github.io/plasma-manager/options.xhtml#opt-programs.plasma.panels._.widgets
             {
               kickoff = {
                 icon = "start-here-kde-plasma";
@@ -61,9 +62,7 @@ in
             {
               digitalClock = {};
             }
-            {
-              showDesktop = {};
-            }
+            "org.kde.plasma.showdesktop"
           ];
         }
       ];
