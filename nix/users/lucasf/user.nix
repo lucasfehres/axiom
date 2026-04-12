@@ -12,7 +12,9 @@
 
     extraGroups = [ "wheel" ]
       # WiFi configuration
-      ++ lib.optionals (config.axiom.host.portable) [ "networkmanager" ];
+      ++ lib.optionals (config.axiom.host.portable) [ "networkmanager" ]
+      # GUI specific groups
+      ++ lib.optionals (config.axiom.host.gui) [ "wireshark" ];
 
     packages = with pkgs; []
       ++ lib.optionals (config.axiom.host.gui) [ nur.repos.Ev357.helium ];

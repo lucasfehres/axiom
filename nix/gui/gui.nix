@@ -8,6 +8,10 @@ let
   hostCfg = config.axiom.host;
 in
 {
+  imports = [
+    ./utilities.nix
+  ];
+
   config = lib.mkIf hostCfg.gui {
     services.desktopManager.plasma6.enable = true;
 
