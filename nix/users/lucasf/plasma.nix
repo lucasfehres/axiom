@@ -31,6 +31,22 @@ in
       enable = true;
       kscreenlocker.appearance.wallpaper = wallpaper;
       workspace.wallpaper = wallpaper;
+
+      panels = [
+        {
+          widgets = [
+            {
+              iconTasks = {
+                launchers = [
+                  "applications:org.kde.dolphin.desktop"
+                  "applications:org.kde.konsole.desktop"
+                  "applications:helium.desktop"
+                ];
+              };
+            }
+          ];
+        }
+      ];
     };
   };
 }
