@@ -12,7 +12,7 @@ in
     programs.wireshark = {
       enable = true;
       dumpcap.enable = true;
-      usbcap.enable = true;
+      usbmon.enable = true;
     };
   };
 }
