@@ -6,6 +6,7 @@ let
   # prevents agenix errors when rebuilding
   hasWireguard = builtins.elem hostname [ "axiom-vm-wireguard" ];
   hasK3s = builtins.elem hostname [ "axiom-vm-k8s-master" "axiom-vm-k8s-agent-1" ];
+  isGitLab = builtins.elem hostname [ "axiom-vm-gitlab" ];
 in
 {
   options.axiom.secrets.enable = lib.mkOption {
@@ -38,6 +39,18 @@ in
           owner = "lucasf";
           group = "users";
         };
+      })
+
+      (lib.mkIf isGitLab {
+        axiom-gitlab-db-password.file = ../secrets/axiom-gitlab-db-password.age;
+        axiom-gitlab-initial-password.file = ../secrets/axiom-gitlab-initial-password.age;
+        axiom-gitlab-secret-activeRecordDeterministicKey.file = ../secrets/axiom-gitlab-secret-activeRecordDeterministicKey.age;
+        axiom-gitlab-secret-activeRecordPrimaryKey.file = ../secrets/axiom-gitlab-secret-activeRecordPrimaryKey.age;
+        axiom-gitlab-secret-activeRecordSalt.file = ../secrets/axiom-gitlab-secret-activeRecordSalt.age;
+        axiom-gitlab-secret-db.file = ../secrets/axiom-gitlab-secret-db.age;
+        axiom-gitlab-secret-jws.file = ../secrets/axiom-gitlab-secret-jws.age;
+        axiom-gitlab-secret-otp.file = ../secrets/axiom-gitlab-secret-otp.age;
+        axiom-gitlab-secret-secret.file = ../secrets/axiom-gitlab-secret-secret.age;
       })
     ];
   };
