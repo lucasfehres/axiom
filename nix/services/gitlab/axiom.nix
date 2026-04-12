@@ -26,4 +26,14 @@
       secretFile = config.age.secrets.axiom-gitlab-secret-secret.file;
     };
   };
+
+  services.nginx = {
+    enable = true;
+    recommendedProxySettings = true;
+    virtualHosts = {
+      localhost = {
+        locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+      };
+    };
+  };
 }
