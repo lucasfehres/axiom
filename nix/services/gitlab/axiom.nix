@@ -34,6 +34,10 @@
     virtualHosts = {
       localhost = {
         locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+        extraConfig = ''
+          proxy_set_header X-Forwarded-Proto https;
+          proxy_set_header X-Forwarded-Ssl on;
+        '';
       };
     };
   };
