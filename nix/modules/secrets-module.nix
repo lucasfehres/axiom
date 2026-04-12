@@ -26,7 +26,7 @@ in
       })
 
       (lib.mkIf hasK3s {
-        k3s-token.file = ../secrets/k3s-token.txt.age;
+        # k3s-token.file = ../secrets/k3s-token.txt.age;
         axiom-harbor-k8s-registries.file = ../secrets/axiom-harbor-k8s-registries.age;
       })
 
