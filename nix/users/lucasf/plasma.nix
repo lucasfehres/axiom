@@ -4,6 +4,12 @@
   pkgs,
   ...
 }:
+let
+  # https://github.com/KDE/plasma-workspace-wallpapers
+  # https://invent.kde.org/plasma/breeze/-/tree/master/wallpapers/Next
+  wallpaper =
+    "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/5120x2880.png";
+in
 {
   config = lib.mkIf osConfig.axiom.host.gui {
     programs.okular = {
@@ -23,6 +29,8 @@
 
     programs.plasma = {
       enable = true;
+      kscreenlocker.appearance.wallpaper = wallpaper;
+      workspace.wallpaper = wallpaper;
     };
   };
 }
