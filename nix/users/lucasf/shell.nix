@@ -27,6 +27,15 @@
       def unfuck-pgp [] {
         unfuck-gpg
       }
+
+      def axiom-upgrade [] {
+        sudo systemctl start --no-block nixos-upgrade
+        journalctl -fxeu nixos-upgrade
+      }
+
+      def axiom-upgrade-check [] {
+        journalctl -xeu nixos-upgrade
+      }
     '';
   };
 
