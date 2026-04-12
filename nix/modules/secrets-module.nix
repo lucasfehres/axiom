@@ -43,14 +43,32 @@ in
 
       (lib.mkIf isGitLab {
         axiom-gitlab-db-password.file = ../secrets/axiom-gitlab-db-password.age;
+        axiom-gitlab-db-password.owner = "gitlab";
+        axiom-gitlab-db-password.group = "gitlab";
         axiom-gitlab-initial-password.file = ../secrets/axiom-gitlab-initial-password.age;
+        axiom-gitlab-initial-password.owner = "gitlab";
+        axiom-gitlab-initial-password.group = "gitlab";
         axiom-gitlab-secret-activeRecordDeterministicKey.file = ../secrets/axiom-gitlab-secret-activeRecordDeterministicKey.age;
+        axiom-gitlab-secret-activeRecordDeterministicKey.owner = "gitlab";
+        axiom-gitlab-secret-activeRecordDeterministicKey.group = "gitlab";
         axiom-gitlab-secret-activeRecordPrimaryKey.file = ../secrets/axiom-gitlab-secret-activeRecordPrimaryKey.age;
+        axiom-gitlab-secret-activeRecordPrimaryKey.owner = "gitlab";
+        axiom-gitlab-secret-activeRecordPrimaryKey.group = "gitlab";
         axiom-gitlab-secret-activeRecordSalt.file = ../secrets/axiom-gitlab-secret-activeRecordSalt.age;
+        axiom-gitlab-secret-activeRecordSalt.owner = "gitlab";
+        axiom-gitlab-secret-activeRecordSalt.group = "gitlab";
         axiom-gitlab-secret-db.file = ../secrets/axiom-gitlab-secret-db.age;
+        axiom-gitlab-secret-db.owner = "gitlab";
+        axiom-gitlab-secret-db.group = "gitlab";
         axiom-gitlab-secret-jws.file = ../secrets/axiom-gitlab-secret-jws.age;
+        axiom-gitlab-secret-jws.owner = "gitlab";
+        axiom-gitlab-secret-jws.group = "gitlab";
         axiom-gitlab-secret-otp.file = ../secrets/axiom-gitlab-secret-otp.age;
+        axiom-gitlab-secret-otp.owner = "gitlab";
+        axiom-gitlab-secret-otp.group = "gitlab";
         axiom-gitlab-secret-secret.file = ../secrets/axiom-gitlab-secret-secret.age;
+        axiom-gitlab-secret-secret.owner = "gitlab";
+        axiom-gitlab-secret-secret.group = "gitlab";
       })
     ];
   };
