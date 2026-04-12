@@ -8,7 +8,7 @@ subsets:
           - ip: 10.67.1.107
       ports:
           - name: ssh
-            port: 222
+            port: 22
             protocol: TCP
 ---
 apiVersion: v1
@@ -17,11 +17,11 @@ metadata:
     name: external-gitlab-ssh
     namespace: gitlab
     annotations:
-        external-dns.alpha.kubernetes.io/hostname: git.internal.axiom.lucasfehres.nl
+        external-dns.alpha.kubernetes.io/hostname: gitlab-git.internal.axiom.lucasfehres.nl
 spec:
     type: LoadBalancer
     ports:
         - name: ssh
           port: 22
           protocol: TCP
-          targetPort: 222
+          targetPort: 22

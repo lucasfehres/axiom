@@ -23,9 +23,9 @@ in
   "pgp-sign-key.age".publicKeys = [ lucasf pgp-authentication ];
   "axiom-harbor-k8s-registries.age".publicKeys = [ lucasf pgp-authentication axiom-vm-k3s-master axiom-vm-k8s-agent-1 ];
   "axiom-rke2-cilium.yaml.age".publicKeys = [ lucasf pgp-authentication axiom-vm-k3s-master axiom-vm-k8s-agent-1 ];
+
   "axiom-gitlab-db-password.age".publicKeys = [ lucasf pgp-authentication axiom-vm-gitlab ];
   "axiom-gitlab-initial-password.age".publicKeys = [ lucasf pgp-authentication axiom-vm-gitlab ];
-
   "axiom-gitlab-secret-activeRecordDeterministicKey.age".publicKeys = [ lucasf pgp-authentication axiom-vm-gitlab ];
   "axiom-gitlab-secret-activeRecordPrimaryKey.age".publicKeys = [ lucasf pgp-authentication axiom-vm-gitlab ];
   "axiom-gitlab-secret-activeRecordSalt.age".publicKeys = [ lucasf pgp-authentication axiom-vm-gitlab ];
