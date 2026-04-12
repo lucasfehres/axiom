@@ -4,6 +4,7 @@
     enable = true;
     host = "gitlab.internal.axiom.lucasfehres.nl";
     port = 443;
+    https = true;
     databasePasswordFile = config.age.secrets.axiom-gitlab-db-password.path;
     initialRootPasswordFile = config.age.secrets.axiom-gitlab-initial-password.path;
 
