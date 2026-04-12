@@ -23,6 +23,14 @@
     nur.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    # unstable variants
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager-unstable.url = "github:nix-community/home-manager/master";
+    home-manager-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    plasma-manager-unstable.url = "github:nix-community/plasma-manager";
+    plasma-manager-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    plasma-manager-unstable.inputs.home-manager.follows = "home-manager-unstable";
   };
   outputs =
     {
@@ -35,20 +43,26 @@
       plasma-manager,
       nur,
       determinate,
-      nixos-hardware
+      nixos-hardware,
+      nixpkgs-unstable,
+      home-manager-unstable,
+      plasma-manager-unstable
     }:
     let
-      commonModules = [
+      mkCommonModules = homeManager: [
         nur.modules.nixos.default
 
         disko.nixosModules.disko
         agenix.nixosModules.default
-        home-manager.nixosModules.home-manager
+        homeManager.nixosModules.home-manager
 
         ./users/lucasf/user.nix
         ./modules/modules.nix
         ./utility/general.nix
       ];
+
+      commonModules = mkCommonModules home-manager;
+      commonModulesUnstable = mkCommonModules home-manager-unstable;
 
       vmSupportModules = [
         ./utility/vm.nix
@@ -82,22 +96,24 @@
           ./hosts/axiom-vm-games/configuration.nix
           ./services/podman/podman.nix
         ] ++ vmSupportModules;
+      };
 
-        laptop-test = commonModules ++ [
-          ./hosts/laptop-test/configuration.nix
+      unstableConfigs = {
+        laptop-test = commonModulesUnstable ++ [
+            ./hosts/laptop-test/configuration.nix
 
-          # try out on the test laptop for now
-          determinate.nixosModules.default
+            # try out on the test laptop for now
+            determinate.nixosModules.default
 
-          # it's a 3210 but close enough
-          nixos-hardware.nixosModules.dell-latitude-3340
+            # it's a 3210 but close enough
+            nixos-hardware.nixosModules.dell-latitude-3340
         ];
 
         # https://github.com/NixOS/nixos-hardware/blob/master/framework/13-inch
       };
     in
     {
-      nixosConfigurations = builtins.mapAttrs (
+      nixosConfigurations = (builtins.mapAttrs (
         name: modules:
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -109,7 +125,17 @@
               ;
           };
         }
-      ) configModules;
+      ) configModules) //
+      (builtins.mapAttrs (name: modules:
+        nixpkgs-unstable.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = modules;
+          specialArgs = {
+            plasma-manager = plasma-manager-unstable;
+            inherit nur;
+          };
+        }
+      ) unstableConfigs);
 
       lib.testableConfigModules = configModules;
     };
