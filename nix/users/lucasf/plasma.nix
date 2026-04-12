@@ -11,7 +11,7 @@
     defaultProfile = "Nu";
 
     profiles.Nu = {
-      command = "${pkgs.nushell}/bin/nu"
+      command = "${pkgs.nushell}/bin/nu";
     };
   };
 
