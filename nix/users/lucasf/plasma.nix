@@ -36,6 +36,14 @@ in
         {
           widgets = [
             {
+              kickoff = {
+                icon = "start-here-kde-plasma";
+              };
+            }
+            {
+              pager = {};
+            }
+            {
               iconTasks = {
                 launchers = [
                   "applications:org.kde.dolphin.desktop"
@@ -43,6 +51,18 @@ in
                   "applications:helium.desktop"
                 ];
               };
+            }
+            {
+              panelSpacer = {};
+            }
+            {
+              systemTray = {};
+            }
+            {
+              digitalClock = {};
+            }
+            {
+              showDesktop = {};
             }
           ];
         }
