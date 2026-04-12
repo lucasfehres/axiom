@@ -96,6 +96,9 @@
           ./hosts/axiom-vm-games/configuration.nix
           ./services/podman/podman.nix
         ] ++ vmSupportModules;
+        axiom-vm-gitlab = commonModules ++ [
+          ./hosts/axiom-vm-gitlab/configuration.nix
+        ] ++ vmSupportModules;
       };
 
       unstableConfigs = {
