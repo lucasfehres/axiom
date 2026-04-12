@@ -44,6 +44,7 @@
         disko.nixosModules.disko
         agenix.nixosModules.default
         home-manager.nixosModules.home-manager
+
         ./users/lucasf/user.nix
         ./modules/modules.nix
         ./utility/general.nix
@@ -101,6 +102,12 @@
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = modules;
+          specialArgs = {
+            inherit
+              plasma-manager
+              nur
+              ;
+          };
         }
       ) configModules;
 

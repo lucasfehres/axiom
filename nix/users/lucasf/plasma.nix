@@ -1,21 +1,28 @@
-{ pkgs, ... }:
 {
-  programs.okular = {
-    enable = true;
-    general.obeyDrm = false;
-    general.zoomMode = "fitWidth";
-  };
-
-  programs.konsole = {
-    enable = true;
-    defaultProfile = "Nu";
-
-    profiles.Nu = {
-      command = "${pkgs.nushell}/bin/nu";
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}:
+{
+  config = lib.mkIf osConfig.axiom.host.gui {
+    programs.okular = {
+      enable = true;
+      general.obeyDrm = false;
+      general.zoomMode = "fitWidth";
     };
-  };
 
-  programs.plasma = {
-    enable = true;
+    programs.konsole = {
+      enable = true;
+      defaultProfile = "Nu";
+
+      profiles.Nu = {
+        command = "${pkgs.nushell}/bin/nu";
+      };
+    };
+
+    programs.plasma = {
+      enable = true;
+    };
   };
 }

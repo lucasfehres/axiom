@@ -45,8 +45,8 @@
   # required for systemd prometheus exporter
   services.dbus.implementation = "broker";
 
-  home-manager.sharedModules = []
-    ++ lib.optionals (config.axiom.host.gui) [ plasma-manager.homeModules.plasma-manager ];
+  home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ]
+    ++ lib.optionals (config.axiom.host.gui) [  ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
