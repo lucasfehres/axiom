@@ -98,6 +98,7 @@
         ] ++ vmSupportModules;
         axiom-vm-gitlab = commonModules ++ [
           ./hosts/axiom-vm-gitlab/configuration.nix
+          ./services/gitlab/axiom.nix
         ] ++ vmSupportModules;
       };
 
