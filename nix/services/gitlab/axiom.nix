@@ -9,7 +9,7 @@
     initialRootPasswordFile = config.age.secrets.axiom-gitlab-initial-password.path;
 
     extraGitlabRb = ''
-      Settings.gitlab_kas[‘enable’] = true
+      Settings.gitlab_kas['enable'] = true
     '';
 
     sidekiq = {
