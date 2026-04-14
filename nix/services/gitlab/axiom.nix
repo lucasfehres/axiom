@@ -8,6 +8,10 @@
     databasePasswordFile = config.age.secrets.axiom-gitlab-db-password.path;
     initialRootPasswordFile = config.age.secrets.axiom-gitlab-initial-password.path;
 
+    extraGitlabRb = ''
+      Settings.gitlab_kas[‘enable’] = true
+    '';
+
     sidekiq = {
       concurrency = 2;
     };
