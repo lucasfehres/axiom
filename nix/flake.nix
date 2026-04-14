@@ -31,6 +31,9 @@
     plasma-manager-unstable.url = "github:nix-community/plasma-manager";
     plasma-manager-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable";
     plasma-manager-unstable.inputs.home-manager.follows = "home-manager-unstable";
+
+    # the gitlab vm runs on a fork of nixpkgs to support gitlab-kas
+    nixpkgs-lucasfehres-gitlab.url = "github:lucasfehres/nixpkgs/gitlab-kas";
   };
   outputs =
     {
@@ -46,7 +49,8 @@
       nixos-hardware,
       nixpkgs-unstable,
       home-manager-unstable,
-      plasma-manager-unstable
+      plasma-manager-unstable,
+      nixpkgs-lucasfehres-gitlab
     }:
     let
       mkCommonModules = homeManager: [
@@ -96,6 +100,9 @@
           ./hosts/axiom-vm-games/configuration.nix
           ./services/podman/podman.nix
         ] ++ vmSupportModules;
+      };
+
+      gitlabConfigs = {
         axiom-vm-gitlab = commonModules ++ [
           ./hosts/axiom-vm-gitlab/configuration.nix
           ./services/gitlab/axiom.nix
@@ -139,7 +146,16 @@
             inherit nur;
           };
         }
-      ) unstableConfigs);
+      ) unstableConfigs) //
+      (builtins.mapAttrs (name: modules:
+        nixpkgs-lucasfehres-gitlab.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = modules;
+          specialArgs = {
+            inherit plasma-manager nur;
+          };
+        }
+      ) gitlabConfigs);
 
       lib.testableConfigModules = configModules;
     };

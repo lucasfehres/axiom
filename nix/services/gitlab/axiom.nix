@@ -21,6 +21,10 @@
       workers = 1;
     };
 
+    kas = {
+      enable = true;
+    };
+
     secrets = {
       activeRecordDeterministicKeyFile = config.age.secrets.axiom-gitlab-secret-activeRecordDeterministicKey.file;
       activeRecordPrimaryKeyFile = config.age.secrets.axiom-gitlab-secret-activeRecordPrimaryKey.file;
@@ -79,7 +83,5 @@
 
   networking.firewall.allowedTCPPorts = [
     80
-    # the Redis port is exposed so that KAS can be tested externally
-    6379
   ];
 }
