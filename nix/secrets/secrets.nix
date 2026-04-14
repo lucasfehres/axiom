@@ -33,4 +33,7 @@ in
   "axiom-gitlab-secret-jws.age".publicKeys = [ lucasf pgp-authentication axiom-vm-gitlab ];
   "axiom-gitlab-secret-otp.age".publicKeys = [ lucasf pgp-authentication axiom-vm-gitlab ];
   "axiom-gitlab-secret-secret.age".publicKeys = [ lucasf pgp-authentication axiom-vm-gitlab ];
+
+  "axiom-contabo-s3-access-id.age".publicKeys = [ lucasf pgp-authentication axiom-vm-gitlab ];
+  "axiom-contabo-s3-access-secret.age".publicKeys = [ lucasf pgp-authentication axiom-vm-gitlab ];
 }

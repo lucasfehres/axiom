@@ -69,6 +69,12 @@ in
         axiom-gitlab-secret-secret.file = ../secrets/axiom-gitlab-secret-secret.age;
         axiom-gitlab-secret-secret.owner = "gitlab";
         axiom-gitlab-secret-secret.group = "gitlab";
+        axiom-contabo-s3-access-id.file = ../secrets/axiom-contabo-s3-access-id.age;
+        axiom-contabo-s3-access-id.owner = "gitlab";
+        axiom-contabo-s3-access-id.group = "gitlab";
+        axiom-contabo-s3-access-secret.file = ../secrets/axiom-contabo-s3-access-secret.age;
+        axiom-contabo-s3-access-secret.owner = "gitlab";
+        axiom-contabo-s3-access-secret.group = "gitlab";
       })
     ];
   };

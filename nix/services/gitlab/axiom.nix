@@ -26,6 +26,31 @@
       otpFile = config.age.secrets.axiom-gitlab-secret-otp.file;
       secretFile = config.age.secrets.axiom-gitlab-secret-secret.file;
     };
+
+    backup = {
+      # keeping backups around for 2 weeks
+      keepTime = 336;
+      startAt = ["03:00"];
+      skip = [ "artifacts" ];
+      uploadOptions = {
+        # Fog storage connection settings, see http://fog.io/storage/
+        connection = {
+          provider = "AWS";
+          region = "";
+          aws_access_key_id = { _secret = config.age.secrets.axiom-contabo-s3-access-id.file; };
+          aws_secret_access_key = { _secret = config.age.secrets.axiom-contabo-s3-access-secret.file; };
+          endpoint = "https://eu2.contabostorage.com";
+        };
+
+        # The remote 'directory' to store your backups in.
+        # For S3, this would be the bucket name.
+        remote_directory = "lucasfehres.axiom.gitlab-backup";
+
+        # Use multipart uploads when file size reaches 100MB, see
+        # http://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html
+        multipart_chunk_size = 104857600;
+      };
+    };
   };
 
   services.nginx = {
