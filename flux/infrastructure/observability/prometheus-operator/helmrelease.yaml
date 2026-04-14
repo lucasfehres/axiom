@@ -99,6 +99,7 @@ spec:
                       static_configs:
                           - targets:
                                 - "10.67.1.102:2021"
+                                - "10.67.1.107:2021"
                       metrics_path: /metrics
                       scrape_interval: 30s
 
