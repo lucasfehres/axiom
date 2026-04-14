@@ -83,5 +83,6 @@
 
   networking.firewall.allowedTCPPorts = [
     80
+    8150
   ];
 }
