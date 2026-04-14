@@ -79,5 +79,7 @@
 
   networking.firewall.allowedTCPPorts = [
     80
+    # the Redis port is exposed so that KAS can be tested externally
+    6379
   ];
 }
