@@ -8,7 +8,7 @@ spec:
     chart:
         spec:
             chart: rook-ceph
-            version: ">=1.12.0 <2.0.0" # Pin to a range
+            version: "1.20.0" # CHECK FOR UPGRADE ISSUES! AUTO UPDATE IS DISABLED!
             sourceRef:
                 kind: HelmRepository
                 name: rook-release
