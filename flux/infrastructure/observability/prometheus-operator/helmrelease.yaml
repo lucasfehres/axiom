@@ -360,6 +360,21 @@ spec:
                               - alertname = "etcdInsufficientMembers"
                           # effectively a dead hole
                           receiver: "Dead Mans Snitch"
+                        # TODO: tracking issue lucasfehres/axiom#1
+                        - matchers:
+                              - namespace = "authentik"
+                          receiver: "Dead Mans Snitch"
+                        # TODO: tracking issue lucasfehres/axiom#2
+                        - matchers:
+                              - job = "kube-proxy"
+                          receiver: "Dead Mans Snitch"
+                        # TODO: tracking issue lucasfehres/axiom#3
+                        - matchers:
+                              - alertname = "etcdMembersDown"
+                          receiver: "Dead Mans Snitch"
+                        - matchers:
+                              - alertname = "etcdInsufficientMembers"
+                          receiver: "Dead Mans Snitch"
                 receivers:
                     - name: "Axiom Notifications"
                       telegram_configs:
