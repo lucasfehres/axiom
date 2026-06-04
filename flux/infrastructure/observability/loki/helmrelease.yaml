@@ -47,6 +47,9 @@ spec:
                         secret_access_key: "${GRAFANALOKIS3SECRETACCESSKEY}"
                         insecure: false
 
+            ui:
+                enabled: true
+
             # https://grafana.com/docs/loki/latest/operations/storage/retention/#compactor
             compactor:
                 working_directory: /tmp/retention
