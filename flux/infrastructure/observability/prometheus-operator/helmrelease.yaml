@@ -158,6 +158,9 @@ spec:
                 enabled: true
 
         grafana:
+            plugins:
+                - grafana-lokioperational-app
+
             additionalDataSources:
                 - name: Thanos
                   type: prometheus
