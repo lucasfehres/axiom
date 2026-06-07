@@ -91,6 +91,10 @@ metadata:
 data:
     k8s.lua: |
         function alter_fields(tag, timestamp, record)
+            if record["kubernetes"] == nil or record["kubernetes"]["labels"] == nil then
+                return 0, timestamp, record
+            end
+
             record["kubernetes"]["labels"]["rook_io_operator_namespace"] = nil
             record["kubernetes"]["labels"]["rook_cluster"] = nil
             record["kubernetes"]["labels"]["mon_cluster"] = nil
