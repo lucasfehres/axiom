@@ -35,12 +35,10 @@ spec:
                     K8S-Logging.Exclude On
 
                 [FILTER]
-                    Name        record_modifier
+                    Name        lua
                     Match       kube.*
-                    Remove_key  kubernetes.labels.rook_io_operator_namespace
-                    Remove_key  kubernetes.labels.rook_cluster
-                    Remove_key  kubernetes.labels.mon_cluster
-                    Remove_key  kubernetes.labels.mon_daemon
+                    Script      /fluent-bit/lua-scripts/k8s.lua
+                    Call alter_fields
 
             outputs: |
                 [OUTPUT]
@@ -58,3 +56,27 @@ spec:
             enabled: true
         dashboards:
             enabled: true
+
+        daemonSetVolumes:
+            - name: lua-scripts
+              configMap:
+                  name: fluent-bit-lua-scripts
+        daemonSetVolumeMounts:
+            - name: lua-scripts
+              mountPath: /fluent-bit/lua-scripts
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: fluent-bit-lua-scripts
+    namespace: observability
+data:
+    k8s.lua: |
+        function alter_fields(tag, timestamp, record)
+            record["kubernetes"]["labels"]["rook_io_operator_namespace"] = nil
+            record["kubernetes"]["labels"]["rook_cluster"] = nil
+            record["kubernetes"]["labels"]["mon_cluster"] = nil
+            record["kubernetes"]["labels"]["mon_daemon"] = nil
+
+            return 1, timestamp, record
+        end
