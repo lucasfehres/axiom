@@ -26,15 +26,15 @@ spec:
         config:
             outputs: |
                 [OUTPUT]
-                  Name                      loki
-                  Match                     kube.*
+                    Name                    loki
+                    Match                   kube.*
 
-                  Host                      loki-write.internal.axiom.lucasfehres.nl
-                  Port                      443
-                  Tls                       on
-                  Tls.verify                on
+                    Host                    loki-write.internal.axiom.lucasfehres.nl
+                    Port                    443
+                    Tls                     on
+                    Tls.verify              on
 
-                  Labels                    job=kube-fluentbit
-                  Auto_Kubernetes_Labels    on
+                    Labels                  job=kube-fluentbit
+                    Auto_Kubernetes_Labels  on
         serviceMonitor:
             enabled: true
