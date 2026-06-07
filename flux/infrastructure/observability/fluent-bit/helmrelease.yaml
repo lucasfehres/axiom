@@ -24,6 +24,24 @@ spec:
             retries: 3
     values:
         config:
+            # Filtering is necessary because the Rook pods exceed the max amount of labels
+            filters: |
+                [FILTER]
+                    Name kubernetes
+                    Match kube.*
+                    Merge_Log On
+                    Keep_Log Off
+                    K8S-Logging.Parser On
+                    K8S-Logging.Exclude On
+
+                [FILTER]
+                    Name        record_modifier
+                    Match       kube.*
+                    Remove_key  kubernetes.labels.rook_io_operator_namespace
+                    Remove_key  kubernetes.labels.rook_cluster
+                    Remove_key  kubernetes.labels.mon_cluster
+                    Remove_key  kubernetes.labels.mon_daemon
+
             outputs: |
                 [OUTPUT]
                     Name                    loki
