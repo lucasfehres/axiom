@@ -223,30 +223,14 @@ spec:
                           editable: true
                           options:
                               path: /var/lib/grafana/dashboards/cloudnative-pg
-                        - name: "traefik"
+                        - name: "other"
                           orgId: 1
-                          folder: "Traefik"
+                          folder: "Other"
                           type: file
                           disableDeletion: false
                           editable: true
                           options:
-                              path: /var/lib/grafana/dashboards/traefik
-                        - name: "proxmox"
-                          orgId: 1
-                          folder: "Proxmox"
-                          type: file
-                          disableDeletion: false
-                          editable: true
-                          options:
-                              path: /var/lib/grafana/dashboards/proxmox
-                        - name: "external-dns"
-                          orgId: 1
-                          folder: "External DNS"
-                          type: file
-                          disableDeletion: false
-                          editable: true
-                          options:
-                              path: /var/lib/grafana/dashboards/external-dns
+                              path: /var/lib/grafana/dashboards/other
                         - name: "liqo"
                           orgId: 1
                           folder: "Liqo"
@@ -328,23 +312,23 @@ spec:
                         url: https://raw.githubusercontent.com/thanos-io/thanos/refs/heads/main/examples/dashboards/rule.json
                     bucket-replicate:
                         url: https://raw.githubusercontent.com/thanos-io/thanos/refs/heads/main/examples/dashboards/bucket-replicate.json
-                traefik:
+                other:
                     traefik-official:
                         gnetId: 17347
                         revision: 9
                         datasource: Thanos
-                proxmox:
                     proxmox-otel:
                         gnetId: 23855
                         revision: 1
                         datasource:
                             - name: DS_PROMETHEUS
                               value: "Thanos"
-                external-dns:
                     external-dns:
                         gnetId: 15038
                         revision: 3
                         datasource: Thanos
+                    fluent-bit:
+                        url: https://raw.githubusercontent.com/fluent/helm-charts/refs/heads/main/charts/fluent-bit/dashboards/fluent-bit.json
 
         alertmanager:
             config:
