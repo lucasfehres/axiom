@@ -38,3 +38,5 @@ spec:
                     Auto_Kubernetes_Labels  on
         serviceMonitor:
             enabled: true
+        dashboards:
+            enabled: true

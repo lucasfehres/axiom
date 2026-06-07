@@ -327,8 +327,6 @@ spec:
                         gnetId: 15038
                         revision: 3
                         datasource: Thanos
-                    fluent-bit:
-                        url: https://raw.githubusercontent.com/fluent/helm-charts/refs/heads/main/charts/fluent-bit/dashboards/fluent-bit.json
 
         alertmanager:
             config:
