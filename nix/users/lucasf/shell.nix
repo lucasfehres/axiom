@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   programs.bash.enable = true;
 
@@ -16,7 +16,7 @@
         let host = (sys host | get hostname)
         let pwd = (pwd)
 
-        $"($host) ($pwd) "
+        $"(ansi ${config.axiom.host.prompt-color})($host) ($pwd)(ansi reset) "
       }
 
       def unfuck-gpg [] {

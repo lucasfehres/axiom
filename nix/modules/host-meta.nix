@@ -30,4 +30,10 @@
     default = false;
     description = "Sets configuration options for storage constrained hosts";
   };
+
+  options.axiom.host.prompt-color = lib.mkOption {
+    type = lib.types.str;
+    default = "green";
+    description = "Configures the Nushell prompt color";
+  };
 }
