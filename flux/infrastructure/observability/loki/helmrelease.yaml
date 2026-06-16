@@ -68,7 +68,8 @@ spec:
                       schema: v13
                       store: tsdb
             limits_config:
-                retention_period: 168h
+                # 168h stores about 2GB, so 1680h (70 days) is fine.
+                retention_period: 1680h
 
         write:
             replicas: 1
