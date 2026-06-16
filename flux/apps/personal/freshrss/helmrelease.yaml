@@ -29,10 +29,11 @@ spec:
             database:
                 type: postgresql
             initialization:
-                enabled: true
+                enabled: false
                 admin:
                     email: "lucasfehres@gmail.com"
                     # o_o
+                    # no longer valid btw
                     password: "verysecurepassword"
                     username: lucasf
             persistence:
