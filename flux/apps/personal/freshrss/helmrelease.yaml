@@ -48,4 +48,4 @@ spec:
                 username: app
                 existingSecret: freshrss-postgres-app
                 userPasswordKey: password
-            hostname: vaultwarden-postgres-rw
+            hostname: freshrss-postgres-rw
