@@ -24,10 +24,12 @@
       <outline type="rss" text="thanos" xmlUrl="https://github.com/thanos-io/thanos/releases.atom"/>
       <outline type="rss" text="rook" xmlUrl="https://github.com/rook/rook/releases.atom"/>
       <outline type="rss" text="traefik" xmlUrl="https://github.com/traefik/releases.atom"/>
+      <outline type="rss" text="Planet KDE" xmlUrl="https://planet.kde.org/atom.xml"/>
     </outline>
     <outline title="Helm chart updates" text="Helm chart updates">
       <outline type="rss" text="authentik" xmlUrl="https://artifacthub.io/api/v1/packages/helm/goauthentik/authentik/feed/rss"/>
       <outline type="rss" text="freshrss" xmlUrl="https://artifacthub.io/api/v1/packages/helm/christianhuth/freshrss/feed/rss"/>
+      <outline type="rss" text="vaultwarden Helm" xmlUrl="https://github.com/guerzon/vaultwarden/releases.atom"/>
     </outline>
   </body>
 </opml>
