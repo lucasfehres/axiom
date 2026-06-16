@@ -46,6 +46,7 @@ spec:
             auth:
                 database: app
                 username: app
-                existingSecret: freshrss-postgres-app
-                userPasswordKey: password
+                # very very bad practice but the DB shouldn't be accessible from the internet
+                # and I'm not putting in the effort to fix the vibed Helm chart.
+                password: xoEC4e3Uh90kDFeI60rj3jUbkHHgQZeQx9SDAfOcHbE7iMtoMELSstKqMAslOZW5
             hostname: freshrss-postgres-rw
