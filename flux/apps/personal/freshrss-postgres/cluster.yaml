@@ -1,0 +1,38 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+    name: freshrss-postgres
+    namespace: freshrss
+spec:
+    instances: 1
+    storage:
+        storageClass: rook-ceph-block
+        size: 2Gi
+
+    # BACKUP RESTORE
+    # bootstrap:
+    #     recovery:
+    #         source: freshrss-postgres
+
+    # externalClusters:
+    #     - name: freshrss-postgres
+    #       plugin:
+    #           name: barman-cloud.cloudnative-pg.io
+    #           parameters:
+    #               barmanObjectName: freshrss-postgres
+
+    # makes sure archives to S3 happen even if not that much data was touched in the DB
+    postgresql:
+        parameters:
+            archive_timeout: "15min"
+
+    plugins:
+        - name: barman-cloud.cloudnative-pg.io
+          isWALArchiver: true
+          parameters:
+              barmanObjectName: freshrss-postgres
+
+    # - name: barman-cloud.cloudnative-pg.io
+    #   isWALArchiver: false
+    #   parameters:
+    #       barmanObjectName: freshrss-postgres-b2

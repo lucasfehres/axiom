@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+  <body>
+    <outline title="Software updates" text="Software updates">
+      <outline type="rss" text="freshrss" xmlUrl="https://github.com/FreshRSS/FreshRSS/releases.atom"/>
+      <outline type="rss" text="ejbca" xmlUrl="https://github.com/Keyfactor/ejbca-ce/releases.atom"/>
+      <outline type="rss" text="authentik" xmlUrl="https://github.com/goauthentik/authentik/releases.atom"/>
+      <outline type="rss" text="vaultwarden" xmlUrl="https://github.com/dani-garcia/vaultwarden/releases.atom"/>
+      <outline type="rss" text="gitlab" xmlUrl="https://about.gitlab.com/atom.xml"/>
+      <outline type="rss" text="attic" xmlUrl="https://github.com/zhaofengli/attic/releases.atom"/>
+      <outline type="rss" text="forgejo" xmlUrl="https://codeberg.org/forgejo/forgejo/releases.rss"/>
+      <outline type="rss" text="harbor" xmlUrl="https://github.com/goharbor/harbor/releases.atom"/>
+      <outline type="rss" text="iperf" xmlUrl="https://github.com/esnet/iperf/releases.atom"/>
+      <outline type="rss" text="woodpecker" xmlUrl="https://github.com/woodpecker-ci/woodpecker/releases.atom"/>
+      <outline type="rss" text="zerotier" xmlUrl="https://github.com/zerotier/ZeroTierOne/releases.atom"/>
+      <outline type="rss" text="cert-manager" xmlUrl="https://github.com/cert-manager/cert-manager/releases.atom"/>
+      <outline type="rss" text="cloudnative-pg" xmlUrl="https://github.com/cloudnative-pg/releases.atom"/>
+      <outline type="rss" text="external-dns" xmlUrl="https://github.com/kubernetes-sigs/external-dns/releases.atom"/>
+      <outline type="rss" text="liqo" xmlUrl="https://github.com/liqotech/liqo/releases.atom"/>
+      <outline type="rss" text="fluent-bit" xmlUrl="https://github.com/fluent/fluent-bit/releases.atom"/>
+      <outline type="rss" text="loki" xmlUrl="https://github.com/grafana/loki/releases.atom"/>
+      <outline type="rss" text="opentelemetry-operator" xmlUrl="https://github.com/open-telemetry/opentelemetry-operator/releases.atom"/>
+      <outline type="rss" text="prometheus-operator" xmlUrl="https://github.com/prometheus-operator/prometheus-operator/releases.atom"/>
+      <outline type="rss" text="thanos" xmlUrl="https://github.com/thanos-io/thanos/releases.atom"/>
+      <outline type="rss" text="rook" xmlUrl="https://github.com/rook/rook/releases.atom"/>
+      <outline type="rss" text="traefik" xmlUrl="https://github.com/traefik/releases.atom"/>
+    </outline>
+    <outline title="Helm chart updates" text="Helm chart updates">
+      <outline type="rss" text="authentik" xmlUrl="https://artifacthub.io/api/v1/packages/helm/goauthentik/authentik/feed/rss"/>
+      <outline type="rss" text="freshrss" xmlUrl="https://artifacthub.io/api/v1/packages/helm/christianhuth/freshrss/feed/rss"/>
+    </outline>
+  </body>
+</opml>
