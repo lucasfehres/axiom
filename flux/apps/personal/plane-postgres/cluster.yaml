@@ -1,0 +1,48 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+    name: plane-postgres
+    namespace: plane
+spec:
+    instances: 1
+    storage:
+        storageClass: rook-ceph-block
+        size: 2Gi
+
+    # BACKUP RESTORE
+    # bootstrap:
+    #     recovery:
+    #         source: plane-postgres
+
+    # externalClusters:
+    #     - name: plane-postgres
+    #       plugin:
+    #           name: barman-cloud.cloudnative-pg.io
+    #           parameters:
+    #               barmanObjectName: plane-postgres
+
+    # makes sure archives to S3 happen even if not that much data was touched in the DB
+    postgresql:
+        parameters:
+            archive_timeout: "15min"
+
+    managed:
+        services:
+            additional:
+                - selectorType: rw
+                  serviceTemplate:
+                      metadata:
+                          name: "plane-postgres-lb"
+                      spec:
+                          type: LoadBalancer
+
+    plugins:
+        - name: barman-cloud.cloudnative-pg.io
+          isWALArchiver: true
+          parameters:
+              barmanObjectName: plane-postgres
+
+    # - name: barman-cloud.cloudnative-pg.io
+    #   isWALArchiver: false
+    #   parameters:
+    #       barmanObjectName: plane-postgres-b2
