@@ -6,4 +6,6 @@
   axiom.host.prompt-color = "xterm_orangered1"; # TODO: change this to some other color
 
   axiom.host.storage-constrained = true;
+
+  virtualisation.docker.enable = true; # running the docker compose version of Plane
 }
