@@ -35,7 +35,8 @@
     ++ lib.optionals (
         # TODO: not do this anymore!
         config.networking.hostName == "axiom-vm-wireguard" ||
-        config.networking.hostName == "axiom-vm-gitlab"
+        config.networking.hostName == "axiom-vm-gitlab" ||
+        config.networking.hostName == "axiom-vm-plane"
     ) [
       {
         # Make the K8s Cilium pool available over the WireGuard router
