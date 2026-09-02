@@ -100,6 +100,9 @@
           ./hosts/axiom-vm-games/configuration.nix
           ./services/podman/podman.nix
         ] ++ vmSupportModules;
+        axiom-vm-plane = commonModules ++ [
+          ./hosts/axiom-vm-plane/configuration.nix
+        ] ++ vmSupportModules;
       };
 
       gitlabConfigs = {
