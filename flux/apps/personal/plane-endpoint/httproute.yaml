@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+    name: external-plane
+    namespace: plane
+spec:
+    parentRefs:
+        - name: tls-gateway
+          namespace: kube-system
+    hostnames:
+        - "plane.axiom.lucasfehres.nl"
+    rules:
+        - backendRefs:
+              - name: external-plane
+                port: 80
