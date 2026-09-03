@@ -7,6 +7,7 @@
   axiom.host.wlan-interface = "wlo1";
   axiom.host.boot-drive-uuid = "22CE-74BA";
   axiom.host.root-only-boot-dir = true;
+  axiom.host.unsafe-debug = true;
 
   # required for ZFS
   networking.hostId = "67676767";
