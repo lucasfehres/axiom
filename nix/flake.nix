@@ -103,6 +103,9 @@
         axiom-vm-plane = commonModules ++ [
           ./hosts/axiom-vm-plane/configuration.nix
         ] ++ vmSupportModules;
+        cloudwise-laptop = commonModulesUnstable ++ [
+            ./hosts/cloudwise-laptop/configuration.nix
+        ];
       };
 
       gitlabConfigs = {
