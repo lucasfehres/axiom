@@ -15,6 +15,7 @@ in
     boot.initrd.availableKernelModules = [ "zfs" ];
     boot.initrd.systemd.emergencyAccess = hostCfg.unsafe-debug;
 
+    # important note for later me: set mountpoint to LEGACY in ZFS! won't boot otherwise
     fileSystems."/"     = { device = "zpool/root"; fsType = "zfs"; };
     fileSystems."/nix"  = { device = "zpool/nix";  fsType = "zfs"; };
     fileSystems."/var"  = { device = "zpool/var";  fsType = "zfs"; };
