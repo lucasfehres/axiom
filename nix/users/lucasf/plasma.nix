@@ -24,6 +24,7 @@ in
 
       profiles.Nu = {
         command = "${pkgs.nushell}/bin/nu";
+        font.name = "Comic Code";
       };
     };
 
