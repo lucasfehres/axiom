@@ -24,6 +24,12 @@
     description = "Mount /boot with root only access";
   };
 
+  options.axiom.host.unsafe-debug = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Enables emergency shells. Do not leave enabled";
+  };
+
   options.axiom.host.gui = lib.mkOption {
     type = lib.types.bool;
     default = false;

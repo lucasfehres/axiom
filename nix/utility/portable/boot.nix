@@ -13,6 +13,7 @@ in
     boot.loader.systemd-boot.memtest86.enable = true;
 
     boot.initrd.availableKernelModules = [ "zfs" ];
+    boot.initrd.systemd.emergencyAccess = hostCfg.unsafe-debug;
 
     fileSystems."/"     = { device = "zpool/root"; fsType = "zfs"; };
     fileSystems."/nix"  = { device = "zpool/nix";  fsType = "zfs"; };
@@ -20,9 +21,9 @@ in
     fileSystems."/home" = { device = "zpool/home"; fsType = "zfs"; };
 
     fileSystems."/boot" = {
-      device = "/dev/disk/by-uuid/${config.axiom.host.boot-drive-uuid}";
+      device = "/dev/disk/by-uuid/${hostCfg.boot-drive-uuid}";
       fsType = "vfat";
-      options = if config.axiom.host.root-only-boot-dir then [ "fmask=0077" "dmask=0077"] else [ "fmask=0022" "dmask=0022"];
+      options = if hostCfg.root-only-boot-dir then [ "fmask=0077" "dmask=0077"] else [ "fmask=0022" "dmask=0022"];
     };
   };
 }
