@@ -5,6 +5,7 @@
   axiom.host.portable = true;
   axiom.host.gui = true;
   axiom.host.wlan-interface = "wlo1";
+  axiom.host.boot-drive-uuid = "AB64-415C";
 
   # required for ZFS
   networking.hostId = "dead2bad";

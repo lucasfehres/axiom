@@ -13,6 +13,17 @@
     description = "Enables options specific for portable devices";
   };
 
+  options.axiom.host.boot-drive-uuid = lib.mkOption {
+    type = lib.types.str;
+    description = "Boot drive UUID. Required for portable devices";
+  };
+
+  options.axiom.host.root-only-boot-dir = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Mount /boot with root only access";
+  };
+
   options.axiom.host.gui = lib.mkOption {
     type = lib.types.bool;
     default = false;

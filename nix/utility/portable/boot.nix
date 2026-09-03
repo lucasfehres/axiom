@@ -12,15 +12,17 @@ in
     boot.loader.systemd-boot.enable = true;
     boot.loader.systemd-boot.memtest86.enable = true;
 
+    boot.initrd.availableKernelModules = [ "zfs" ];
+
     fileSystems."/"     = { device = "zpool/root"; fsType = "zfs"; };
     fileSystems."/nix"  = { device = "zpool/nix";  fsType = "zfs"; };
     fileSystems."/var"  = { device = "zpool/var";  fsType = "zfs"; };
     fileSystems."/home" = { device = "zpool/home"; fsType = "zfs"; };
 
     fileSystems."/boot" = {
-      device = "/dev/disk/by-uuid/AB64-415C";
+      device = "/dev/disk/by-uuid/${config.axiom.host.boot-drive-uuid}";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022"];
+      options = if config.axiom.host.root-only-boot-dir then [ "fmask=0077" "dmask=0077"] else [ "fmask=0022" "dmask=0022"];
     };
   };
 }
