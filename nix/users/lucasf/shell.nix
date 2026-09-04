@@ -30,11 +30,11 @@
 
       def axiom-upgrade [] {
         sudo systemctl start --no-block nixos-upgrade
-        journalctl -fxeu nixos-upgrade
+        sudo journalctl -fxeu nixos-upgrade
       }
 
       def axiom-upgrade-check [] {
-        journalctl -xeu nixos-upgrade
+        sudo journalctl -xeu nixos-upgrade
       }
     '';
   };

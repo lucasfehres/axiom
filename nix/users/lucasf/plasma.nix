@@ -51,7 +51,7 @@ in
                   "applications:org.kde.dolphin.desktop"
                   "applications:org.kde.konsole.desktop"
                   "applications:helium.desktop"
-                ];
+                ] ++ lib.optionals osConfig.axiom.work.corporate [ "applications:teams-for-linux.desktop" ];
               };
             }
             {
