@@ -35,6 +35,7 @@ in
 
       panels = [
         {
+          floating = true;
           widgets = [
             # https://nix-community.github.io/plasma-manager/options.xhtml#opt-programs.plasma.panels._.widgets
             {
@@ -67,6 +68,39 @@ in
           ];
         }
       ];
+
+      configFile = {
+        # Locale config
+        plasma-localerc.Formats = {
+          LANG = "en_US.UTF-8";
+          LC_MEASUREMENT = "nl_NL.UTF-8";
+          LC_MONETARY = "nl_NL.UTF-8";
+          LC_NUMERIC = "nl_NL.UTF-8";
+          LC_PAPER = "nl_NL.UTF-8";
+          LC_TELEPHONE = "C";
+          LC_TIME = "nl_NL.UTF-8";
+        };
+
+        kdeglobals.General.BrowserApplication = "helium.desktop";
+
+        # Virtual desktops
+        kwinrc.Desktops.Number = 3;
+        kwinrc.Windows.PerOutputVirtualDesktops = true;
+
+        # Notifications
+        plasmanotifyrc."Applications/cider".Seen = true;
+        # Prevents annoying "1 notification in dnd-mode" when playing Factorio
+        plasmanotifyrc."Applications/cider".ShowInHistory = false;
+        plasmanotifyrc."Applications/cider".ShowPopupsInDndMode = true;
+
+        # Keyboard config
+        kxkbrc.Layout.DisplayNames = ",";
+        kxkbrc.Layout.LayoutList = "us,us";
+        kxkbrc.Layout.Options = "compose:ralt";
+        kxkbrc.Layout.ResetOldOptions = true;
+        kxkbrc.Layout.Use = true;
+        kxkbrc.Layout.VariantList = "colemak,";
+      };
     };
   };
 }
