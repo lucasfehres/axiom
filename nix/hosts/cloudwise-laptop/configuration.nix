@@ -7,7 +7,8 @@
   axiom.host.wlan-interface = "wlo1";
   axiom.host.boot-drive-uuid = "22CE-74BA";
   axiom.host.root-only-boot-dir = true;
-  axiom.host.unsafe-debug = true;
+  axiom.host.unsafe-debug = false;
+  axiom.host.confidential = true;
 
   axiom.work.corporate = true;
 

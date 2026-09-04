@@ -1,8 +1,11 @@
 { config, ... }:
+let
+  hostCfg = config.axiom.host;
+in
 {
   system.autoUpgrade = {
     enable = true;
-    flake = "github:lucasfehres/axiom?dir=nix#${config.networking.hostName}";
+    flake = "github:lucasfehres/axiom${if hostCfg.confidential then "-confidential" else ""}?dir=nix#${config.networking.hostName}";
     flags = [
       "--print-build-logs"
     ];
@@ -14,7 +17,7 @@
     automatic = true;
 
     # axiom-vm-wireguard had problems with inode exhaustion due to the nix store
-    dates = if config.axiom.host.storage-constrained then "daily" else "weekly";
-    options = if config.axiom.host.storage-constrained then "--delete-older-than 7d" else "--delete-older-than 30d";
+    dates = if hostCfg.storage-constrained then "daily" else "weekly";
+    options = if hostCfg.storage-constrained then "--delete-older-than 7d" else "--delete-older-than 30d";
   };
 }

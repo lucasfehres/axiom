@@ -53,4 +53,10 @@
     default = "green";
     description = "Configures the Nushell prompt color";
   };
+
+  options.axiom.host.confidential = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Sets to auto update from the axiom-confidental repository";
+  };
 }
