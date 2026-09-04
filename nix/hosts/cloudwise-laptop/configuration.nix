@@ -9,6 +9,8 @@
   axiom.host.root-only-boot-dir = true;
   axiom.host.unsafe-debug = true;
 
+  axiom.work.corporate = true;
+
   # required for ZFS
   networking.hostId = "67676767";
 

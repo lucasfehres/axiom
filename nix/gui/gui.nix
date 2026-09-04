@@ -10,6 +10,7 @@ in
 {
   imports = [
     ./utilities.nix
+    ./work/work.nix
   ];
 
   config = lib.mkIf hostCfg.gui {
