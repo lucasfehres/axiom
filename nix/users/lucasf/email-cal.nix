@@ -1,4 +1,4 @@
-{ osConfig, pkgs, lib, ... }:
+{ osConfig, config, pkgs, lib, ... }:
 let
   hostCfg = osConfig.axiom.host;
   personalCfg = osConfig.axiom.personal;
