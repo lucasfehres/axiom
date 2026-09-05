@@ -36,6 +36,11 @@
       def axiom-upgrade-check [] {
         sudo journalctl -xeu nixos-upgrade
       }
+
+      def axiom-caldav-vdirsyncer-jumpstart [] {
+        vdirsyncer discover gcal
+        vdirsyncer sync
+      }
     '';
   };
 

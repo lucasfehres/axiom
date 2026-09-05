@@ -43,6 +43,8 @@
       ./shell.nix
       ./plasma.nix
       ./git.nix
+      ./email-cal.nix
+      ./secrets.nix
     ];
 
     home.username = "lucasf";

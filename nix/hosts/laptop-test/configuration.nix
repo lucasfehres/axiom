@@ -15,6 +15,8 @@
   # hardware.ipu6.platform = "ipu6"; # not sure about this one
   hardware.enableRedistributableFirmware = true;
 
+  axiom.personal.enable = true;
+
   # this is an old NixOS install that was moved to this flake
   system.stateVersion = lib.mkForce "24.05";
 }

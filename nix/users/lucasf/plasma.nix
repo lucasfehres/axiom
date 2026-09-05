@@ -33,15 +33,17 @@ in
       kscreenlocker.appearance.wallpaper = wallpaper;
       workspace.wallpaper = wallpaper;
 
+      session.sessionRestore = {
+        restoreOpenApplicationsOnLogin = "startWithEmptySession";
+      };
+
       panels = [
         {
           floating = true;
           widgets = [
-            # https://nix-community.github.io/plasma-manager/options.xhtml#opt-programs.plasma.panels._.widgets
+            # https://nix-community.github.io/plasma-manager/options.html#opt-programs.plasma.panels._.widgets
             {
-              kickoff = {
-                icon = "start-here-kde-plasma";
-              };
+              kickoff = {};
             }
             {
               pager = {};
@@ -52,7 +54,9 @@ in
                   "applications:org.kde.dolphin.desktop"
                   "applications:org.kde.konsole.desktop"
                   "applications:helium.desktop"
-                ] ++ lib.optionals osConfig.axiom.work.corporate [ "applications:teams-for-linux.desktop" ];
+                ]
+                ++ lib.optionals osConfig.axiom.work.corporate [ "applications:teams-for-linux.desktop" ]
+                ++ lib.optionals osConfig.axiom.personal.enable [ "applications:io.github.equicord.equibop.desktop" ];
               };
             }
             {
@@ -62,7 +66,13 @@ in
               systemTray = {};
             }
             {
-              digitalClock = {};
+              digitalClock = {
+                Appearance = {
+                  enabledCalendarPlugins = "holidaysevents";
+                  fontWeight = 400;
+                  showWeekNumbers = true;
+                };
+              };
             }
             "org.kde.plasma.showdesktop"
           ];
