@@ -42,7 +42,6 @@ in
       };
 
       accounts.calendar.accounts.lucasf-gcal = {
-        primary = true;
         remote = {
           type = "google_calendar";
           userName = "lucasfehres@gmail.com";
