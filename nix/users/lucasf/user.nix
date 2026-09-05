@@ -45,6 +45,7 @@
       ./git.nix
       ./email-cal.nix
       ./secrets.nix
+      ./equibop.nix
     ];
 
     home.username = "lucasf";
