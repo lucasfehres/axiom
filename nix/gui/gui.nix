@@ -16,15 +16,19 @@ in
   config = lib.mkIf hostCfg.gui {
     services.desktopManager.plasma6.enable = true;
 
-    services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
+    # services.displayManager.sddm = {
+    #   enable = true;
+    #   wayland.enable = true;
 
-      settings = {
-        General = {
-          Numlock = "off";
-        };
-      };
+    #   settings = {
+    #     General = {
+    #       Numlock = "off";
+    #     };
+    #   };
+    # };
+
+    services.displayManager.plasma-login-manager = {
+      enable = true;
     };
 
     environment.systemPackages = with pkgs;
