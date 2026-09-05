@@ -57,9 +57,9 @@ in
           conflictResolution = "remote wins";
         };
 
-        thunderbird = {
-          enable = true;
-        };
+        # thunderbird = {
+        #   enable = true;
+        # };
       };
     })
   ]);
