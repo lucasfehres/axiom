@@ -62,6 +62,7 @@ in
             {
               panelSpacer = {};
             }
+            "org.kde.plasma.marginsseparator"
             {
               systemTray = {};
             }
