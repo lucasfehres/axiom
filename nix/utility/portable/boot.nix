@@ -9,11 +9,30 @@ let
 in
 {
   config = lib.mkIf hostCfg.portable {
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.systemd-boot.memtest86.enable = true;
+    boot = {
+      plymouth = {
+        enable = true;
+        theme = "spinner";
+      };
 
-    boot.initrd.availableKernelModules = [ "zfs" ];
-    boot.initrd.systemd.emergencyAccess = hostCfg.unsafe-debug;
+      consoleLogLevel = 3;
+      initrd.verbose = false;
+      kernelParams = [
+        "quiet"
+        "rd.udev.log_level=3"
+        "rd.systemd.show_status=auto"
+      ];
+
+      loader.systemd-boot = {
+        enable = true;
+        memtest86.enable = true;
+      };
+
+      initrd = {
+        availableKernelModules = [ "zfs" ];
+        systemd.emergencyAccess = hostCfg.unsafe-debug;
+      };
+    };
 
     # important note for later me: set mountpoint to LEGACY in ZFS! won't boot otherwise
     fileSystems."/"     = { device = "zpool/root"; fsType = "zfs"; };
