@@ -16,7 +16,7 @@ in
           settings = {
             "mail.threadpane.listview" = 1;
             "calendar.week.start" = 1;
-          }
+          };
         };
       };
     })
