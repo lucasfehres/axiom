@@ -67,11 +67,11 @@ in
             }
             {
               digitalClock = {
-                Appearance = {
-                  enabledCalendarPlugins = "holidaysevents";
-                  fontWeight = 400;
-                  showWeekNumbers = true;
-                };
+                # Appearance = {
+                #   enabledCalendarPlugins = "holidaysevents";
+                #   fontWeight = 400;
+                #   showWeekNumbers = true;
+                # };
               };
             }
             "org.kde.plasma.showdesktop"
