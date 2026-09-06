@@ -24,7 +24,7 @@ in
 
     (lib.mkIf (hostCfg.gui && workCfg.cloudwise-email) {
       accounts.email.accounts.lucasf-cloudwise = {
-        enable = true;
+        primary = generalCfg.email-primary == "lucasf-cloudwise";
         name = "lucasf-cloudwise";
         realName = "Lucas Fehres";
         userName = "l.fehres@cloudwise.nl";
@@ -54,7 +54,7 @@ in
 
     (lib.mkIf (hostCfg.gui && personalCfg.personal-calendar) {
       accounts.calendar.accounts.lucasf-icloud = {
-        primary = true;
+        primary = generalCfg.email-primary == "lucasf-icloud";
         remote = {
           type = "caldav";
           url = "https://caldav.icloud.com/";
@@ -69,6 +69,7 @@ in
       };
 
       accounts.calendar.accounts.lucasf-gcal = {
+        primary = generalCfg.email-primary == "lucasf-gcal";
         remote = {
           type = "google_calendar";
           userName = "lucasfehres@gmail.com";

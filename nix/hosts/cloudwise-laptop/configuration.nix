@@ -12,6 +12,7 @@
 
   axiom.work.corporate = true;
   axiom.personal.bitwarden = true;
+  axiom.general.email-primary = "lucasf-cloudwise";
 
   # required for ZFS
   networking.hostId = "67676767";
