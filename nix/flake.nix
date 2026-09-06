@@ -105,6 +105,7 @@
         ] ++ vmSupportModules;
         cloudwise-laptop = commonModules ++ [
             ./hosts/cloudwise-laptop/configuration.nix
+            { nixpkgs.config.allowUnfree = true; }
         ];
       };
 
@@ -163,6 +164,6 @@
         }
       ) gitlabConfigs);
 
-      lib.testableConfigModules = configModules;
+      lib.testableConfigModules = configModules ++ unstableConfigs ++ gitlabConfigs;
     };
 }
