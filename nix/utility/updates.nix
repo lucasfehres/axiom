@@ -1,6 +1,7 @@
 { config, ... }:
 let
   hostCfg = config.axiom.host;
+  # upgrades from axiom-confidential are authenticated with SSH keys in /root/.ssh
   gitProtocol = if hostCfg.confidential then "git+ssh://git@github.com/" else "github:";
 in
 {

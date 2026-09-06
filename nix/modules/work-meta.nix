@@ -1,5 +1,4 @@
 { lib, ... }:
-
 {
   options.axiom.work.corporate = lib.mkOption {
     type = lib.types.bool;

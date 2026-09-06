@@ -7,5 +7,6 @@
     ./personal-meta.nix
     ./work-meta.nix
     ./general-meta.nix
+    ./dev-meta.nix
   ];
 }

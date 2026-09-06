@@ -16,6 +16,7 @@
   hardware.enableRedistributableFirmware = true;
 
   axiom.personal.enable = true;
+  axiom.dev.enable = true;
 
   # this is an old NixOS install that was moved to this flake
   system.stateVersion = lib.mkForce "24.05";
