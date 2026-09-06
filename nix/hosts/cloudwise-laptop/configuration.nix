@@ -11,6 +11,7 @@
   axiom.host.confidential = true;
 
   axiom.work.corporate = true;
+  axiom.personal.bitwarden = true;
 
   # required for ZFS
   networking.hostId = "67676767";

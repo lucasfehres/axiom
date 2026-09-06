@@ -1,11 +1,12 @@
 { osConfig, config, pkgs, lib, ... }:
 let
   hostCfg = osConfig.axiom.host;
+  workCfg = osConfig.axiom.work;
   personalCfg = osConfig.axiom.personal;
   generalCfg = osConfig.axiom.general;
 in
 {
-  config = lib.mkIf personalCfg.enable (lib.mkMerge [
+  config = lib.mkIf (personalCfg.enable || workCfg.corporate) (lib.mkMerge [
     (lib.mkIf (hostCfg.gui && generalCfg.email) {
       programs.thunderbird = {
         enable = true;
@@ -17,6 +18,32 @@ in
             "mail.threadpane.listview" = 1;
             "calendar.week.start" = 1;
           };
+        };
+      };
+    })
+
+    (lib.mkIf (hostCfg.gui && workCfg.cloudwise-email) {
+      accounts.email.accounts.lucasf-cloudwise = {
+        enable = true;
+        name = "lucasf-cloudwise";
+        realName = "Lucas Fehres";
+        userName = "l.fehres@cloudwise.nl";
+        address = "l.fehres@cloudwise.nl";
+
+        thunderbird.enable = true;
+
+        imap = {
+          tls.enable = true;
+          host = "davmail-access.internal.axiom.lucasfehres.nl";
+          port = 1143;
+          authentication = "plain";
+        };
+
+        smtp = {
+          tls.enable = true;
+          host = "davmail-access.internal.axiom.lucasfehres.nl";
+          port = 1025;
+          authentication = "plain";
         };
       };
     })
