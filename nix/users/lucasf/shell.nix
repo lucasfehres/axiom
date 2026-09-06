@@ -30,11 +30,11 @@
 
       def axiom-upgrade [] {
         sudo systemctl start --no-block nixos-upgrade
-        sudo journalctl -fxeu nixos-upgrade
+        sudo journalctl -fxeu nixos-upgrade -u home-manager-lucasf
       }
 
       def axiom-upgrade-check [] {
-        sudo journalctl -xeu nixos-upgrade
+        sudo journalctl -xeu nixos-upgrade -u home-manager-lucasf
       }
 
       def axiom-caldav-vdirsyncer-jumpstart [] {
@@ -44,7 +44,12 @@
     '';
   };
 
+  programs.carapace = {
+    enable = true;
+    enableNushellIntegration = true;
+  };
+
   programs.vim = {
-      enable = true;
+    enable = true;
   };
 }
