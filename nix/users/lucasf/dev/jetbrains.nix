@@ -4,7 +4,7 @@ let
 in
 {
   config = lib.mkIf devCfg.enable {
-    home.packages = with pkgs.jetbrains [ gateway ]
+    home.packages = with pkgs.jetbrains; [ gateway ]
       ++ lib.optionals devCfg.java [ idea ]
       ++ lib.optionals devCfg.rust [ rust-rover ];
   };
