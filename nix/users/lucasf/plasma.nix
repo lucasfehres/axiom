@@ -56,7 +56,7 @@ in
                   "applications:helium.desktop"
                 ]
                 ++ lib.optionals osConfig.axiom.work.corporate [ "applications:teams-for-linux.desktop" ]
-                ++ lib.optionals osConfig.axiom.personal.enable [ "applications:io.github.equicord.equibop.desktop" ];
+                ++ lib.optionals osConfig.axiom.personal.enable [ "applications:equibop.desktop" ];
               };
             }
             {
