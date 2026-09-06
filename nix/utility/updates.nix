@@ -1,11 +1,12 @@
 { config, ... }:
 let
   hostCfg = config.axiom.host;
+  gitProtocol = if hostCfg.confidential then "git+ssh://git@github.com/" else "github:";
 in
 {
   system.autoUpgrade = {
     enable = true;
-    flake = "github:lucasfehres/axiom${if hostCfg.confidential then "-confidential" else ""}?dir=nix#${config.networking.hostName}";
+    flake = "${gitProtocol}lucasfehres/axiom${if hostCfg.confidential then "-confidential" else ""}?dir=nix#${config.networking.hostName}";
     flags = [
       "--print-build-logs"
     ];
