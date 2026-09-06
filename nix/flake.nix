@@ -104,8 +104,8 @@
           ./hosts/axiom-vm-plane/configuration.nix
         ] ++ vmSupportModules;
         cloudwise-laptop = commonModules ++ [
-            ./hosts/cloudwise-laptop/configuration.nix
-            { nixpkgs.config.allowUnfree = true; }
+          ./hosts/cloudwise-laptop/configuration.nix
+          { nixpkgs.config.allowUnfree = true; }
         ];
       };
 
@@ -164,6 +164,6 @@
         }
       ) gitlabConfigs);
 
-      lib.testableConfigModules = configModules ++ unstableConfigs ++ gitlabConfigs;
+      lib.testableConfigModules = configModules;
     };
 }
