@@ -25,7 +25,6 @@ in
     (lib.mkIf (hostCfg.gui && workCfg.cloudwise-email) {
       accounts.email.accounts.lucasf-cloudwise = {
         primary = generalCfg.email-primary == "lucasf-cloudwise";
-        name = "lucasf-cloudwise";
         realName = "Lucas Fehres";
         userName = "l.fehres@cloudwise.nl";
         address = "l.fehres@cloudwise.nl";
