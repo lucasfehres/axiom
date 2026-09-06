@@ -1,4 +1,4 @@
-{ pkgs, lib, osConfig }:
+{ pkgs, lib, osConfig, ... }:
 let
   devCfg = osConfig.axiom.dev;
 in
