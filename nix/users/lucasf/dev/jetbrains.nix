@@ -1,5 +1,7 @@
 { pkgs, lib, osConfig }:
-let devCfg = osConfig.axiom.dev;
+let
+  devCfg = osConfig.axiom.dev;
+in
 {
   config = lib.mkIf devCfg.enable {
     home.packages = with pkgs.jetbrains [ gateway ]
