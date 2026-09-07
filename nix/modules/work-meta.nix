@@ -8,7 +8,13 @@
 
   options.axiom.work.cloudwise-email = lib.mkOption {
     type = lib.types.bool;
-    default = config.axiom.work.corporate;
+    default = false;
     description = "Enable Cloudwise email";
+  };
+
+  options.axiom.work.che-email = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Enable CHE email";
   };
 }

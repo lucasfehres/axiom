@@ -11,6 +11,7 @@
   axiom.host.confidential = true;
 
   axiom.work.corporate = true;
+  axiom.work.cloudwise-email = true;
   axiom.personal.bitwarden = true;
   axiom.general.email-primary = "lucasf-cloudwise";
 

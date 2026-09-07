@@ -4,6 +4,28 @@ let
   workCfg = osConfig.axiom.work;
   personalCfg = osConfig.axiom.personal;
   generalCfg = osConfig.axiom.general;
+
+  davmailHost = "davmail-access.internal.axiom.lucasfehres.nl";
+
+  mkDavmailEmailAccount = { primary, realName, address }: {
+    inherit primary realName address;
+    userName = address;
+    thunderbird.enable = true;
+
+    imap = {
+      tls.enable = true;
+      host = davmailHost;
+      port = 1143;
+      authentication = "plain";
+    };
+
+    smtp = {
+      tls.enable = true;
+      host = davmailHost;
+      port = 1025;
+      authentication = "plain";
+    };
+  };
 in
 {
   config = lib.mkIf (personalCfg.enable || workCfg.corporate) (lib.mkMerge [
@@ -23,27 +45,18 @@ in
     })
 
     (lib.mkIf (hostCfg.gui && workCfg.cloudwise-email) {
-      accounts.email.accounts.lucasf-cloudwise = {
+      accounts.email.accounts.lucasf-cloudwise = mkDavmailEmailAccount {
         primary = generalCfg.email-primary == "lucasf-cloudwise";
         realName = "Lucas Fehres";
-        userName = "l.fehres@cloudwise.nl";
         address = "l.fehres@cloudwise.nl";
+      };
+    })
 
-        thunderbird.enable = true;
-
-        imap = {
-          tls.enable = true;
-          host = "davmail-access.internal.axiom.lucasfehres.nl";
-          port = 1143;
-          authentication = "plain";
-        };
-
-        smtp = {
-          tls.enable = true;
-          host = "davmail-access.internal.axiom.lucasfehres.nl";
-          port = 1025;
-          authentication = "plain";
-        };
+    (lib.mkIf (hostCfg.gui && workCfg.che-email) {
+      accounts.email.accounts.lucasf-che = mkDavmailEmailAccount {
+        primary = generalCfg.email-primary == "lucasf-che";
+        realName = "Lucas Fehres";
+        address = "lmfehres@student.che.nl";
       };
     })
 
@@ -53,7 +66,7 @@ in
 
     (lib.mkIf (hostCfg.gui && personalCfg.personal-calendar) {
       accounts.calendar.accounts.lucasf-icloud = {
-        primary = generalCfg.email-primary == "lucasf-icloud";
+        primary = generalCfg.calendar-primary == "lucasf-icloud";
         remote = {
           type = "caldav";
           url = "https://caldav.icloud.com/";
@@ -68,7 +81,7 @@ in
       };
 
       accounts.calendar.accounts.lucasf-gcal = {
-        primary = generalCfg.email-primary == "lucasf-gcal";
+        primary = generalCfg.calendar-primary == "lucasf-gcal";
         remote = {
           type = "google_calendar";
           userName = "lucasfehres@gmail.com";
@@ -83,10 +96,6 @@ in
           collections = [ "from remote" ];
           conflictResolution = "remote wins";
         };
-
-        # thunderbird = {
-        #   enable = true;
-        # };
       };
     })
   ]);

@@ -17,6 +17,8 @@
 
   axiom.personal.enable = true;
   axiom.dev.enable = true;
+  axiom.work.corporate = true;
+  axiom.work.cloudwise-email = false;
 
   # this is an old NixOS install that was moved to this flake
   system.stateVersion = lib.mkForce "24.05";
