@@ -1,0 +1,8 @@
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+    name: plane-bucket
+    namespace: plane
+spec:
+    generateBucketName: plane-bucket
+    storageClassName: rook-ceph-bucket
