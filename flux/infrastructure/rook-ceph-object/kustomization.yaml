@@ -7,4 +7,5 @@ resources:
     - bucketclass.yaml
     - bucketaccessclass.yaml
     - internal-httproute.yaml
+    - external-httproute.yaml
     - storageclass.yaml
