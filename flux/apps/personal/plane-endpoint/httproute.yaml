@@ -13,3 +13,19 @@ spec:
         - backendRefs:
               - name: external-plane
                 port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+    name: external-plane-mcp
+    namespace: plane
+spec:
+    parentRefs:
+        - name: internal-gateway
+          namespace: kube-system
+    hostnames:
+        - "plane-mcp.internal.axiom.lucasfehres.nl"
+    rules:
+        - backendRefs:
+              - name: external-plane
+                port: 8211

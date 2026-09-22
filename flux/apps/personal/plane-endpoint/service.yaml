@@ -9,3 +9,7 @@ spec:
           port: 80
           protocol: TCP
           targetPort: 80
+        - name: mcphttp
+          port: 8211
+          protocol: TCP
+          targetPort: 8211
