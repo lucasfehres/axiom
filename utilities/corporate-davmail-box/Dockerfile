@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk-debian:21-latest
+FROM docker.io/azul/zulu-openjdk-debian:21-latest
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DISPLAY=:100 \
@@ -32,8 +32,13 @@ RUN apt update \
     menu \
     xterm \
     gosu \
+    libswt-gtk-4-java \
+    libswt-webkit-gtk-4-jni \
     && apt-get clean \
     && rm -rf /var/cache/apt/lists
+
+COPY davmail_7.0.0-4403-1_all.deb /davmail_7.0.0-4403-1_all.deb
+RUN dpkg -r davmail davmail-server && dpkg -i /davmail_7.0.0-4403-1_all.deb
 
 # Create non-root user
 RUN useradd -m -s /bin/bash xprauser
