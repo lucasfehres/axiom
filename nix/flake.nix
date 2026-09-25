@@ -107,6 +107,9 @@
           ./hosts/cloudwise-laptop/configuration.nix
           { nixpkgs.config.allowUnfree = true; }
         ];
+        br1-mng-laptop = commonModules ++ [
+          ./hosts/cloudwise-laptop/configuration.nix
+        ];
       };
 
       gitlabConfigs = {
