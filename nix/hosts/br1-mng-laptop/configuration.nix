@@ -13,4 +13,10 @@
   # hardware.ipu6.enable = true;
   # hardware.ipu6.platform = "ipu6"; # not sure about this one
   hardware.enableRedistributableFirmware = true;
+
+  nixpkgs.config.allowUnfree = true;
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    broadcom_sta
+  ];
+  boot.kernelModules = [ "wl" ];
 }
