@@ -109,6 +109,7 @@
         ];
         br1-mng-laptop = commonModules ++ [
           ./hosts/br1-mng-laptop/configuration.nix
+          ./users/br1/user.nix
         ];
       };
 
