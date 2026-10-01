@@ -68,8 +68,8 @@
           ];
         }
         {
-          # lucasfehres-cloudwise-probook
-          PublicKey = "4ZmhjJKxFgaaD7rV4lW155hP+VGz4gYeRK6aChA2OXI=";
+          # cloudwise-laptop
+          PublicKey = "nkIcE4O6KBR1uRQ3yXBcVvcP9PxIwDssU+SGgq5O/Rg=";
           AllowedIPs = [
               "10.67.2.3/32"
               "10.67.1.0/24"
