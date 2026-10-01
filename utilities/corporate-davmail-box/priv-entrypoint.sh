@@ -4,6 +4,7 @@ set -e
 # ── System dbus ───────────────────────────────────────────────────────────────
 mkdir -p /run/dbus
 if ! pgrep -x dbus-daemon > /dev/null; then
+    rm -rf /run/dbus/pid
     dbus-daemon --system --fork
     echo "[priv] Started system dbus"
 fi
