@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, osConfig, ... }:
 {
   programs.git = {
     enable = true;
 
     settings = {
       user.name = "Lucas Fehres";
-      user.email = "lucasfehres@gmail.com";
+      user.email = osConfig.axiom.general.git-email;
       user.signingkey = "8F6F0936E39D9D0E";
 
       init.defaultbranch = "main";

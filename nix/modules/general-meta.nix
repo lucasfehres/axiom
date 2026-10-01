@@ -19,4 +19,9 @@
     type = lib.types.str;
     default = "lucasf-icloud";
   };
+
+  options.axiom.general.git-email = lib.mkOption {
+    type = lib.types.str;
+    default = "lucasfehres@gmail.com";
+  };
 }
