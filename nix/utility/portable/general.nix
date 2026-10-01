@@ -17,5 +17,7 @@ in
 
     hardware.gpgSmartcards.enable = true;
     services.pcscd.enable = true;
+
+    hardware.bluetooth.enable = true;
   };
 }
