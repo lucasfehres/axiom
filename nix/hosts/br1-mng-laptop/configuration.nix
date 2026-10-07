@@ -6,6 +6,7 @@
   axiom.host.gui = true;
   axiom.host.wlan-interface = "wlo1";
   axiom.host.boot-drive-uuid = "AB64-415C";
+  axiom.host.swap-partition = "/dev/nvme0n1p2";
 
   networking.hostId = "12ef12ef";
 

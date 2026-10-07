@@ -59,4 +59,10 @@
     default = false;
     description = "Sets to auto update from the axiom-confidental repository";
   };
+
+  options.axiom.host.swap-partition = lib.mkOption {
+    type = lib.types.nullOr lib.types.str;
+    default = null;
+    description = "Enables a swap partition, use /dev/disk/by-id";
+  };
 }
