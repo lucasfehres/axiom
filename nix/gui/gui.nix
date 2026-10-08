@@ -49,6 +49,7 @@ in
       kdiff3 # Compares and merges 2 or 3 files or directories
       kdePackages.isoimagewriter # Optional: Program to write hybrid ISO files onto USB disks
       kdePackages.partitionmanager # Optional: Manage the disk devices, partitions and file systems on your computer
+      kdePackages.plasma-vault
       # Non-KDE graphical packages
       hardinfo2 # System information and benchmarks for Linux systems
       vlc # Cross-platform media player and streaming server
