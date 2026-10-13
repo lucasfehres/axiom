@@ -57,7 +57,7 @@ spec:
             existingSecretKey: uri
 
         pushNotifications:
-            enabled: true
+            enabled: false
 
             existingSecret: axiom-bitwarden-installation-credentials
 
