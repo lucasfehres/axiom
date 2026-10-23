@@ -1,0 +1,4 @@
+set-env.nu
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
