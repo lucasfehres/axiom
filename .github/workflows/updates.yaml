@@ -27,7 +27,7 @@ jobs:
             - id: update
               uses: DeterminateSystems/update-flake-lock@main
               with:
-                  path-to-flake-dir: work
+                  path-to-flake-dir: work/nix
 
             - name: Diff and comment
               if: steps.update.outputs.pull-request-number != ''
@@ -36,13 +36,22 @@ jobs:
                   PR: ${{ steps.update.outputs.pull-request-number }}
               run: |
                   ATTRS=(
-                    'devShells.x86_64-linux.default'
-                    'packages.x86_64-linux.default'
+                    'nixosConfigurations.axiom-vm-games.config.system.build.toplevel'
+                    'nixosConfigurations.axiom-vm-gitlab.config.system.build.toplevel'
+                    'nixosConfigurations.axiom-vm-k8s-agent-1.config.system.build.toplevel'
+                    'nixosConfigurations.axiom-vm-k8s-master.config.system.build.toplevel'
+                    'nixosConfigurations.axiom-vm-plane.config.system.build.toplevel'
+                    'nixosConfigurations.axiom-vm-utility.config.system.build.toplevel'
+                    'nixosConfigurations.axiom-vm-wireguard.config.system.build.toplevel'
+                    'nixosConfigurations.br1-mng-laptop.config.system.build.toplevel'
+                    'nixosConfigurations.cloudwise-laptop.config.system.build.toplevel'
+                    'nixosConfigurations.laptop-test.config.system.build.toplevel'
+                    'nixosConfigurations.nixos-init-test.config.system.build.toplevel'
                   )
                   : > diff.md
                   for ATTR in "${ATTRS[@]}"; do
-                    OLD=$(nix build ./base#"$ATTR" --no-link --print-out-paths | head -n1)
-                    NEW=$(nix build ./work#"$ATTR" --no-link --print-out-paths | head -n1)
+                    OLD=$(nix build ./base/nix#"$ATTR" --no-link --print-out-paths | head -n1)
+                    NEW=$(nix build ./work/nix#"$ATTR" --no-link --print-out-paths | head -n1)
                     {
                       echo "<details><summary><code>$ATTR</code></summary>"
                       echo; echo '```'
