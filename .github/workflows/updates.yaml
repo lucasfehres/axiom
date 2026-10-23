@@ -22,7 +22,7 @@ jobs:
                   path: work
 
             - uses: DeterminateSystems/nix-installer-action@main
-            - uses: DeterminateSystems/magic-nix-cache-action@main
+            # - uses: DeterminateSystems/magic-nix-cache-action@main
 
             - id: update
               uses: DeterminateSystems/update-flake-lock@main
