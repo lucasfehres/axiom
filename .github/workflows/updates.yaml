@@ -1,0 +1,53 @@
+name: update-flake-lock
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "0 4 * * 1" # every week on monday
+
+jobs:
+    update:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            pull-requests: write
+        steps:
+            # untouched copy of the base branch
+            - uses: actions/checkout@v5
+              with:
+                  path: base
+
+            # working copy that update-flake-lock modifies and pushes
+            - uses: actions/checkout@v5
+              with:
+                  path: work
+
+            - uses: DeterminateSystems/nix-installer-action@main
+            - uses: DeterminateSystems/magic-nix-cache-action@main
+
+            - id: update
+              uses: DeterminateSystems/update-flake-lock@main
+              with:
+                  path-to-flake-dir: work
+
+            - name: Diff and comment
+              if: steps.update.outputs.pull-request-number != ''
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  PR: ${{ steps.update.outputs.pull-request-number }}
+              run: |
+                  ATTRS=(
+                    'devShells.x86_64-linux.default'
+                    'packages.x86_64-linux.default'
+                  )
+                  : > diff.md
+                  for ATTR in "${ATTRS[@]}"; do
+                    OLD=$(nix build ./base#"$ATTR" --no-link --print-out-paths | head -n1)
+                    NEW=$(nix build ./work#"$ATTR" --no-link --print-out-paths | head -n1)
+                    {
+                      echo "<details><summary><code>$ATTR</code></summary>"
+                      echo; echo '```'
+                      nix store diff-closures "$OLD" "$NEW"
+                      echo '```'; echo "</details>"; echo
+                    } >> diff.md
+                  done
+                  gh pr comment "$PR" --body-file diff.md --repo "${{ github.repository }}"
