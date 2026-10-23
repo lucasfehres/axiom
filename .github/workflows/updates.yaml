@@ -12,7 +12,7 @@ jobs:
             pull-requests: write
         steps:
             # untouched copy of the base branch
-            - run: sudo git clone ssh@github.com:lucasfehres/axiom.git /base_checkout
+            - run: git clone ssh@github.com:lucasfehres/axiom.git ~/base_checkout
 
             # working copy that update-flake-lock modifies and pushes
             - uses: actions/checkout@v5
@@ -46,7 +46,7 @@ jobs:
                   )
                   : > diff.md
                   for ATTR in "${ATTRS[@]}"; do
-                    OLD=$(nix build /base_checkout/nix#"$ATTR" --no-link --print-out-paths | head -n1)
+                    OLD=$(nix build ~/base_checkout/nix#"$ATTR" --no-link --print-out-paths | head -n1)
                     NEW=$(nix build ./nix#"$ATTR" --no-link --print-out-paths | head -n1)
                     {
                       echo "<details><summary><code>$ATTR</code></summary>"
