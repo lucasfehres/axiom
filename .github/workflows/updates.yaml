@@ -12,9 +12,7 @@ jobs:
             pull-requests: write
         steps:
             # untouched copy of the base branch
-            - uses: actions/checkout@v5
-              with:
-                  path: /base_checkout
+            - run: git clone ssh@github.com:lucasfehres/axiom.git /base_checkout
 
             # working copy that update-flake-lock modifies and pushes
             - uses: actions/checkout@v5
