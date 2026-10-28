@@ -1,4 +1,27 @@
 { pkgs, osConfig, ... }:
+let
+  hostCfg = osConfig.axiom.host;
+  isDarwin = pkgs.stdenv.isDarwin;
+
+  # same flake as system.autoUpgrade in utility/updates.nix
+  gitProtocol = if hostCfg.confidential then "git+ssh://git@github.com/" else "github:";
+  upgradeFlake = "${gitProtocol}lucasfehres/axiom${if hostCfg.confidential then "-confidential" else ""}?dir=nix#${osConfig.networking.hostName}";
+
+  upgradeCommands = if isDarwin then ''
+    def axiom-upgrade [] {
+      sudo darwin-rebuild switch --flake "${upgradeFlake}"
+    }
+  '' else ''
+    def axiom-upgrade [] {
+      sudo systemctl start --no-block nixos-upgrade
+      sudo journalctl -fxeu nixos-upgrade -u home-manager-lucasf
+    }
+
+    def axiom-upgrade-check [] {
+      sudo journalctl -xeu nixos-upgrade -u home-manager-lucasf
+    }
+  '';
+in
 {
   programs.bash.enable = true;
 
@@ -12,6 +35,9 @@
     configFile.text = ''
       $env.EDITOR = "vim"
 
+      # prevents issues with using GPG over a SSH session
+      $env.GPG_TTY = (tty)
+
       $env.PROMPT_COMMAND = {
         let host = (sys host | get hostname)
         let pwd = (pwd)
@@ -21,21 +47,14 @@
 
       def unfuck-gpg [] {
         gpgconf --kill gpg-agent
-        sudo systemctl restart pcscd
+        ${if isDarwin then "" else "sudo systemctl restart pcscd"}
       }
 
       def unfuck-pgp [] {
         unfuck-gpg
       }
 
-      def axiom-upgrade [] {
-        sudo systemctl start --no-block nixos-upgrade
-        sudo journalctl -fxeu nixos-upgrade -u home-manager-lucasf
-      }
-
-      def axiom-upgrade-check [] {
-        sudo journalctl -xeu nixos-upgrade -u home-manager-lucasf
-      }
+      ${upgradeCommands}
 
       def axiom-caldav-vdirsyncer-jumpstart [] {
         vdirsyncer discover gcal

@@ -33,6 +33,6 @@
   services.gpg-agent = {
     enable = true;
     enableNushellIntegration = true;
-    pinentry.package = pkgs.pinentry-qt;
+    pinentry.package = if pkgs.stdenv.isDarwin then pkgs.pinentry_mac else pkgs.pinentry-qt;
   };
 }

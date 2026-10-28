@@ -37,35 +37,14 @@
     ];
   };
 
-  home-manager.users.lucasf = { pkgs, ... }: {
+  home-manager.users.lucasf = {
     imports = [
-      # make sure to only import home-manager modules!
-      ./shell.nix
+      ./home.nix
+      # Plasma is Linux only
       ./plasma.nix
-      ./git.nix
-      ./email-cal.nix
-      ./secrets.nix
-      ./equibop.nix
-      ./dev/dev.nix
     ];
 
     home.username = "lucasf";
     home.homeDirectory = "/home/lucasf";
-
-    home.packages = with pkgs; []
-      ++ lib.optionals (config.axiom.host.gui) [ zed-editor ];
-
-    # any personal activation scripts that may have to run
-    home.activation = lib.mkMerge [
-      (lib.mkIf config.axiom.personal.local-pgp {
-        gpg-load-local-pgp-keys = lib.hm.dag.entryAfter ["writeBoundary"] ''
-          gpg --import /home/lucasf/.pgp-sign-key
-        '';
-      })
-    ];
-
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "25.11";
   };
 }

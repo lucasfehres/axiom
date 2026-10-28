@@ -34,6 +34,13 @@
 
     # the gitlab vm runs on a fork of nixpkgs to support gitlab-kas
     nixpkgs-lucasfehres-gitlab.url = "github:lucasfehres/nixpkgs/gitlab-kas";
+
+    # macOS variants, the darwin channel has better binary cache coverage
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
+    home-manager-darwin.url = "github:nix-community/home-manager/release-26.05";
+    home-manager-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   };
   outputs =
     {
@@ -50,7 +57,10 @@
       nixpkgs-unstable,
       home-manager-unstable,
       plasma-manager-unstable,
-      nixpkgs-lucasfehres-gitlab
+      nixpkgs-lucasfehres-gitlab,
+      nixpkgs-darwin,
+      nix-darwin,
+      home-manager-darwin
     }:
     let
       mkCommonModules = homeManager: [
@@ -133,6 +143,21 @@
 
         # https://github.com/NixOS/nixos-hardware/blob/master/framework/13-inch
       };
+
+      darwinCommonModules = [
+        agenix.darwinModules.default
+        home-manager-darwin.darwinModules.home-manager
+
+        ./users/lucasf/darwin.nix
+        ./modules/modules.nix
+        ./utility/darwin.nix
+      ];
+
+      darwinConfigs = {
+        lucasf-mba5 = darwinCommonModules ++ [
+          ./hosts/lucasf-mba5/configuration.nix
+        ];
+      };
     in
     {
       nixosConfigurations = (builtins.mapAttrs (
@@ -167,6 +192,14 @@
           };
         }
       ) gitlabConfigs);
+
+      darwinConfigurations = builtins.mapAttrs (
+        name: modules:
+        nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = modules;
+        }
+      ) darwinConfigs;
 
       lib.testableConfigModules = configModules;
     };

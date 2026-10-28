@@ -17,4 +17,10 @@
     default = config.axiom.dev.enable;
     description = "Enable Java language support";
   };
+
+  options.axiom.dev.web = lib.mkOption {
+    type = lib.types.bool;
+    default = config.axiom.dev.enable;
+    description = "Enable web development support";
+  };
 }

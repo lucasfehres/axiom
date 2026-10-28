@@ -8,7 +8,7 @@
         sync_interval = 3600 * 12;
         base_url = "https://bitwarden.axiom.lucasfehres.nl";
         email = "lucasfehres@gmail.com";
-        pinentry = pkgs.pinentry-qt;
+        pinentry = if pkgs.stdenv.isDarwin then pkgs.pinentry_mac else pkgs.pinentry-qt;
       };
     };
   };
