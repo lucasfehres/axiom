@@ -72,15 +72,42 @@ jobs:
                     'nixosConfigurations.laptop-test.config.system.build.toplevel'
                     'nixosConfigurations.nixos-init-test.config.system.build.toplevel'
                   )
-                  : > diff.md
+                  # diff derivation closures instead of built closures: only needs
+                  # evaluation, so nothing gets downloaded or built
+                  OUT="$RUNNER_TEMP/diffs"
+                  mkdir -p "$OUT"
+                  FAILED=()
                   for ATTR in "${ATTRS[@]}"; do
-                    OLD=$(nix build ./base/nix#"$ATTR" --no-link --print-out-paths | head -n1)
-                    NEW=$(nix build ./nix#"$ATTR" --no-link --print-out-paths | head -n1)
-                    {
-                      echo "<details><summary><code>$ATTR</code></summary>"
-                      echo; echo '```'
-                      nix store diff-closures "$OLD" "$NEW"
-                      echo '```'; echo "</details>"; echo
-                    } >> diff.md
+                    if ! OLD=$(nix eval --raw ./base/nix#"$ATTR".drvPath) \
+                      || ! NEW=$(nix eval --raw ./nix#"$ATTR".drvPath); then
+                      FAILED+=("$(cut -d. -f2 <<< "$ATTR")")
+                      continue
+                    fi
+                    nix store diff-closures "$OLD" "$NEW" \
+                      | awk -f .github/scripts/diff-drvs.awk \
+                      | LC_ALL=C sort > "$OUT/$(cut -d. -f2 <<< "$ATTR")"
                   done
-                  gh pr comment "$PR" --body-file diff.md --repo "${{ github.repository }}"
+
+                  {
+                    if [ ${#FAILED[@]} -gt 0 ]; then
+                      echo "**Failed to evaluate:** ${FAILED[*]}"; echo
+                    fi
+                    # group each change under the exact set of hosts it applies to,
+                    # so changes shared by several hosts are listed only once
+                    awk '
+                      { n = split(FILENAME, p, "/"); hosts[$0] = hosts[$0] (hosts[$0] == "" ? "" : ", ") p[n] }
+                      END { for (l in hosts) print hosts[l] "\t" l }' "$OUT"/* \
+                      | LC_ALL=C sort \
+                      | awk -F '\t' '
+                        $1 != g { if (g != "") print "```\n</details>\n"; g = $1
+                                  print "<details><summary><code>" g "</code></summary>\n\n```" }
+                        { print $2 }
+                        END { if (g != "") print "```\n</details>" }'
+                  } > "$RUNNER_TEMP/diff.md"
+
+                  # PR comments are capped at 65536 characters
+                  if [ "$(wc -c < "$RUNNER_TEMP/diff.md")" -gt 65000 ]; then
+                    cat "$RUNNER_TEMP/diff.md" >> "$GITHUB_STEP_SUMMARY"
+                    echo "Closure diff too large for a comment, see the [workflow summary](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})." > "$RUNNER_TEMP/diff.md"
+                  fi
+                  gh pr comment "$PR" --body-file "$RUNNER_TEMP/diff.md" --repo "${{ github.repository }}"
