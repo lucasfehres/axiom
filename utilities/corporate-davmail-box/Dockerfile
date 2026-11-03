@@ -43,10 +43,12 @@ RUN dpkg -r davmail davmail-server && dpkg -i /davmail_7.0.0-4403-1_all.deb
 # Create non-root user
 RUN useradd -m -s /bin/bash xprauser
 
-# Openbox config: autostart nothing by default (apps can be added via env/volume)
-RUN mkdir -p /home/xprauser/.config/openbox
-COPY openbox.sh /home/xprauser/.config/openbox/autostart
-RUN chown -R xprauser:xprauser /home/xprauser/.config
+# Xpra's default config also starts "/etc/X11/Xsession true", which pops up an
+# xmessage error; openbox-session is started explicitly by entrypoint.sh instead
+RUN sed -i 's|^start = /etc/X11/Xsession true|#&|' /etc/xpra/conf.d/60_server.conf
+
+# Openbox autostart: global (not in ~) since the home dir is a persistent volume
+COPY openbox.sh /etc/xdg/openbox/autostart
 
 COPY davmail.properties /etc/davmail.properties
 COPY config.sh /config.sh
@@ -55,7 +57,7 @@ RUN chmod +x /config.sh
 COPY edge.sh /edge.sh
 RUN chmod +x /edge.sh
 
-COPY edge.desktop /home/xprauser/.local/share/applications/fake-microsoft-edge.desktop
+COPY edge.desktop /usr/share/applications/fake-microsoft-edge.desktop
 
 COPY priv-entrypoint.sh /priv-entrypoint.sh
 RUN chmod +x /priv-entrypoint.sh
