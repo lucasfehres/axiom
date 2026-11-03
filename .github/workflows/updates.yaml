@@ -11,21 +11,47 @@ jobs:
             contents: write
             pull-requests: write
         steps:
+            # working copy that gets updated and pushed
+            # (must come first: checkout at the workspace root wipes the workspace)
+            - uses: actions/checkout@v5
+
             # untouched copy of the base branch
             - uses: actions/checkout@v5
               with:
                   path: base
 
-            # working copy that update-flake-lock modifies and pushes
-            - uses: actions/checkout@v5
-
             - uses: DeterminateSystems/nix-installer-action@main
             # - uses: DeterminateSystems/magic-nix-cache-action@main
 
+            - id: flake
+              name: Update flake.lock
+              working-directory: nix
+              run: |
+                  nix flake update 2> "$RUNNER_TEMP/update.log"
+                  {
+                    echo 'summary<<EOF'
+                    tail -n +2 "$RUNNER_TEMP/update.log"
+                    echo 'EOF'
+                  } >> "$GITHUB_OUTPUT"
+
+            # the repo ruleset requires verified signatures; sign-commits creates
+            # the commit through the GitHub API so it is signed by the bot
             - id: update
-              uses: DeterminateSystems/update-flake-lock@main
+              uses: peter-evans/create-pull-request@v7
               with:
-                  path-to-flake-dir: nix
+                  branch: update_flake_lock_action
+                  delete-branch: true
+                  sign-commits: true
+                  add-paths: nix/flake.lock
+                  commit-message: |
+                      flake.lock: Update
+
+                      ${{ steps.flake.outputs.summary }}
+                  title: "flake.lock: Update"
+                  body: |
+                      ```
+                      ${{ steps.flake.outputs.summary }}
+                      ```
 
             - name: Diff and comment
               if: steps.update.outputs.pull-request-number != ''
