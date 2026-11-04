@@ -1,0 +1,21 @@
+# Announce the internal gateway's vSwitch address on the vSwitch NIC (ens19, see
+# nix/utility/vm-network-vswitch.nix). Only the nodes that are on the vSwitch can hold the lease.
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+    name: vswitch
+spec:
+    serviceSelector:
+        matchLabels:
+            io.kubernetes.service.namespace: kube-system
+            io.kubernetes.service.name: cilium-gateway-internal-gateway
+    nodeSelector:
+        matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                  - axiom-vm-k8s-master
+                  - axiom-vm-k8s-agent-1
+    interfaces:
+        - ens19
+    loadBalancerIPs: true

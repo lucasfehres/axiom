@@ -1,0 +1,15 @@
+# Hetzner vSwitch (10.69.1.0/24) addresses for services that must be reachable from the vSwitch.
+# The low end of the /24 is kept free for VMs. Restricted to the internal gateway so other
+# LoadBalancer services keep drawing from `pool`.
+apiVersion: "cilium.io/v2"
+kind: CiliumLoadBalancerIPPool
+metadata:
+    name: "vswitch"
+spec:
+    blocks:
+        - start: "10.69.1.240"
+          stop: "10.69.1.254"
+    serviceSelector:
+        matchLabels:
+            io.kubernetes.service.namespace: kube-system
+            io.kubernetes.service.name: cilium-gateway-internal-gateway

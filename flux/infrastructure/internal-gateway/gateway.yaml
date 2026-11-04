@@ -9,6 +9,10 @@ spec:
     gatewayClassName: cilium
     infrastructure:
         annotations:
+            # request both the main pool address and a vSwitch address (10.69.1.240-254)
+            lbipam.cilium.io/ips: "10.67.3.2,10.69.1.240"
+            # keep the vSwitch address out of DNS
+            external-dns.alpha.kubernetes.io/target: "10.67.3.2"
             external-dns.alpha.kubernetes.io/hostname: >-
                 thisfirstonedoesabsolutelynothing.axiom.lucasfehes.nl,
                 *.internal.axiom.lucasfehres.nl,
