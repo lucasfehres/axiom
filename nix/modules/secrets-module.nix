@@ -5,7 +5,10 @@ let
 
   # prevents agenix errors when rebuilding
   hasWireguard = builtins.elem hostname [ "axiom-vm-wireguard" ];
-  hasK3s = builtins.elem hostname [ "axiom-vm-k8s-master" "axiom-vm-k8s-agent-1" ];
+  hasK3s = builtins.elem hostname [
+    "axiom-vm-k8s-master"
+    "axiom-vm-k8s-agent-1"
+  ];
   isGitLab = builtins.elem hostname [ "axiom-vm-gitlab" ];
 in
 {
@@ -75,6 +78,9 @@ in
         axiom-contabo-s3-access-secret.file = ../secrets/axiom-contabo-s3-access-secret.age;
         axiom-contabo-s3-access-secret.owner = "gitlab";
         axiom-contabo-s3-access-secret.group = "gitlab";
+        axiom-gitlab-hetzner-runner-config.file = ../secrets/axiom-gitlab-hetzner-runner-config.toml.age;
+        axiom-gitlab-hetzner-runner-config.owner = "gitlab-hetzner-runner";
+        axiom-gitlab-hetzner-runner-config.group = "gitlab-hetzner-runner";
       })
     ];
   };

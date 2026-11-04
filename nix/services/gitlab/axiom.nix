@@ -1,5 +1,9 @@
 { config, ... }:
 {
+  imports = [
+    ./hetzner-runner.nix
+  ];
+
   services.gitlab = {
     enable = true;
     host = "gitlab.internal.axiom.lucasfehres.nl";
@@ -26,7 +30,8 @@
     };
 
     secrets = {
-      activeRecordDeterministicKeyFile = config.age.secrets.axiom-gitlab-secret-activeRecordDeterministicKey.file;
+      activeRecordDeterministicKeyFile =
+        config.age.secrets.axiom-gitlab-secret-activeRecordDeterministicKey.file;
       activeRecordPrimaryKeyFile = config.age.secrets.axiom-gitlab-secret-activeRecordPrimaryKey.file;
       activeRecordSaltFile = config.age.secrets.axiom-gitlab-secret-activeRecordSalt.file;
       dbFile = config.age.secrets.axiom-gitlab-secret-db.file;
@@ -38,15 +43,19 @@
     backup = {
       # keeping backups around for 2 weeks
       keepTime = 336;
-      startAt = ["03:00"];
+      startAt = [ "03:00" ];
       skip = [ "artifacts" ];
       uploadOptions = {
         # Fog storage connection settings, see http://fog.io/storage/
         connection = {
           provider = "AWS";
           region = "";
-          aws_access_key_id = { _secret = config.age.secrets.axiom-contabo-s3-access-id.file; };
-          aws_secret_access_key = { _secret = config.age.secrets.axiom-contabo-s3-access-secret.file; };
+          aws_access_key_id = {
+            _secret = config.age.secrets.axiom-contabo-s3-access-id.file;
+          };
+          aws_secret_access_key = {
+            _secret = config.age.secrets.axiom-contabo-s3-access-secret.file;
+          };
           endpoint = "https://eu2.contabostorage.com";
         };
 
@@ -66,7 +75,7 @@
     recommendedProxySettings = true;
     virtualHosts = {
       localhost = {
-        locations."/"= {
+        locations."/" = {
           proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
           extraConfig = ''
             proxy_set_header X-Forwarded-Proto https;
