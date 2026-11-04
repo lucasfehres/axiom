@@ -14,18 +14,6 @@ in
   };
   users.groups.${user} = { };
 
-  systemd.network.networks."05-vswitch" = {
-    matchConfig.Name = "ens19";
-    address = [ "10.69.1.3/24" ];
-    linkConfig.MTUBytes = 1400;
-    routes = [
-      {
-        Destination = "10.69.0.0/16";
-        Gateway = "10.69.1.1";
-      }
-    ];
-  };
-
   environment.systemPackages = with pkgs; [
     gitlab-runner
   ];

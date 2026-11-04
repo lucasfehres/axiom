@@ -65,4 +65,10 @@
     default = null;
     description = "Enables a swap partition, use /dev/disk/by-id";
   };
+
+  options.axiom.host.hetzner-vswitch-ip = lib.mkOption {
+    type = lib.types.nullOr lib.types.str;
+    default = null;
+    description = "IP of the VM on the Hetzner vSwitch";
+  };
 }

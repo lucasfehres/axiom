@@ -1,4 +1,7 @@
-{ config, lib, pkgs, ... }:
+{
+  lib,
+  ...
+}:
 
 {
   networking.hostName = "axiom-vm-gitlab";
@@ -6,4 +9,6 @@
   axiom.host.prompt-color = "xterm_orangered1";
 
   axiom.host.storage-constrained = true;
+
+  axiom.host.hetzner-vswitch-ip = "10.69.1.3";
 }

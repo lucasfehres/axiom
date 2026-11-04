@@ -4,8 +4,11 @@
   pkgs,
   ...
 }:
-
 {
+  imports = [
+    ./vm-network-vswitch.nix
+  ];
+
   systemd.network.enable = true;
   networking.useNetworkd = true;
 
@@ -20,30 +23,34 @@
       "8.8.8.8"
     ];
 
-    routes = lib.optionals (config.networking.hostName != "axiom-vm-wireguard") [
-      {
-        # axiom-vm-wireguard
-        Gateway = "10.67.1.102";
-        Destination = "192.168.0.0/16";
-      }
-      {
-        # axiom-vm-wireguard has the Tailscale connection to us-east-iad-1-1
-        Gateway = "10.67.1.102";
-        Destination = "10.101.0.0/16";
-      }
-    ]
-    ++ lib.optionals (
-        # TODO: not do this anymore!
-        config.networking.hostName == "axiom-vm-wireguard" ||
-        config.networking.hostName == "axiom-vm-gitlab" ||
-        config.networking.hostName == "axiom-vm-plane"
-    ) [
-      {
-        # Make the K8s Cilium pool available over the WireGuard router
-        Gateway = "10.67.1.103";
-        Destination = "10.67.3.0/24";
-      }
-    ];
+    routes =
+      lib.optionals (config.networking.hostName != "axiom-vm-wireguard") [
+        {
+          # axiom-vm-wireguard
+          Gateway = "10.67.1.102";
+          Destination = "192.168.0.0/16";
+        }
+        {
+          # axiom-vm-wireguard has the Tailscale connection to us-east-iad-1-1
+          Gateway = "10.67.1.102";
+          Destination = "10.101.0.0/16";
+        }
+      ]
+      ++
+        lib.optionals
+          (
+            # TODO: not do this anymore!
+            config.networking.hostName == "axiom-vm-wireguard"
+            || config.networking.hostName == "axiom-vm-gitlab"
+            || config.networking.hostName == "axiom-vm-plane"
+          )
+          [
+            {
+              # Make the K8s Cilium pool available over the WireGuard router
+              Gateway = "10.67.1.103";
+              Destination = "10.67.3.0/24";
+            }
+          ];
   };
 
   systemd.network.networks."99-cilium-ignore" = {
