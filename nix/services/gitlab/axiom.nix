@@ -51,10 +51,10 @@
           provider = "AWS";
           region = "";
           aws_access_key_id = {
-            _secret = config.age.secrets.axiom-contabo-s3-access-id.file;
+            _secret = config.age.secrets.axiom-contabo-s3-access-id.path;
           };
           aws_secret_access_key = {
-            _secret = config.age.secrets.axiom-contabo-s3-access-secret.file;
+            _secret = config.age.secrets.axiom-contabo-s3-access-secret.path;
           };
           endpoint = "https://eu2.contabostorage.com";
         };
