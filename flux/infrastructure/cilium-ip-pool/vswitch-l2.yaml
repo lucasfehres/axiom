@@ -6,9 +6,9 @@ metadata:
     name: vswitch
 spec:
     serviceSelector:
+        # unlike the IPPool selector, this matches real Service labels (set by the Gateway controller)
         matchLabels:
-            io.kubernetes.service.namespace: kube-system
-            io.kubernetes.service.name: cilium-gateway-internal-gateway
+            gateway.networking.k8s.io/gateway-name: internal-gateway
     nodeSelector:
         matchExpressions:
             - key: kubernetes.io/hostname

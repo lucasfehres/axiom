@@ -79,7 +79,8 @@ spec:
               #- PERFMON
               #- BPF
 
-        devices: "!liqo.* ens18"
+        # ens19 is the Hetzner vSwitch NIC; L2 announcements (vswitch policy) only work on devices listed here
+        devices: "!liqo.* ens18 ens19"
         affinity:
           nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
