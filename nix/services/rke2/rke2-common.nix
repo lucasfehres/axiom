@@ -17,6 +17,8 @@
 
     services.numtide-rke2 = {
       enable = true;
+      # numtide's default overrides rke2 with a sed on a vendored k3s file that no longer exists
+      package = pkgs.rke2;
       settings.advertise-address = config.axiom.host.ipv4;
       settings.node-ip = config.axiom.host.ipv4;
       settings.disable-kube-proxy = "true";
