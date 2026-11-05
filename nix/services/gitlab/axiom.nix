@@ -41,8 +41,8 @@
     };
 
     backup = {
-      # keeping backups around for 2 weeks
-      keepTime = 336;
+      # keeping local backups around for 3 days. the S3 retention policy keeps backups for a month
+      keepTime = 72;
       startAt = [ "03:00" ];
       skip = [ "artifacts" ];
       uploadOptions = {

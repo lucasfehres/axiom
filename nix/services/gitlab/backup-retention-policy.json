@@ -1,0 +1,10 @@
+{
+    "Rules": [
+        {
+            "ID": "expire-gitlab-backups-30d",
+            "Status": "Enabled",
+            "Prefix": "",
+            "Expiration": { "Days": 30 }
+        }
+    ]
+}
