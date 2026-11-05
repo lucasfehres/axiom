@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tls-gateway-fehres-dot-dev-cert
+  namespace: kube-system
+spec:
+  dnsNames:
+  - '*.fehres.dev'
+  - 'fehres.dev'
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt
+  secretName: tls-gateway-fehres-dot-dev-cert
+  usages:
+  - digital signature
+  - key encipherment

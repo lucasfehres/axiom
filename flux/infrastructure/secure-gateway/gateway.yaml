@@ -71,3 +71,27 @@ spec:
           allowedRoutes:
               namespaces:
                   from: All
+
+        - name: fehres-dot-dev-https
+          protocol: HTTPS
+          port: 443
+          hostname: "*.fehres.dev"
+          tls:
+              certificateRefs:
+                  - kind: Secret
+                    name: tls-gateway-fehres-dot-dev-cert
+          allowedRoutes:
+              namespaces:
+                  from: All
+
+        - name: fehres-dot-dev-root-https
+          protocol: HTTPS
+          port: 443
+          hostname: "fehres.dev"
+          tls:
+              certificateRefs:
+                  - kind: Secret
+                    name: tls-gateway-fehres-dot-dev-cert
+          allowedRoutes:
+              namespaces:
+                  from: All
