@@ -81,6 +81,11 @@ spec:
 
         # ens19 is the Hetzner vSwitch NIC; L2 announcements (vswitch policy) only work on devices listed here
         devices: "!liqo.* ens18 ens19"
+        # Pin the MTU instead of auto-detecting it: Cilium takes the minimum across `devices`, so adding
+        # ens19 (vSwitch, MTU 1400) silently dropped it from 1500 to 1400. Pods only pick the MTU up at
+        # creation, so the pods that predate that change kept 1500 and dropped large packets (TLS
+        # handshakes hung). Cilium subtracts the VXLAN overhead from this itself.
+        MTU: 1400
         affinity:
           nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:

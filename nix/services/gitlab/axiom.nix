@@ -14,6 +14,7 @@
 
     extraGitlabRb = ''
       Settings.gitlab_kas['enable'] = true
+      Settings.gitlab_kas['external_k8s_proxy_url'] = 'https://gitlab.internal.axiom.lucasfehres.nl/-/kubernetes-agent/k8s-proxy/'
     '';
 
     sidekiq = {
@@ -75,6 +76,13 @@
     recommendedProxySettings = true;
     virtualHosts = {
       localhost = {
+        locations."/-/kubernetes-agent/k8s-proxy/" = {
+          proxyPass = "http://127.0.0.1:8154/";
+          extraConfig = ''
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_set_header X-Forwarded-Ssl on;
+          '';
+        };
         locations."/" = {
           proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
           extraConfig = ''
