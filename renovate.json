@@ -6,5 +6,6 @@
   "ignorePaths": ["pulumi/package.json"],
   "kubernetes": {
     "managerFilePatterns": ["/^flux/.+\\.ya?ml$/"]
-  }
+  },
+  "prHourlyLimit": 10
 }
