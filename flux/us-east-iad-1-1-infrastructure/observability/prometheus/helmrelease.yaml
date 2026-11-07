@@ -26,7 +26,7 @@ spec:
         prometheus:
             prometheusSpec:
                 thanos:
-                    image: quay.io/thanos/thanos:v0.39.2
+                    image: quay.io/thanos/thanos:v0.42.5
 
                 # Disabled for Thanos
                 disableCompaction: true
