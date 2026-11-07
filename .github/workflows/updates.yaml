@@ -13,10 +13,10 @@ jobs:
         steps:
             # working copy that gets updated and pushed
             # (must come first: checkout at the workspace root wipes the workspace)
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
 
             # untouched copy of the base branch
-            - uses: actions/checkout@v5
+            - uses: actions/checkout@v7
               with:
                   path: base
 
