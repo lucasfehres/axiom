@@ -25,7 +25,7 @@ spec:
                       type: CharDevice
             containers:
                 - name: zerotier
-                  image: zyclonite/zerotier:1.16.0
+                  image: zyclonite/zerotier:1.16.2
                   env:
                       # Keep local.conf override and allow mgmt API from Pod CIDR ranges if needed.
                       # For a strict stance, limit to 127.0.0.1/32 since UI is sidecar in same Pod.
