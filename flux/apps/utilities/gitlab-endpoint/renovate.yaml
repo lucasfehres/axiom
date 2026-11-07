@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: renovate
+  namespace: gitlab
+spec:
+  schedule: '@hourly'
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: renovate
+              # Update this to the latest available and then enable Renovate on
+              # the manifest
+              image: renovate/renovate:44.133.0
+              # args:
+              #   - user/repo
+              # Environment Variables
+              env:
+                - name: LOG_LEVEL
+                  value: debug
+              envFrom:
+                - secretRef:
+                    name: renovate-public-env
+                - secretRef:
+                    name: renovate-private-env
+          restartPolicy: Never
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: renovate-public-env
+  namespace: gitlab
+type: Opaque
+stringData:
+  RENOVATE_AUTODISCOVER: 'true'
+  RENOVATE_ENDPOINT: 'https://gitlab.internal.axiom.lucasfehres.nl/api/v4'
+  RENOVATE_GIT_AUTHOR: 'Bark Bot <barkbot@gitlab.internal.axiom.lucasfehres.nl>'
+  RENOVATE_PLATFORM: 'gitlab'

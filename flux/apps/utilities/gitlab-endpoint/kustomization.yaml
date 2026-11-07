@@ -6,3 +6,4 @@ resources:
     - endpoint.yaml
     - httproute.yaml
     - ssh.yaml
+    - renovate.yaml
