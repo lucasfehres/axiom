@@ -3,5 +3,8 @@
   "extends": [
     "config:recommended"
   ],
-  "ignorePaths": ["pulumi/package.json"]
+  "ignorePaths": ["pulumi/package.json"],
+  "kubernetes": {
+    "managerFilePatterns": ["/^flux/.+\\.ya?ml$/"]
+  }
 }
