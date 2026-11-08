@@ -47,7 +47,7 @@ spec:
                         containerPort: 9993
                         protocol: UDP
                 - name: ztnet
-                  image: sinamics/ztnet:0.7.14
+                  image: sinamics/ztnet:0.8.7
                   workingDir: /app
                   env:
                       - name: POSTGRES_HOST
