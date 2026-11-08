@@ -24,7 +24,7 @@ jobs:
                   password: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Build and push ${{ matrix.utility }}
-              uses: docker/build-push-action@v5
+              uses: docker/build-push-action@v7
               with:
                   context: utilities/${{ matrix.utility }}
                   push: ${{ github.ref == 'refs/heads/main' }}
