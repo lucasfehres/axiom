@@ -42,7 +42,7 @@ jobs:
               working-directory: nix-init-image
             - run: ls result/iso
               working-directory: nix-init-image
-            - uses: actions/upload-artifact@v6
+            - uses: actions/upload-artifact@v7
               with:
                   name: nix-init-image
                   path: nix-init-image/result/iso/*.iso
