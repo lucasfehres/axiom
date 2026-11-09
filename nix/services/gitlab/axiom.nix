@@ -31,14 +31,17 @@
     };
 
     secrets = {
+      # The secrets referencing .file instead of .path are using the cipertext as the secret value, therefore considered exposed.
+      # Because changing everything but the jwsFile and secretFile messes up data at rest, and this instance lives behind a VPN,
+      # I don't believe they're worth rotating.
       activeRecordDeterministicKeyFile =
         config.age.secrets.axiom-gitlab-secret-activeRecordDeterministicKey.file;
       activeRecordPrimaryKeyFile = config.age.secrets.axiom-gitlab-secret-activeRecordPrimaryKey.file;
       activeRecordSaltFile = config.age.secrets.axiom-gitlab-secret-activeRecordSalt.file;
       dbFile = config.age.secrets.axiom-gitlab-secret-db.file;
-      jwsFile = config.age.secrets.axiom-gitlab-secret-jws.file;
+      jwsFile = config.age.secrets.axiom-gitlab-secret-jws.path;
       otpFile = config.age.secrets.axiom-gitlab-secret-otp.file;
-      secretFile = config.age.secrets.axiom-gitlab-secret-secret.file;
+      secretFile = config.age.secrets.axiom-gitlab-secret-secret.path;
     };
 
     backup = {
