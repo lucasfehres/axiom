@@ -10,6 +10,10 @@
       settings.tls-san = [ "${config.axiom.k8s.master-ipv4}" ];
       settings.write-kubeconfig-mode = "0644";
       settings.cni = "cilium";
+      # RKE2 binds these to 127.0.0.1, which Prometheus can't scrape
+      settings.kube-controller-manager-arg = [ "bind-address=0.0.0.0" ];
+      settings.kube-scheduler-arg = [ "bind-address=0.0.0.0" ];
+      settings.etcd-expose-metrics = true;
       settings.agent-token = "uwubernetes";
 
       manifests = {

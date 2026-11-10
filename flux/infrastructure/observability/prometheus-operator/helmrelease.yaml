@@ -380,6 +380,18 @@ spec:
                       mountPath: /secrets/axiom-telegrambot-alertmanager
                       readOnly: true
 
+        # kube-proxy is disabled (Cilium replaces it)
+        kubeProxy:
+            enabled: false
+
+        # RKE2 serves these with its own CA and certs that don't cover the node IP
+        kubeControllerManager:
+            serviceMonitor:
+                insecureSkipVerify: true
+        kubeScheduler:
+            serviceMonitor:
+                insecureSkipVerify: true
+
         prometheus-node-exporter:
             prometheus:
                 monitor:
