@@ -1,4 +1,4 @@
-FROM docker.io/azul/zulu-openjdk-debian:21-latest
+FROM docker.io/azul/zulu-openjdk-debian:27-latest
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DISPLAY=:100 \
