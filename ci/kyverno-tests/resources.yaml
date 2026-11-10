@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: rook-ceph-osd-0
+    namespace: rook-ceph
+    labels:
+        app: rook-ceph-osd
+spec:
+    selector:
+        matchLabels:
+            app: rook-ceph-osd
+    template:
+        metadata:
+            labels:
+                app: rook-ceph-osd
+        spec:
+            initContainers:
+                - name: activate
+                  image: example/ceph
+            containers:
+                - name: osd
+                  image: example/ceph
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: unrelated
+    namespace: rook-ceph
+    labels:
+        app: something-else
+spec:
+    selector:
+        matchLabels:
+            app: something-else
+    template:
+        metadata:
+            labels:
+                app: something-else
+        spec:
+            containers:
+                - name: app
+                  image: example/app

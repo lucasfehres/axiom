@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: rook-ceph-osd-0
+    namespace: rook-ceph
+    labels:
+        app: rook-ceph-osd
+spec:
+    selector:
+        matchLabels:
+            app: rook-ceph-osd
+    template:
+        metadata:
+            labels:
+                app: rook-ceph-osd
+        spec:
+            volumes:
+                - name: lvm-rbd-filter
+                  configMap:
+                      name: rook-ceph-lvm-rbd-filter
+            initContainers:
+                - name: activate
+                  image: example/ceph
+                  volumeMounts:
+                      - name: lvm-rbd-filter
+                        mountPath: /etc/lvm/lvm.conf
+                        subPath: lvm.conf
+            containers:
+                - name: osd
+                  image: example/ceph

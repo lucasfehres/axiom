@@ -1,0 +1,5 @@
+# Namespaces the production clusters get from components that are not part of the CI cluster
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: rook-ceph

@@ -1,0 +1,22 @@
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+    name: kyverno-policy
+spec:
+    # the policy only matches the rook-ceph namespace, which flux/infrastructure/ci/namespaces creates
+    namespace: rook-ceph
+    steps:
+        - try:
+              - apply:
+                    file: osd-deployment.yaml
+              - assert:
+                    resource:
+                        apiVersion: apps/v1
+                        kind: Deployment
+                        metadata:
+                            name: ci-rook-ceph-osd
+                        spec:
+                            template:
+                                spec:
+                                    (volumes[?name == 'lvm-rbd-filter'] | length(@)): 1
+                                    (initContainers[?name == 'activate'].volumeMounts[] | length(@)): 1

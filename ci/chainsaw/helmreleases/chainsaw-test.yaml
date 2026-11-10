@@ -1,0 +1,9 @@
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+    name: helmreleases
+spec:
+    steps:
+        - try:
+              - script:
+                    content: kubectl wait helmreleases --all -A --for=condition=Ready --timeout=5m

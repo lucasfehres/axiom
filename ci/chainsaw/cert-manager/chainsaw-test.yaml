@@ -1,0 +1,17 @@
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+    name: cert-manager
+spec:
+    steps:
+        - try:
+              - apply:
+                    file: certificate.yaml
+              - assert:
+                    resource:
+                        apiVersion: cert-manager.io/v1
+                        kind: Certificate
+                        metadata:
+                            name: ci
+                        status:
+                            (conditions[?type == 'Ready'].status): ["True"]

@@ -1,0 +1,31 @@
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+    name: traefik
+spec:
+    steps:
+        - try:
+              - apply:
+                    file: whoami.yaml
+              - assert:
+                    resource:
+                        apiVersion: apps/v1
+                        kind: Deployment
+                        metadata:
+                            name: whoami
+                        status:
+                            availableReplicas: 1
+              # Traefik's hostPort 80 is mapped to localhost:8080 by ci/kind-config.yaml
+              - script:
+                    content: |
+                        for _ in $(seq 1 30); do
+                            code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Host: whoami.ci.test' http://127.0.0.1:8080/ || true)
+                            [ "$code" = 200 ] && exit 0
+                            sleep 2
+                        done
+                        echo "expected 200 for the whoami host, last status: $code" >&2
+                        exit 1
+              - script:
+                    content: |
+                        code=$(curl -s -o /dev/null -w '%{http_code}' -H 'Host: unknown.ci.test' http://127.0.0.1:8080/ || true)
+                        [ "$code" = 404 ] || { echo "expected 404 for an unknown host, got: $code" >&2; exit 1; }

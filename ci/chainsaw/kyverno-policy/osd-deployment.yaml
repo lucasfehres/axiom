@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: ci-rook-ceph-osd
+    labels:
+        app: rook-ceph-osd
+spec:
+    # nothing to run, only the mutated pod template matters
+    replicas: 0
+    selector:
+        matchLabels:
+            app: rook-ceph-osd
+    template:
+        metadata:
+            labels:
+                app: rook-ceph-osd
+        spec:
+            initContainers:
+                - name: activate
+                  image: registry.k8s.io/pause:3.10
+            containers:
+                - name: osd
+                  image: registry.k8s.io/pause:3.10

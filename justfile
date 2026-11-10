@@ -39,3 +39,21 @@ sync-gateway-certs:
                     '{apiVersion, kind, type, data, metadata: {name: $name, namespace: $ns}}' \
                 | kubectl apply -f -
         done
+
+# CI recipes. Run by .github/workflows/ci.yaml, but work the same locally (see ci/README.md)
+#
+# Statically validate all manifests (flux build, kubeconform, kyverno test)
+ci-lint:
+    ci/lint.sh
+
+# Create a kind cluster and let Flux reconcile flux/clusters/ci into it
+ci-kind-up:
+    ci/kind-up.sh
+
+# Run the Chainsaw integration tests against the kind cluster
+ci-test:
+    KUBECONFIG="${CI_KUBECONFIG:-{{justfile_directory()}}/ci/.kubeconfig}" chainsaw test ci/chainsaw --config ci/chainsaw/.chainsaw.yaml
+
+# Delete the kind cluster
+ci-kind-down:
+    ci/kind-down.sh

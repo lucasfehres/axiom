@@ -1,0 +1,45 @@
+name: CI
+# All logic lives in the justfile and ci/, so this file only provides the environment (see ci/README.md)
+on:
+    pull_request:
+        paths: &paths
+            - flux/**
+            - ci/**
+            - shell.nix
+            - justfile
+            - .github/workflows/ci.yaml
+    push:
+        branches: [main]
+        paths: *paths
+    workflow_dispatch:
+jobs:
+    lint:
+        name: Validate manifests
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+
+            - uses: cachix/install-nix-action@v31
+
+            - run: nix-shell --run 'just ci-lint'
+
+    integration:
+        name: Integration tests (kind)
+        needs: lint
+        runs-on: ubuntu-latest
+        env:
+            CI_GIT_URL: ${{ github.server_url }}/${{ github.event.pull_request.head.repo.full_name || github.repository }}.git
+            CI_GIT_REF: ${{ github.head_ref || github.ref_name }}
+            CI_GIT_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+        steps:
+            - uses: actions/checkout@v7
+
+            - uses: cachix/install-nix-action@v31
+
+            - run: nix-shell --run 'just ci-kind-up'
+
+            - run: nix-shell --run 'just ci-test'
+
+            - name: Delete the kind cluster
+              if: always()
+              run: nix-shell --run 'just ci-kind-down'
