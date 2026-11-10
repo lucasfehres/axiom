@@ -40,6 +40,9 @@ spec:
         query:
             enabled: true
             replicaCount: 1
+            extraFlags:
+                # raw data only lives 30d, older ranges need the 5m/1h blocks
+                - --query.auto-downsampling
             stores:
                 # Axiom Prometheus
                 - "dnssrv+_grpc._tcp.prometheus-kube-prometheus-thanos-discovery.observability.svc.cluster.local"
