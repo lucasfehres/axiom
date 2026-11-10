@@ -277,14 +277,29 @@ spec:
                 cilium:
                     agent:
                         url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/cilium-agent/dashboards/cilium-dashboard.json
+                        datasource:
+                            - name: DS_PROMETHEUS
+                              value: "axiom-thanos"
                     hubble:
                         url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/hubble/dashboards/hubble-dashboard.json
+                        datasource:
+                            - name: DS_PROMETHEUS
+                              value: "axiom-thanos"
                     hubble-dns-namespace:
                         url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/hubble/dashboards/hubble-dns-namespace.json
+                        datasource:
+                            - name: DS_PROMETHEUS
+                              value: "axiom-thanos"
                     hubble-l7-http-metrics-by-workload:
                         url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/hubble/dashboards/hubble-l7-http-metrics-by-workload.json
+                        datasource:
+                            - name: DS_PROMETHEUS
+                              value: "axiom-thanos"
                     hubble-network-overview-namespace:
                         url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/hubble/dashboards/hubble-network-overview-namespace.json
+                        datasource:
+                            - name: DS_PROMETHEUS
+                              value: "axiom-thanos"
                 cloudnative-pg:
                     dashboard:
                         url: https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/refs/heads/main/charts/cluster/grafana-dashboard.json
