@@ -42,6 +42,14 @@ spec:
             mon:
                 interval: 45s
                 timeout: 600s
+        livenessProbe:
+            osd:
+                disabled: false
+                probe:
+                    initialDelaySeconds: 10
+                    periodSeconds: 20
+                    timeoutSeconds: 30
+                    failureThreshold: 15
     priorityClassNames:
         all: system-node-critical
         mgr: system-cluster-critical
