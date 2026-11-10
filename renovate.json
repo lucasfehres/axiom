@@ -9,6 +9,6 @@
   },
   "flux": {
     "managerFilePatterns": ["/^flux/.+\\.ya?ml$/"]
-  }
+  },
   "prHourlyLimit": 10
 }
