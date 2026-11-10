@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+    name: ci-s3-roundtrip
+spec:
+    backoffLimit: 3
+    template:
+        spec:
+            restartPolicy: Never
+            containers:
+                - name: aws
+                  image: amazon/aws-cli:2.17.0
+                  command: ["/bin/sh", "-ec"]
+                  args:
+                      - |
+                          bucket=ci-$(date +%s)
+                          echo hello-from-ci > /tmp/in
+                          aws s3 mb "s3://$bucket"
+                          aws s3 cp /tmp/in "s3://$bucket/object"
+                          aws s3 cp "s3://$bucket/object" /tmp/out
+                          cmp /tmp/in /tmp/out
+                          aws s3 rb "s3://$bucket" --force
+                  env:
+                      - name: AWS_ACCESS_KEY_ID
+                        valueFrom:
+                            secretKeyRef:
+                                name: rook-ceph-object-user-object-store-cosi
+                                key: AccessKey
+                      - name: AWS_SECRET_ACCESS_KEY
+                        valueFrom:
+                            secretKeyRef:
+                                name: rook-ceph-object-user-object-store-cosi
+                                key: SecretKey
+                      - name: AWS_ENDPOINT_URL
+                        value: http://rook-ceph-rgw-object-store.rook-ceph.svc:80
+                      - name: AWS_DEFAULT_REGION
+                        value: us-east-1

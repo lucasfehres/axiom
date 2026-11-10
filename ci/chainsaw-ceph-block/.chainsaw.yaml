@@ -1,0 +1,14 @@
+apiVersion: chainsaw.kyverno.io/v1alpha2
+kind: Configuration
+metadata:
+    name: ci-ceph
+spec:
+    timeouts:
+        apply: 1m
+        assert: 10m
+        cleanup: 3m
+        delete: 3m
+        error: 1m
+        exec: 5m
+    execution:
+        failFast: false

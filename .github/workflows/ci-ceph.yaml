@@ -1,0 +1,39 @@
+name: CI (Ceph)
+# Deploys Rook-Ceph (and CloudNativePG on it) into kind. Slow and heavy, so only run when it matters (see ci/README.md)
+on:
+    pull_request:
+        paths:
+            - flux/infrastructure/rook-ceph*/**
+            - flux/infrastructure/cloudnative-pg*/**
+            - flux/infrastructure/kyverno*/**
+            - flux/clusters/ci-ceph*/**
+            - ci/**
+            - shell.nix
+            - justfile
+            - .github/workflows/ci-ceph.yaml
+    schedule:
+        - cron: "0 3 * * 1"
+    workflow_dispatch:
+jobs:
+    ceph:
+        name: Integration tests (kind + Ceph)
+        runs-on: ubuntu-latest
+        timeout-minutes: 60
+        env:
+            CI_GIT_URL: ${{ github.server_url }}/${{ github.event.pull_request.head.repo.full_name || github.repository }}.git
+            CI_GIT_REF: ${{ github.head_ref || github.ref_name }}
+            CI_GIT_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+            # the runner's temporary disk is much bigger than the root one
+            CI_OSD_FILE: /mnt/axiom-ci-osd.img
+        steps:
+            - uses: actions/checkout@v7
+
+            - uses: cachix/install-nix-action@v31
+
+            - run: nix-shell --run 'just ci-kind-up-ceph'
+
+            - run: nix-shell --run 'just ci-test-ceph'
+
+            - name: Delete the kind cluster
+              if: always()
+              run: nix-shell --run 'just ci-kind-down'

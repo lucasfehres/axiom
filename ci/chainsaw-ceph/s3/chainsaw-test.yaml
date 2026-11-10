@@ -1,0 +1,28 @@
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+    name: s3
+spec:
+    # the Job reads the COSI user's secret, which can't be referenced from another namespace
+    namespace: rook-ceph
+    steps:
+        - try:
+              - assert:
+                    resource:
+                        apiVersion: v1
+                        kind: Secret
+                        metadata:
+                            name: rook-ceph-object-user-object-store-cosi
+                            namespace: rook-ceph
+              - apply:
+                    file: job.yaml
+              - assert:
+                    resource:
+                        apiVersion: batch/v1
+                        kind: Job
+                        metadata:
+                            name: ci-s3-roundtrip
+                        status:
+                            succeeded: 1
+              - script:
+                    content: kubectl logs -n rook-ceph job/ci-s3-roundtrip

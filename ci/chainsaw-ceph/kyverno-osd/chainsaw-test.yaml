@@ -1,0 +1,20 @@
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+    name: kyverno-osd
+spec:
+    steps:
+        - try:
+              # the real OSD Deployment, created by Rook after kyverno-policies (flux/clusters/ci-ceph)
+              - assert:
+                    resource:
+                        apiVersion: apps/v1
+                        kind: Deployment
+                        metadata:
+                            name: rook-ceph-osd-0
+                            namespace: rook-ceph
+                        spec:
+                            template:
+                                spec:
+                                    (volumes[?name == 'lvm-rbd-filter'] | length(@)): 1
+                                    (initContainers[?name == 'activate'] | [0].volumeMounts[?name == 'lvm-rbd-filter'] | length(@)): 1

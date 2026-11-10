@@ -1,0 +1,31 @@
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+    name: health
+spec:
+    steps:
+        - try:
+              - assert:
+                    resource:
+                        apiVersion: ceph.rook.io/v1
+                        kind: CephCluster
+                        metadata:
+                            name: ceph-cluster
+                            namespace: rook-ceph
+                        status:
+                            phase: Ready
+              - assert:
+                    resource:
+                        apiVersion: ceph.rook.io/v1
+                        kind: CephObjectStore
+                        metadata:
+                            name: object-store
+                            namespace: rook-ceph
+                        status:
+                            phase: Connected
+              # the pools are size 1, so HEALTH_WARN is expected, but HEALTH_ERR is not
+              - script:
+                    content: |
+                        health=$(kubectl get cephcluster -n rook-ceph ceph-cluster -o jsonpath='{.status.ceph.health}')
+                        echo "ceph health: $health"
+                        [ "$health" != HEALTH_ERR ]

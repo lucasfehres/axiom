@@ -3,3 +3,5 @@ authentik_ed25519
 authentik_ed25519.pub
 
 /ci/.kubeconfig
+/ci/.ceph-state
+/ci/.ceph-block

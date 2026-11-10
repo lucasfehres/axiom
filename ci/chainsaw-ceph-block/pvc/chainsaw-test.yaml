@@ -1,0 +1,25 @@
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+    name: pvc
+spec:
+    steps:
+        - try:
+              - apply:
+                    file: pod.yaml
+              - assert:
+                    resource:
+                        apiVersion: v1
+                        kind: PersistentVolumeClaim
+                        metadata:
+                            name: data
+                        status:
+                            phase: Bound
+              - assert:
+                    resource:
+                        apiVersion: v1
+                        kind: Pod
+                        metadata:
+                            name: writer
+                        status:
+                            phase: Succeeded

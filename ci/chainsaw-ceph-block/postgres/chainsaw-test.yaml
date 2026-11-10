@@ -1,0 +1,17 @@
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+    name: postgres
+spec:
+    steps:
+        - try:
+              - apply:
+                    file: cluster.yaml
+              - assert:
+                    resource:
+                        apiVersion: postgresql.cnpg.io/v1
+                        kind: Cluster
+                        metadata:
+                            name: ci
+                        status:
+                            phase: Cluster in healthy state

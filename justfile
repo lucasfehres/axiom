@@ -54,6 +54,22 @@ ci-kind-up:
 ci-test:
     KUBECONFIG="${CI_KUBECONFIG:-{{justfile_directory()}}/ci/.kubeconfig}" chainsaw test ci/chainsaw --config ci/chainsaw/.chainsaw.yaml
 
-# Delete the kind cluster
+# Like ci-kind-up, but with Ceph (and CloudNativePG on it, if the host has the rbd kernel module). Needs sudo
+ci-kind-up-ceph:
+    CI_CEPH=1 CI_WAIT=30m ci/kind-up.sh
+
+# Run the Ceph (and, if the host supports it, Ceph block and CloudNativePG) Chainsaw tests against ci-kind-up-ceph
+ci-test-ceph:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    export KUBECONFIG="${CI_KUBECONFIG:-{{justfile_directory()}}/ci/.kubeconfig}"
+    chainsaw test ci/chainsaw-ceph --config ci/chainsaw-ceph/.chainsaw.yaml
+    if [ -f ci/.ceph-block ]; then
+        chainsaw test ci/chainsaw-ceph-block --config ci/chainsaw-ceph-block/.chainsaw.yaml
+    else
+        echo "::warning::skipped the Ceph block tests, as the host has no rbd kernel module"
+    fi
+
+# Delete the kind cluster (and the Ceph loop device)
 ci-kind-down:
     ci/kind-down.sh
