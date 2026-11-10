@@ -26,8 +26,13 @@ spec:
         deployment:
             # expose Traefik on all nodes
             kind: DaemonSet
-            updateStrategy:
-                type: OnDelete
+
+        # hostPorts rule out surging, so replace one pod at a time
+        updateStrategy:
+            type: RollingUpdate
+            rollingUpdate:
+                maxUnavailable: 1
+                maxSurge: 0
 
         gateway:
             # handled by infrastructure-gateway and infrastructure-secure-gateway
