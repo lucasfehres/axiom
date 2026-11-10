@@ -26,6 +26,11 @@ spec:
         manager:
             serviceMonitor:
                 enabled: true
+                metricsEndpoints:
+                    - port: metrics
+                      scheme: https
+                      tlsConfig:
+                          insecureSkipVerify: true
 
             collectorImage:
                 repository: ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-contrib
