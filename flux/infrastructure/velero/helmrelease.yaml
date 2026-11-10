@@ -45,7 +45,7 @@ spec:
 
         initContainers:
             - name: velero-plugin-for-aws
-              image: velero/velero-plugin-for-aws:v1.8.2 # v1.9.x breaks compatibility with oci
+              image: velero/velero-plugin-for-aws:v1.14.4 # v1.9.x breaks compatibility with oci
               imagePullPolicy: IfNotPresent
               volumeMounts:
                   - mountPath: /target
