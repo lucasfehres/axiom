@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: rook-ceph-lvm-rbd-filter
+    namespace: rook-ceph
+data:
+    # Keeps LVM from scanning RBD volumes. They are served by this very Ceph cluster, so while the OSD is down
+    # their reads hang, `lvs` (run by the OSD's activate init container) blocks in D state and the OSD can never
+    # start. Rook only applies this filter for LVM-mode OSDs; ours is raw-mode.
+    lvm.conf: |
+        devices {
+            filter = [ "r|/dev/rbd.*|" ]
+        }
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+    name: rook-ceph-osd-skip-rbd-scan
+spec:
+    # fail open: an unavailable Kyverno must never block the operator from updating OSDs
+    failurePolicy: Ignore
+    background: false
+    rules:
+        - name: mount-lvm-rbd-filter
+          match:
+              any:
+                  - resources:
+                        kinds:
+                            - Deployment
+                        namespaces:
+                            - rook-ceph
+                        selector:
+                            matchLabels:
+                                app: rook-ceph-osd
+          mutate:
+              patchStrategicMerge:
+                  spec:
+                      template:
+                          spec:
+                              volumes:
+                                  - name: lvm-rbd-filter
+                                    configMap:
+                                        name: rook-ceph-lvm-rbd-filter
+                              initContainers:
+                                  - name: activate
+                                    volumeMounts:
+                                        - name: lvm-rbd-filter
+                                          mountPath: /etc/lvm/lvm.conf
+                                          subPath: lvm.conf

@@ -1,0 +1,37 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: kyverno
+    namespace: kube-system
+spec:
+    interval: 30m
+    # the chart refuses to install into kube-system
+    targetNamespace: kyverno
+    chart:
+        spec:
+            chart: kyverno
+            version: "3.7.1"
+            sourceRef:
+                kind: HelmRepository
+                name: kyverno
+                namespace: kube-system
+            interval: 12h
+    install:
+        createNamespace: true
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+        # only used for admission-time mutation (see kyverno-policies), so skip the other controllers
+        admissionController:
+            replicas: 1
+        backgroundController:
+            enabled: false
+        cleanupController:
+            enabled: false
+        reportsController:
+            enabled: false
