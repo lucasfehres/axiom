@@ -14,7 +14,7 @@ spec:
             - name: renovate
               # Update this to the latest available and then enable Renovate on
               # the manifest
-              image: renovate/renovate:44.225.2
+              image: renovate/renovate:44.239.1
               # args:
               #   - user/repo
               # Environment Variables
